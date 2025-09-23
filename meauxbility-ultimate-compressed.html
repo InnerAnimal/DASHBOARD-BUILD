@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meauxbility Ultimate Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+<style>
+#meaux-dashboard{--orange:#FF7619;--teal:#1F97A9;--deep:#051b1e;--dark:#0a2427;--steel:#1a4a52;--shine:#3a8b98;--light-teal:#4aabb8;--surface:#ffffff;--success:#21c48c;--warning:#f59e0b;--error:#e74c3c;--glass:rgba(255,255,255,0.1);--border:rgba(255,255,255,0.2);--shadow:0 24px 48px rgba(0,0,0,0.14);--glow:0 0 20px rgba(255,118,25,0.3);font-family:Inter,system-ui,sans-serif;color:var(--surface);position:relative;background:linear-gradient(135deg,var(--deep) 0%,var(--steel) 100%) !important;min-height:100vh;isolation:isolate;contain:layout style paint;width:100% !important;max-width:100vw !important;overflow-x:hidden !important;z-index:1}
+#meaux-dashboard *{margin:0;padding:0;box-sizing:border-box !important}
+#meaux-dashboard .login-screen{position:fixed;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,var(--deep) 0%,var(--dark) 30%,var(--steel) 100%);display:flex;align-items:center;justify-content:center;z-index:10000;transition:opacity 0.3s ease,visibility 0.3s ease}
+#meaux-dashboard .login-screen.hidden{opacity:0;visibility:hidden}
+#meaux-dashboard .login-card{background:var(--glass);border:2px solid var(--border);border-radius:16px;backdrop-filter:blur(25px);box-shadow:var(--shadow);width:100%;max-width:400px;text-align:center;padding:3rem;position:relative;z-index:10001}
+#meaux-dashboard .login-3d-model{position:absolute;top:50%;left:50%;width:500px;height:500px;transform:translate(-50%,-50%);z-index:1;pointer-events:none;animation:epicFloat 30s ease-in-out infinite;filter:drop-shadow(0 0 40px rgba(58,139,152,0.8));opacity:0.5}
+#meaux-dashboard .login-3d-model model-viewer{width:100%;height:100%}
+#meaux-dashboard[data-theme="light"] .login-3d-model{filter:drop-shadow(0 0 40px rgba(255,118,25,0.8))}
+#meaux-dashboard[data-theme="focus"] .login-3d-model{opacity:0.2;filter:drop-shadow(0 0 20px rgba(33,196,140,0.6))}
+#meaux-dashboard .theme-toggle{position:fixed;top:2rem;right:2rem;z-index:10002;background:var(--glass);border:2px solid var(--border);border-radius:50px;padding:0.5rem;backdrop-filter:blur(20px);display:flex;align-items:center;gap:0.5rem}
+#meaux-dashboard .theme-btn{width:40px;height:40px;border:none;border-radius:50%;cursor:pointer;transition:all 0.3s ease;display:flex;align-items:center;justify-content:center;font-size:1.25rem}
+#meaux-dashboard .theme-btn.active{background:var(--orange);color:var(--surface);box-shadow:var(--glow)}
+#meaux-dashboard .theme-btn:not(.active){background:transparent;color:var(--surface);opacity:0.6}
+#meaux-dashboard .theme-btn:hover{opacity:1;transform:scale(1.1)}
+#meaux-dashboard[data-theme="light"]{--glass:rgba(0,0,0,0.05);--border:rgba(0,0,0,0.1);--surface:#0C2D31;background:linear-gradient(135deg,#ffffff 0%,#f8fafb 100%) !important}
+#meaux-dashboard[data-theme="light"] .login-screen{background:linear-gradient(135deg,#ffffff 0%,#f8fafb 30%,#e5f7fa 100%)}
+#meaux-dashboard[data-theme="light"] .login-card{background:rgba(255,255,255,0.9);border-color:rgba(0,0,0,0.1)}
+#meaux-dashboard[data-theme="light"] .sidebar{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.1)}
+#meaux-dashboard[data-theme="light"] .dashboard-header{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.1)}
+#meaux-dashboard[data-theme="light"] .card{background:rgba(255,255,255,0.9);border-color:rgba(0,0,0,0.1)}
+#meaux-dashboard[data-theme="light"] .stat-card{background:rgba(255,255,255,0.9);border-color:rgba(0,0,0,0.1)}
+#meaux-dashboard[data-theme="focus"]{--glass:rgba(0,0,0,0.8);--border:rgba(33,196,140,0.3);background:linear-gradient(135deg,#000000 0%,var(--deep) 100%) !important}
+#meaux-dashboard[data-theme="focus"] .login-screen{background:linear-gradient(135deg,#000000 0%,var(--deep) 100%)}
+#meaux-dashboard[data-theme="focus"] .card{border-color:var(--success)}
+#meaux-dashboard .login-title{font-size:2rem;font-weight:800;background:linear-gradient(135deg,var(--shine),var(--light-teal));-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:0.5rem;position:relative;z-index:2}
+#meaux-dashboard .login-subtitle{color:var(--surface);margin-bottom:2rem;position:relative;z-index:2;opacity:0.9}
+#meaux-dashboard .form-input{width:100%;padding:1rem 1.25rem;background:rgba(10,36,39,.6);border:2px solid var(--border);border-radius:14px;color:var(--surface);font-size:1rem;transition:all 0.3s ease}
+#meaux-dashboard .form-input:focus{outline:none;border-color:var(--shine);background:rgba(10,36,39,.8);box-shadow:0 0 0 3px rgba(58,139,152,.2)}
+#meaux-dashboard .mbx-btn{border:none;padding:clamp(14px,2.5vw,18px) clamp(24px,4.5vw,34px);border-radius:14px;font-weight:900;font-size:clamp(15px,1.8vw,18px);cursor:pointer;transition:transform 0.25s cubic-bezier(0.2,0.8,0.2,1),box-shadow 0.25s cubic-bezier(0.2,0.8,0.2,1);display:inline-flex;align-items:center;gap:10px;margin:8px;min-height:44px;text-transform:uppercase;letter-spacing:0.08em}
+#meaux-dashboard .mbx-btn-primary{color:#fff;background:linear-gradient(135deg,rgba(255,118,25,0.24),rgba(255,179,128,0.20));border:1.5px solid rgba(255,118,25,0.52);box-shadow:0 12px 34px rgba(255,118,25,0.32),inset 0 0 0 1px rgba(255,255,255,0.06)}
+#meaux-dashboard .mbx-btn-primary:hover{transform:translateY(2px);background:linear-gradient(135deg,rgba(255,118,25,0.30),rgba(255,179,128,0.24));border-color:var(--orange);box-shadow:0 16px 44px rgba(255,118,25,0.38);outline:3px solid var(--teal);outline-offset:2px}
+#meaux-dashboard .mbx-btn-secondary{color:#fff;background:linear-gradient(135deg,rgba(31,151,169,0.24),rgba(15,122,138,0.20));border:1.5px solid rgba(31,151,169,0.52);box-shadow:0 12px 34px rgba(31,151,169,0.32),inset 0 0 0 1px rgba(255,255,255,0.06)}
+#meaux-dashboard .mbx-btn-secondary:hover{transform:translateY(2px);background:linear-gradient(135deg,rgba(31,151,169,0.30),rgba(15,122,138,0.24));border-color:var(--teal);box-shadow:0 16px 44px rgba(31,151,169,0.38);outline:3px solid var(--orange);outline-offset:2px}
+#meaux-dashboard .mbx-btn-teal{color:#fff;background:linear-gradient(135deg,rgba(31,151,169,0.24),rgba(15,122,138,0.20));border:1.5px solid rgba(31,151,169,0.52);box-shadow:0 12px 34px rgba(31,151,169,0.32),inset 0 0 0 1px rgba(255,255,255,0.06)}
+#meaux-dashboard .mbx-btn-teal:hover{transform:translateY(2px);border-color:var(--teal);box-shadow:0 16px 44px rgba(31,151,169,0.38);outline:3px solid var(--orange);outline-offset:2px}
+#meaux-dashboard .mbx-btn-sm{padding:10px 20px;font-size:14px;min-height:36px;margin:4px}
+#meaux-dashboard .dashboard{display:none;min-height:100vh}
+#meaux-dashboard .dashboard.active{display:flex}
+#meaux-dashboard .sidebar{width:280px;background:var(--glass);border-right:2px solid var(--border);backdrop-filter:blur(25px);position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:1000;transition:transform 0.3s ease}
+#meaux-dashboard .sidebar.collapsed{width:80px}
+#meaux-dashboard .sidebar-header{padding:1.5rem;border-bottom:2px solid var(--border);text-align:center}
+#meaux-dashboard .sidebar-title{font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,var(--shine),var(--success));-webkit-background-clip:text;background-clip:text;color:transparent;opacity:1;transition:opacity 0.3s ease}
+#meaux-dashboard .sidebar.collapsed .sidebar-title{opacity:0}
+#meaux-dashboard .sidebar-nav{padding:1rem 0}
+#meaux-dashboard .nav-item{display:flex;align-items:center;gap:1rem;padding:1rem 1.5rem;color:var(--surface);transition:all 0.3s ease;border-left:3px solid transparent;cursor:pointer;position:relative}
+#meaux-dashboard .nav-item:hover{background:rgba(58,139,152,.15);border-left-color:var(--shine)}
+#meaux-dashboard .nav-item.active{background:rgba(33,196,140,.2);color:var(--success);border-left-color:var(--success)}
+#meaux-dashboard .nav-icon{width:24px;height:24px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.25rem}
+#meaux-dashboard .nav-text{white-space:nowrap;opacity:1;transition:opacity 0.3s ease;font-weight:600}
+#meaux-dashboard .sidebar.collapsed .nav-text{opacity:0}
+#meaux-dashboard .nav-badge{position:absolute;top:0.5rem;right:1rem;background:var(--orange);color:var(--surface);font-size:0.75rem;font-weight:700;padding:0.25rem 0.5rem;border-radius:12px;min-width:20px;text-align:center}
+#meaux-dashboard .sidebar.collapsed .nav-badge{right:0.25rem;top:0.25rem}
+#meaux-dashboard .sidebar-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:999}
+#meaux-dashboard .sidebar-toggle{display:none;position:fixed;top:1rem;left:1rem;z-index:1001;background:var(--glass);border:2px solid var(--border);border-radius:14px;padding:0.75rem;cursor:pointer;backdrop-filter:blur(20px);color:var(--surface)}
+#meaux-dashboard .dashboard-header{position:sticky;top:0;background:var(--glass);border-bottom:2px solid var(--border);backdrop-filter:blur(25px);padding:1.5rem 2rem;z-index:100;display:flex;align-items:center;justify-content:space-between;transform:translateY(0);transition:transform 0.3s ease}
+#meaux-dashboard .dashboard-header.hidden{transform:translateY(-100%)}
+#meaux-dashboard .header-title{font-size:clamp(1.5rem,3vw,2rem);font-weight:800;background:linear-gradient(135deg,var(--shine),var(--success));-webkit-background-clip:text;background-clip:text;color:transparent}
+#meaux-dashboard .header-subtitle{color:var(--surface);opacity:0.8;font-size:0.875rem}
+#meaux-dashboard .filter-select{padding:0.5rem 1rem;border:2px solid var(--border);border-radius:14px;background:var(--glass);color:var(--surface);cursor:pointer;backdrop-filter:blur(10px)}
+#meaux-dashboard .main-content{flex:1;margin-left:280px;transition:margin-left 0.3s ease;width:calc(100vw - 280px) !important;overflow-x:hidden !important}
+#meaux-dashboard .sidebar.collapsed + .main-content{margin-left:80px;width:calc(100vw - 80px) !important}
+#meaux-dashboard .container{max-width:1440px;margin:0 auto;padding:clamp(1rem,3vw,2rem)}
+#meaux-dashboard .page-section{display:none}
+#meaux-dashboard .page-section.active{display:block}
+#meaux-dashboard .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(1rem,3vw,2rem);margin-bottom:2rem}
+#meaux-dashboard .stat-card{background:var(--glass);border:2px solid var(--border);border-radius:14px;backdrop-filter:blur(25px);padding:clamp(1.5rem,4vw,2rem);transition:all 0.3s ease;position:relative;overflow:hidden}
+#meaux-dashboard .stat-card.primary{border-color:var(--orange)}
+#meaux-dashboard .stat-card.secondary{border-color:var(--teal)}
+#meaux-dashboard .stat-card.success{border-color:var(--success)}
+#meaux-dashboard .stat-card.warning{border-color:var(--warning)}
+#meaux-dashboard .stat-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--shine)}
+#meaux-dashboard .stat-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem}
+#meaux-dashboard .stat-icon{width:clamp(3rem,8vw,4rem);height:clamp(3rem,8vw,4rem);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:clamp(1.5rem,4vw,2rem);background:linear-gradient(135deg,var(--shine),var(--success));color:var(--deep);box-shadow:var(--glow)}
+#meaux-dashboard .stat-value{font-size:clamp(2.5rem,6vw,3.5rem);font-weight:900;background:linear-gradient(135deg,var(--surface),var(--light-teal));-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:0.5rem}
+#meaux-dashboard .stat-label{color:var(--surface);font-weight:600;font-size:clamp(1rem,2.5vw,1.2rem);opacity:0.9}
+#meaux-dashboard .stat-detail{color:var(--surface);font-size:0.875rem;opacity:0.7;margin-top:0.5rem}
+#meaux-dashboard .stat-change{font-size:clamp(0.75rem,2vw,0.875rem);font-weight:700;padding:0.5rem 1rem;border-radius:12px}
+#meaux-dashboard .stat-change.positive{background:rgba(33,196,140,.2);color:var(--success)}
+#meaux-dashboard .progress-bar{width:100%;height:8px;background:rgba(255,255,255,0.1);border-radius:4px;margin-top:1rem;overflow:hidden}
+#meaux-dashboard .progress-fill{height:100%;background:linear-gradient(90deg,var(--success),var(--light-teal));border-radius:4px;transition:width 1s ease}
+#meaux-dashboard .card{background:var(--glass);border:2px solid var(--border);border-radius:14px;backdrop-filter:blur(25px);padding:clamp(1.5rem,4vw,2rem);transition:all 0.3s ease;margin-bottom:2rem;position:relative;overflow:hidden}
+#meaux-dashboard .card:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--shine)}
+#meaux-dashboard .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:1rem}
+#meaux-dashboard .card-title{font-size:clamp(1.25rem,3vw,1.5rem);font-weight:800;background:linear-gradient(135deg,var(--shine),var(--success));-webkit-background-clip:text;background-clip:text;color:transparent}
+#meaux-dashboard .card-icon{width:clamp(2.5rem,6vw,3rem);height:clamp(2.5rem,6vw,3rem);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:clamp(1.25rem,3vw,1.5rem);margin-right:1rem;background:linear-gradient(135deg,var(--shine),var(--success));color:var(--deep);box-shadow:var(--glow)}
+#meaux-dashboard .content-grid{display:grid;grid-template-columns:2fr 1fr;gap:clamp(1rem,3vw,2rem)}
+#meaux-dashboard .tools-carousel{position:relative;overflow:hidden;border-radius:14px;background:var(--glass);border:2px solid var(--border);backdrop-filter:blur(25px);margin-bottom:2rem}
+#meaux-dashboard .carousel-container{display:flex;transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);gap:1rem;padding:1rem}
+#meaux-dashboard .tool-card{min-width:clamp(260px,28vw,300px);background:rgba(26,74,82,0.4);border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-align:center;transition:all 0.3s ease;cursor:pointer;position:relative}
+#meaux-dashboard .tool-card.featured{border-color:var(--orange);background:rgba(255,118,25,0.1)}
+#meaux-dashboard .tool-card:hover{transform:scale(1.02);border-color:var(--orange)}
+#meaux-dashboard .tool-badge{position:absolute;top:-8px;right:-8px;background:var(--orange);color:var(--surface);font-size:0.75rem;font-weight:700;padding:0.25rem 0.75rem;border-radius:12px}
+#meaux-dashboard .tool-icon{width:60px;height:60px;margin:0 auto 1rem;background:linear-gradient(135deg,var(--orange),var(--teal));border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:var(--surface);box-shadow:var(--glow)}
+#meaux-dashboard .tool-name{font-weight:700;margin-bottom:0.5rem;color:var(--surface)}
+#meaux-dashboard .tool-desc{font-size:0.875rem;color:var(--surface);opacity:0.8;margin-bottom:1rem}
+#meaux-dashboard .tool-stats{font-size:0.75rem;color:var(--surface);opacity:0.6;margin-bottom:1rem}
+#meaux-dashboard .carousel-nav{display:flex;justify-content:space-between;align-items:center;padding:1rem}
+#meaux-dashboard .carousel-btn{width:40px;height:40px;border:2px solid var(--border);background:var(--glass);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s ease;color:var(--surface)}
+#meaux-dashboard .carousel-btn:hover{border-color:var(--orange);background:rgba(255,118,25,0.2)}
+#meaux-dashboard .carousel-dots{display:flex;gap:0.5rem}
+#meaux-dashboard .dot{width:8px;height:8px;border-radius:50%;background:var(--border);cursor:pointer;transition:all 0.3s ease}
+#meaux-dashboard .dot.active{background:var(--orange)}
+#meaux-dashboard .activity-list{display:flex;flex-direction:column;gap:1rem}
+#meaux-dashboard .activity-item{display:flex;align-items:center;gap:1rem;padding:1rem;border-radius:8px;background:rgba(26,74,82,0.2);transition:all 0.3s ease}
+#meaux-dashboard .activity-item:hover{background:rgba(58,139,152,.1)}
+#meaux-dashboard .activity-icon{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--orange),var(--teal));display:flex;align-items:center;justify-content:center;font-size:1.25rem;color:var(--surface);flex-shrink:0}
+#meaux-dashboard .activity-content{flex:1}
+#meaux-dashboard .activity-title{font-weight:600;color:var(--surface);margin-bottom:0.25rem}
+#meaux-dashboard .activity-desc{color:var(--surface);opacity:0.8;font-size:0.875rem;margin-bottom:0.25rem}
+#meaux-dashboard .activity-time{color:var(--surface);opacity:0.6;font-size:0.75rem}
+#meaux-dashboard .activity-status{flex-shrink:0}
+#meaux-dashboard .quick-actions-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+#meaux-dashboard .quick-action-card{background:rgba(26,74,82,0.3);border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-align:center;cursor:pointer;transition:all 0.3s ease;color:var(--surface)}
+#meaux-dashboard .quick-action-card:hover{border-color:var(--orange);transform:translateY(-2px);background:rgba(255,118,25,0.1)}
+#meaux-dashboard .quick-action-icon{font-size:2rem;margin-bottom:1rem}
+#meaux-dashboard .quick-action-title{font-weight:700;margin-bottom:0.5rem}
+#meaux-dashboard .quick-action-desc{font-size:0.875rem;opacity:0.8}
+#meaux-dashboard .api-setting{background:var(--glass);border:1px solid var(--border);border-radius:14px;padding:1.5rem;margin-bottom:1rem;transition:all 0.3s ease}
+#meaux-dashboard .api-setting.priority{border-color:var(--orange);background:rgba(255,118,25,0.05)}
+#meaux-dashboard .api-setting:hover{border-color:var(--orange);transform:translateY(-2px)}
+#meaux-dashboard .api-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:1rem}
+#meaux-dashboard .api-title{font-weight:700;color:var(--surface);font-size:1.1rem}
+#meaux-dashboard .api-desc{color:var(--surface);opacity:0.8;margin-bottom:1rem;font-size:0.875rem}
+#meaux-dashboard .api-stats{color:var(--surface);opacity:0.6;font-size:0.75rem;margin-bottom:1rem}
+#meaux-dashboard .api-actions{display:flex;gap:0.5rem;flex-wrap:wrap}
+#meaux-dashboard .ai-queue{background:var(--glass);border:2px solid var(--border);border-radius:14px;backdrop-filter:blur(25px);padding:1.5rem;margin-bottom:1rem}
+#meaux-dashboard .ai-item{display:flex;align-items:flex-start;justify-content:space-between;padding:1rem;border-bottom:1px solid var(--border);transition:all 0.3s ease;flex-wrap:wrap;gap:1rem;border-radius:8px;margin-bottom:1rem}
+#meaux-dashboard .ai-item.priority{border-left:4px solid var(--orange);background:rgba(255,118,25,0.05)}
+#meaux-dashboard .ai-item:hover{background:rgba(58,139,152,.1)}
+#meaux-dashboard .ai-item:last-child{border-bottom:none;margin-bottom:0}
+#meaux-dashboard .ai-content{flex:1;min-width:250px}
+#meaux-dashboard .ai-type{font-weight:600;color:var(--success);font-size:clamp(0.75rem,2vw,0.875rem);text-transform:uppercase;margin-bottom:0.5rem}
+#meaux-dashboard .ai-preview{color:var(--surface);opacity:0.9;margin-bottom:0.5rem;font-size:clamp(0.875rem,2vw,1rem);line-height:1.5}
+#meaux-dashboard .ai-meta{color:var(--surface);opacity:0.6;font-size:0.75rem}
+#meaux-dashboard .ai-actions{display:flex;gap:0.5rem;flex-wrap:wrap;align-items:flex-start}
+#meaux-dashboard .status-badge{padding:0.5rem 1rem;border-radius:12px;font-size:clamp(0.7rem,1.8vw,0.75rem);font-weight:700;text-transform:uppercase;white-space:nowrap}
+#meaux-dashboard .status-badge.success{background:rgba(33,196,140,.2);color:var(--success)}
+#meaux-dashboard .status-badge.warning{background:rgba(245,158,11,.2);color:var(--warning)}
+#meaux-dashboard .status-badge.connected{background:rgba(33,196,140,.2);color:var(--success)}
+#meaux-dashboard .status-badge.disconnected{background:rgba(231,76,60,.2);color:var(--error)}
+#meaux-dashboard .status-badge.pending{background:rgba(255,118,25,.2);color:var(--orange)}
+#meaux-dashboard .modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(10px);z-index:10000;align-items:center;justify-content:center;padding:1rem}
+#meaux-dashboard .modal.active{display:flex}
+#meaux-dashboard .modal-content{background:var(--glass);border:2px solid var(--border);border-radius:14px;backdrop-filter:blur(25px);max-width:700px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow)}
+#meaux-dashboard .modal-header{padding:2rem 2rem 1rem;border-bottom:2px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+#meaux-dashboard .modal-title{font-size:clamp(1.25rem,3vw,1.75rem);font-weight:800;background:linear-gradient(135deg,var(--shine),var(--success));-webkit-background-clip:text;background-clip:text;color:transparent}
+#meaux-dashboard .modal-close{background:none;border:none;font-size:2rem;cursor:pointer;color:var(--surface);padding:0.5rem;border-radius:14px;transition:all 0.3s ease;opacity:0.7}
+#meaux-dashboard .modal-close:hover{background:rgba(231,76,60,.2);color:var(--error);opacity:1}
+#meaux-dashboard .modal-body{padding:2rem}
+#meaux-dashboard .step-title{font-size:1.25rem;font-weight:700;color:var(--surface);margin-bottom:1rem;display:flex;align-items:center;gap:1rem}
+#meaux-dashboard .step-number{width:2rem;height:2rem;background:var(--orange);color:var(--surface);border-radius:50%;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+#meaux-dashboard .code-block{background:rgba(5,27,30,0.8);border:1px solid var(--border);border-radius:14px;padding:1rem;margin:1rem 0;font-family:Monaco,monospace;font-size:0.875rem;overflow-x:auto;color:var(--light-teal)}
+#meaux-dashboard .error-message{background:rgba(231,76,60,.2);color:var(--error);padding:1rem;border-radius:14px;border:2px solid var(--error);margin-bottom:1rem}
+#meaux-dashboard .category-title{font-size:1.25rem;font-weight:800;color:var(--surface);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+@keyframes epicFloat{0%{transform:translate(-50%,-50%) scale(1)}25%{transform:translate(calc(-50% + 30vw),calc(-50% + 20vh)) scale(1.2)}50%{transform:translate(calc(-50% + 35vw),calc(-50% - 25vh)) scale(0.8)}75%{transform:translate(calc(-50% - 25vw),calc(-50% + 15vh)) scale(1.1)}100%{transform:translate(-50%,-50%) scale(1)}}
+@media (max-width:1024px){
+#meaux-dashboard .sidebar{width:80px}
+#meaux-dashboard .sidebar .sidebar-title,#meaux-dashboard .sidebar .nav-text{opacity:0}
+#meaux-dashboard .main-content{margin-left:80px !important;width:calc(100vw - 80px) !important}
+#meaux-dashboard .content-grid{grid-template-columns:1fr}
+}
+@media (max-width:768px){
+#meaux-dashboard .sidebar{transform:translateX(-100%);width:280px}
+#meaux-dashboard .sidebar.active{transform:translateX(0)}
+#meaux-dashboard .sidebar-overlay.active{display:block}
+#meaux-dashboard .sidebar-toggle{display:flex;align-items:center;justify-content:center}
+#meaux-dashboard .main-content{margin-left:0 !important;width:100vw !important}
+#meaux-dashboard .stats-grid{grid-template-columns:1fr}
+#meaux-dashboard .container{padding:1rem}
+#meaux-dashboard .dashboard-header{padding:1rem}
+#meaux-dashboard .ai-item{flex-direction:column;align-items:flex-start}
+#meaux-dashboard .ai-content{margin-bottom:1rem}
+#meaux-dashboard .tool-card{min-width:240px}
+#meaux-dashboard .quick-actions-grid{grid-template-columns:1fr}
+}
+@media (max-width:480px){
+#meaux-dashboard .login-card{margin:1rem;padding:2rem}
+#meaux-dashboard .modal-content{width:95%}
+#meaux-dashboard .modal-header,#meaux-dashboard .modal-body{padding:1.5rem}
+#meaux-dashboard .mbx-btn{padding:12px 20px;font-size:14px}
+#meaux-dashboard .tool-card{min-width:200px;padding:1rem}
+#meaux-dashboard .login-3d-model{width:300px;height:300px;opacity:0.3}
+#meaux-dashboard .theme-toggle{top:1rem;right:1rem;padding:0.25rem}
+#meaux-dashboard .theme-btn{width:32px;height:32px;font-size:1rem}
+}
+@media (prefers-reduced-motion:reduce){
+#meaux-dashboard *{animation:none !important;transition:none !important}
+}
+</style>
+</head>
+<body>
+<div id="meaux-dashboard" data-theme="dark">
+<div class="login-screen" id="loginScreen">
+<div class="login-3d-model">
+<model-viewer src="https://cdn.shopify.com/3d/models/4b0a47ca8a38b77c/Kinetic_Symmetry_0831084700_generate.glb" 
+              alt="Kinetic Symmetry 3D Model" 
+              auto-rotate 
+              rotation-per-second="15deg"
+              camera-controls 
+              disable-zoom
+              disable-pan
+              poster=""
+              environment-image="neutral"
+              style="width:100%;height:100%;pointer-events:none">
+</model-viewer>
+</div>
+
+<div class="theme-toggle">
+<button class="theme-btn active" id="darkBtn" onclick="setTheme('dark')" title="Dark Mode">🌙</button>
+<button class="theme-btn" id="lightBtn" onclick="setTheme('light')" title="Light Mode">☀️</button>
+<button class="theme-btn" id="focusBtn" onclick="setTheme('focus')" title="Focus Mode">🎯</button>
+</div>
+
+<div class="login-card">
+<h1 class="login-title">Meauxbility Dashboard</h1>
+<p class="login-subtitle">Ultimate Automation Hub</p>
+<form class="login-form" id="loginForm" style="display:flex;flex-direction:column;gap:1.5rem;position:relative;z-index:2">
+<input type="password" class="form-input" id="password" placeholder="Enter password" required>
+<button type="submit" class="mbx-btn mbx-btn-primary">
+<span>Access Dashboard</span>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px">
+<path d="M5 12h14M12 5l7 7-7 7"/>
+</svg>
+</button>
+</form>
+<div class="error-message" id="loginError" style="display:none">Invalid password. Please try again.</div>
+</div>
+</div>
+
+<div class="dashboard" id="dashboard">
+<nav class="sidebar" id="sidebar">
+<div class="sidebar-header">
+<span class="sidebar-title">Meauxbility</span>
+</div>
+<div class="sidebar-nav">
+<div class="nav-item active" data-section="overview">
+<div class="nav-icon">📊</div>
+<span class="nav-text">Overview</span>
+<div class="nav-badge" id="overviewBadge">4</div>
+</div>
+<div class="nav-item" data-section="automation">
+<div class="nav-icon">🤖</div>
+<span class="nav-text">AI Automation</span>
+<div class="nav-badge" id="automationBadge">3</div>
+</div>
+<div class="nav-item" data-section="tools">
+<div class="nav-icon">🛠️</div>
+<span class="nav-text">AI Tools</span>
+<div class="nav-badge">5</div>
+</div>
+<div class="nav-item" data-section="donations">
+<div class="nav-icon">💰</div>
+<span class="nav-text">Donations</span>
+<div class="nav-badge">2</div>
+</div>
+<div class="nav-item" data-section="integrations">
+<div class="nav-icon">🔗</div>
+<span class="nav-text">APIs</span>
+<div class="nav-badge">9</div>
+</div>
+</div>
+</nav>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<button class="sidebar-toggle" id="sidebarToggle">☰</button>
+
+<main class="main-content">
+<header class="dashboard-header" id="dashboardHeader">
+<div>
+<h1 class="header-title" id="headerTitle">Meauxbility Overview</h1>
+<div class="header-subtitle" id="headerSubtitle">Ultimate automation hub</div>
+</div>
+<select class="filter-select">
+<option>Last 30 days</option>
+<option>Last 90 days</option>
+</select>
+</header>
+
+<div class="container">
+<div class="page-section active" id="overview">
+<div class="stats-grid">
+<div class="stat-card primary">
+<div class="stat-header">
+<div class="stat-icon">💰</div>
+<div class="stat-change positive">+12%</div>
+</div>
+<div class="stat-value" id="totalDonations">$0</div>
+<div class="stat-label">Total Donations</div>
+<div class="progress-bar">
+<div class="progress-fill" style="width:75%"></div>
+</div>
+</div>
+<div class="stat-card secondary">
+<div class="stat-header">
+<div class="stat-icon">🤖</div>
+<div class="stat-change positive">+25%</div>
+</div>
+<div class="stat-value" id="aiTasks">0</div>
+<div class="stat-label">AI Tasks</div>
+</div>
+<div class="stat-card success">
+<div class="stat-header">
+<div class="stat-icon">💵</div>
+<div class="stat-change positive">-60%</div>
+</div>
+<div class="stat-value" id="costSavings">$0</div>
+<div class="stat-label">Cost Savings</div>
+</div>
+<div class="stat-card warning">
+<div class="stat-header">
+<div class="stat-icon">⏱️</div>
+<div class="stat-change positive">+89%</div>
+</div>
+<div class="stat-value" id="timeSaved">0</div>
+<div class="stat-label">Hours Saved</div>
+</div>
+</div>
+
+<div class="content-grid">
+<div class="card">
+<div class="card-header">
+<div class="card-icon">📊</div>
+<h2 class="card-title">Recent Activity</h2>
+</div>
+<div class="activity-list">
+<div class="activity-item">
+<div class="activity-icon">🤖</div>
+<div class="activity-content">
+<div class="activity-title">AI Email Generated</div>
+<div class="activity-desc">Thank you for John Smith ($50)</div>
+<div class="activity-time">2 min ago</div>
+</div>
+<div class="activity-status">
+<span class="status-badge pending">Review</span>
+</div>
+</div>
+<div class="activity-item">
+<div class="activity-icon">💰</div>
+<div class="activity-content">
+<div class="activity-title">Donation Received</div>
+<div class="activity-desc">$50 monthly donation</div>
+<div class="activity-time">5 min ago</div>
+</div>
+<div class="activity-status">
+<span class="status-badge success">Done</span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header">
+<div class="card-icon">🚀</div>
+<h2 class="card-title">Quick Actions</h2>
+</div>
+<div class="quick-actions-grid">
+<button class="quick-action-card" onclick="showSection('automation')">
+<div class="quick-action-icon">🤖</div>
+<div class="quick-action-title">Review AI</div>
+<div class="quick-action-desc">3 pending</div>
+</button>
+<button class="quick-action-card" onclick="showSection('tools')">
+<div class="quick-action-icon">🛠️</div>
+<div class="quick-action-title">AI Tools</div>
+<div class="quick-action-desc">5 guides</div>
+</button>
+<button class="quick-action-card" onclick="showSection('integrations')">
+<div class="quick-action-icon">🔗</div>
+<div class="quick-action-title">APIs</div>
+<div class="quick-action-desc">9 ready</div>
+</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="page-section" id="automation">
+<div class="stats-grid">
+<div class="stat-card primary">
+<div class="stat-header">
+<div class="stat-icon">🤖</div>
+<div class="stat-change positive">+25%</div>
+</div>
+<div class="stat-value" id="aiGenerated">0</div>
+<div class="stat-label">AI Generated</div>
+</div>
+<div class="stat-card success">
+<div class="stat-header">
+<div class="stat-icon">✅</div>
+<div class="stat-change positive">95%</div>
+</div>
+<div class="stat-value" id="successRate">0</div>
+<div class="stat-label">Success Rate</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header">
+<div class="card-icon">🤖</div>
+<h2 class="card-title">AI Content Review</h2>
+<div class="card-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="bulkApprove()">Bulk Approve</button>
+</div>
+</div>
+<div class="ai-queue">
+<div class="ai-item priority">
+<div class="ai-content">
+<div class="ai-type">Thank You Email</div>
+<div class="ai-preview">Dear John, Thank you for your $50 donation to Meauxbility...</div>
+<div class="ai-meta">2 min ago • GPT-4</div>
+</div>
+<div class="ai-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="approveAI('ai-1')">Approve</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="editAI('ai-1')">Edit</button>
+</div>
+</div>
+<div class="ai-item">
+<div class="ai-content">
+<div class="ai-type">Welcome Email</div>
+<div class="ai-preview">Welcome to Meauxbility! More Options. More Access...</div>
+<div class="ai-meta">5 min ago • GPT-4</div>
+</div>
+<div class="ai-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="approveAI('ai-2')">Approve</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="editAI('ai-2')">Edit</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="page-section" id="tools">
+<div class="card">
+<div class="card-header">
+<div class="card-icon">🛠️</div>
+<h2 class="card-title">AI Tools Mastery</h2>
+</div>
+<div class="tools-carousel">
+<div class="carousel-container" id="toolsCarousel">
+<div class="tool-card featured" onclick="showToolGuide('cursor')">
+<div class="tool-badge">Most Used</div>
+<div class="tool-icon">🖱️</div>
+<div class="tool-name">Cursor AI</div>
+<div class="tool-desc">Code with AI - Cmd+L</div>
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary">Master</button>
+</div>
+<div class="tool-card" onclick="showToolGuide('chatgpt')">
+<div class="tool-icon">💬</div>
+<div class="tool-name">ChatGPT</div>
+<div class="tool-desc">Generate content</div>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary">Master</button>
+</div>
+<div class="tool-card" onclick="showToolGuide('claude')">
+<div class="tool-icon">🧠</div>
+<div class="tool-name">Claude AI</div>
+<div class="tool-desc">Analysis</div>
+<button class="mbx-btn mbx-btn-sm mbx-btn-teal">Guide</button>
+</div>
+<div class="tool-card" onclick="showToolGuide('canva')">
+<div class="tool-icon">🎨</div>
+<div class="tool-name">Canva Pro</div>
+<div class="tool-desc">Graphics</div>
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary">Design</button>
+</div>
+<div class="tool-card" onclick="showToolGuide('meshy')">
+<div class="tool-icon">🧊</div>
+<div class="tool-name">Meshy 3D</div>
+<div class="tool-desc">3D assets</div>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary">Create</button>
+</div>
+</div>
+<div class="carousel-nav">
+<button class="carousel-btn" onclick="slideCarousel(-1)">‹</button>
+<div class="carousel-dots">
+<span class="dot active" onclick="goToSlide(0)"></span>
+<span class="dot" onclick="goToSlide(1)"></span>
+<span class="dot" onclick="goToSlide(2)"></span>
+<span class="dot" onclick="goToSlide(3)"></span>
+<span class="dot" onclick="goToSlide(4)"></span>
+</div>
+<button class="carousel-btn" onclick="slideCarousel(1)">›</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="page-section" id="donations">
+<div class="stats-grid">
+<div class="stat-card primary">
+<div class="stat-header">
+<div class="stat-icon">💰</div>
+<div class="stat-change positive">+12%</div>
+</div>
+<div class="stat-value" id="donationsTotal">$0</div>
+<div class="stat-label">Total Raised</div>
+<div class="progress-bar">
+<div class="progress-fill" style="width:70%"></div>
+</div>
+</div>
+<div class="stat-card success">
+<div class="stat-header">
+<div class="stat-icon">🎯</div>
+<div class="stat-change positive">75%</div>
+</div>
+<div class="stat-value" id="donMichaelProgress">$0</div>
+<div class="stat-label">DonMichael</div>
+<div class="progress-bar">
+<div class="progress-fill" style="width:75%"></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="page-section" id="integrations">
+<div class="category-title">💰 Payments</div>
+<div class="api-setting priority">
+<div class="api-header">
+<div class="api-title">🔑 Stripe</div>
+<span class="status-badge connected" id="stripeStatus">Connected</span>
+</div>
+<div class="api-desc">hey@meauxbility.com | 337-450-9998</div>
+<div class="api-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="alert('Stripe: stripe.com → API keys → Copy → Test')">Setup</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="testConnection('stripe')">Test</button>
+</div>
+</div>
+
+<div class="api-setting">
+<div class="api-header">
+<div class="api-title">💰 PayPal</div>
+<span class="status-badge disconnected" id="paypalStatus">Setup</span>
+</div>
+<div class="api-desc">Alternative payments</div>
+<div class="api-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="alert('PayPal: developer.paypal.com → App → Test')">Setup</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="testConnection('paypal')">Test</button>
+</div>
+</div>
+
+<div class="category-title">🤖 AI</div>
+<div class="api-setting priority">
+<div class="api-header">
+<div class="api-title">🗄️ Supabase</div>
+<span class="status-badge connected" id="supabaseStatus">Connected</span>
+</div>
+<div class="api-desc">AUTOMEAUXXX • ajhltmrehtytpzbdhepa</div>
+<div class="api-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="alert('Supabase: supabase.com → ajhltmrehtytpzbdhepa → API')">Setup</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="testConnection('supabase')">Test</button>
+</div>
+</div>
+
+<div class="api-setting">
+<div class="api-header">
+<div class="api-title">🤖 OpenAI</div>
+<span class="status-badge disconnected" id="openaiStatus">Setup</span>
+</div>
+<div class="api-desc">Content generation • $20/month</div>
+<div class="api-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="alert('OpenAI: platform.openai.com → API key → $20 limit')">Setup</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="testConnection('openai')">Test</button>
+</div>
+</div>
+
+<div class="category-title">📧 Communication</div>
+<div class="api-setting">
+<div class="api-header">
+<div class="api-title">📧 Gmail</div>
+<span class="status-badge disconnected" id="gmailStatus">Setup</span>
+</div>
+<div class="api-desc">hey@meauxbility.com automation</div>
+<div class="api-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="alert('Gmail: console.cloud.google.com → Gmail API → OAuth')">Setup</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="testConnection('gmail')">Test</button>
+</div>
+</div>
+
+<div class="api-setting">
+<div class="api-header">
+<div class="api-title">📬 Newsletter</div>
+<span class="status-badge disconnected" id="newsletterStatus">Setup</span>
+</div>
+<div class="api-desc">Mailchimp/ConvertKit</div>
+<div class="api-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="alert('Newsletter: Choose provider → API key → Test')">Setup</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="testConnection('newsletter')">Test</button>
+</div>
+</div>
+
+<div class="category-title">📊 Social</div>
+<div class="api-setting">
+<div class="api-header">
+<div class="api-title">📊 Analytics</div>
+<span class="status-badge disconnected" id="analyticsStatus">Setup</span>
+</div>
+<div class="api-desc">Google Analytics tracking</div>
+<div class="api-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="alert('Analytics: analytics.google.com → Property → ID')">Setup</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="testConnection('analytics')">Test</button>
+</div>
+</div>
+
+<div class="api-setting">
+<div class="api-header">
+<div class="api-title">📱 Social</div>
+<span class="status-badge disconnected" id="socialStatus">Setup</span>
+</div>
+<div class="api-desc">Facebook, Instagram, Twitter</div>
+<div class="api-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="alert('Social: Meta Business → Twitter Dev → Tokens')">Setup</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="testConnection('social')">Test</button>
+</div>
+</div>
+
+<div class="api-setting">
+<div class="api-header">
+<div class="api-title">🔔 Alerts</div>
+<span class="status-badge disconnected" id="notificationsStatus">Setup</span>
+</div>
+<div class="api-desc">Slack/Discord notifications</div>
+<div class="api-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="alert('Notifications: Slack → Webhook → Test')">Setup</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="testConnection('notifications')">Test</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+<div class="modal" id="toolGuideModal">
+<div class="modal-content">
+<div class="modal-header">
+<h2 class="modal-title" id="toolGuideTitle">AI Tool Guide</h2>
+<button class="modal-close" onclick="closeModal('toolGuideModal')">&times;</button>
+</div>
+<div class="modal-body" id="toolGuideContent">Loading...</div>
+</div>
+</div>
+</div>
+
+<script>
+const ADMIN_PASSWORD="Meauxbility";let sessionTimer;let currentSlide=0;const totalSlides=5;let lastScrollY=0;
+const toolGuides={
+cursor:{title:"Cursor AI Guide",content:`<div class="step-title"><span class="step-number">1</span>Press Cmd+L</div><div class="code-block">Create [type] for Meauxbility. Voice: "Authority over sympathy." Contact: hey@meauxbility.com, 337-450-9998, Lafayette LA</div><p>Replace [type]: email, social post, grant letter</p>`},
+chatgpt:{title:"ChatGPT Guide",content:`<div class="step-title"><span class="step-number">1</span>Go to chat.openai.com</div><div class="code-block">Writing for Meauxbility, SCI nonprofit by Sam Primeaux. Voice: "Authority over sympathy." Contact: hey@meauxbility.com, 337-450-9998</div>`},
+claude:{title:"Claude Guide",content:`<div class="step-title"><span class="step-number">1</span>Go to claude.ai</div><div class="code-block">Analyze grant application for Meauxbility. Fund $500-15K for SCI survivors. Contact: hey@meauxbility.com</div>`},
+canva:{title:"Canva Guide",content:`<div class="step-title"><span class="step-number">1</span>Use Colors</div><div class="code-block">Orange: #FF7619<br>Teal: #1F97A9<br>Include: hey@meauxbility.com</div>`},
+meshy:{title:"Meshy Guide",content:`<div class="step-title"><span class="step-number">1</span>Go to meshy.ai</div><div class="code-block">Wheelchair in teal/orange, adaptive equipment</div>`}
+};
+function checkAuth(){const isAuthenticated=sessionStorage.getItem('meaux-authenticated')==='true';if(isAuthenticated){showDashboard();startSessionTimer()}else{showLogin()}}
+function showLogin(){document.getElementById('loginScreen').classList.remove('hidden');document.getElementById('dashboard').classList.remove('active')}
+function showDashboard(){document.getElementById('loginScreen').classList.add('hidden');document.getElementById('dashboard').classList.add('active');loadDashboardData();initializeScrollHandler()}
+function startSessionTimer(){clearTimeout(sessionTimer);sessionTimer=setTimeout(()=>{logout()},30*60*1000)}
+function logout(){sessionStorage.removeItem('meaux-authenticated');showLogin();document.getElementById('password').value=''}
+document.getElementById('loginForm').addEventListener('submit',function(e){e.preventDefault();e.stopPropagation();const password=document.getElementById('password').value;const errorDiv=document.getElementById('loginError');if(password===ADMIN_PASSWORD){sessionStorage.setItem('meaux-authenticated','true');showDashboard();startSessionTimer();errorDiv.style.display='none'}else{errorDiv.style.display='block';document.getElementById('password').value=''}});
+function showSection(sectionId){document.querySelectorAll('#meaux-dashboard .page-section').forEach(section=>{section.classList.remove('active')});const targetSection=document.getElementById(sectionId);if(targetSection){targetSection.classList.add('active')}document.querySelectorAll('#meaux-dashboard .nav-item').forEach(link=>{link.classList.remove('active');if(link.getAttribute('data-section')===sectionId){link.classList.add('active')}});const titles={'overview':'Meauxbility Overview','automation':'AI Automation','tools':'AI Tools Mastery','donations':'Donations','integrations':'API Hub'};const headerTitle=document.getElementById('headerTitle');if(headerTitle){headerTitle.textContent=titles[sectionId]||'Dashboard'}const subtitles={'overview':'Ultimate automation hub','automation':'AI content approval','tools':'Master AI tools','donations':'Track donations','integrations':'API connections'};const headerSubtitle=document.getElementById('headerSubtitle');if(headerSubtitle){headerSubtitle.textContent=subtitles[sectionId]||'Dashboard'}}
+function toggleSidebar(){const sidebar=document.getElementById('sidebar');const overlay=document.getElementById('sidebarOverlay');if(window.innerWidth<=768){sidebar.classList.toggle('active');overlay.classList.toggle('active')}else{sidebar.classList.toggle('collapsed')}}
+function closeSidebar(){const sidebar=document.getElementById('sidebar');const overlay=document.getElementById('sidebarOverlay');sidebar.classList.remove('active');overlay.classList.remove('active')}
+function initializeScrollHandler(){const header=document.getElementById('dashboardHeader');if(header){window.addEventListener('scroll',()=>{const currentScrollY=window.scrollY;if(currentScrollY>lastScrollY&&currentScrollY>100){header.classList.add('hidden')}else{header.classList.remove('hidden')}lastScrollY=currentScrollY})}}
+function setTheme(theme){const dashboard=document.getElementById('meaux-dashboard');const darkBtn=document.getElementById('darkBtn');const lightBtn=document.getElementById('lightBtn');const focusBtn=document.getElementById('focusBtn');[darkBtn,lightBtn,focusBtn].forEach(btn=>btn.classList.remove('active'));if(theme==='light'){dashboard.setAttribute('data-theme','light');lightBtn.classList.add('active')}else if(theme==='focus'){dashboard.setAttribute('data-theme','focus');focusBtn.classList.add('active')}else{dashboard.removeAttribute('data-theme');darkBtn.classList.add('active')}localStorage.setItem('meaux-theme',theme)}
+function showToolGuide(tool){const guide=toolGuides[tool];if(guide){document.getElementById('toolGuideTitle').textContent=guide.title;document.getElementById('toolGuideContent').innerHTML=guide.content;document.getElementById('toolGuideModal').classList.add('active');document.body.style.overflow='hidden'}}
+function closeModal(modalId){const modal=document.getElementById(modalId);if(modal){modal.classList.remove('active');document.body.style.overflow=''}}
+function slideCarousel(direction){const carousel=document.getElementById('toolsCarousel');const cardWidth=window.innerWidth<=768?240:280;currentSlide+=direction;if(currentSlide<0)currentSlide=totalSlides-1;if(currentSlide>=totalSlides)currentSlide=0;carousel.style.transform=`translateX(-${currentSlide*cardWidth}px)`;updateCarouselDots()}
+function goToSlide(slideIndex){currentSlide=slideIndex;const carousel=document.getElementById('toolsCarousel');const cardWidth=window.innerWidth<=768?240:280;carousel.style.transform=`translateX(-${currentSlide*cardWidth}px)`;updateCarouselDots()}
+function updateCarouselDots(){document.querySelectorAll('.dot').forEach((dot,index)=>{if(index===currentSlide){dot.classList.add('active')}else{dot.classList.remove('active')}})}
+function approveAI(aiId){const item=document.querySelector(`[onclick*="${aiId}"]`)?.closest('.ai-item');if(item){item.style.background='rgba(33,196,140,.2)';const actions=item.querySelector('.ai-actions');if(actions){actions.innerHTML='<span style="color:var(--success);font-weight:600;">✓ Approved</span>'}updateBadgeCount('automationBadge',-1)}}
+function editAI(aiId){const content=prompt('Edit AI content:');if(content){alert('Updated! Contact: hey@meauxbility.com')}}
+function bulkApprove(){const pendingItems=document.querySelectorAll('.ai-item:not(.approved)');pendingItems.forEach((item,index)=>{setTimeout(()=>{item.style.background='rgba(33,196,140,.2)';const actions=item.querySelector('.ai-actions');if(actions){actions.innerHTML='<span style="color:var(--success);font-weight:600;">✓ Approved</span>'}},index*200)});updateBadgeCount('automationBadge',-pendingItems.length)}
+async function testConnection(service){const statusElement=document.getElementById(service+'Status');if(!statusElement)return;statusElement.textContent='Testing...';statusElement.className='status-badge warning';setTimeout(()=>{statusElement.textContent='Connected';statusElement.className='status-badge connected'},2000)}
+async function loadDashboardData(){animateValue(document.getElementById('totalDonations'),0,35280,2000);animateValue(document.getElementById('aiTasks'),0,156,1800);animateValue(document.getElementById('costSavings'),0,2340,2500);animateValue(document.getElementById('timeSaved'),0,89,1800);animateValue(document.getElementById('aiGenerated'),0,156,2000);animateValue(document.getElementById('successRate'),0,95,1500);animateValue(document.getElementById('donationsTotal'),0,35280,2000);animateValue(document.getElementById('donMichaelProgress'),0,7500,2000)}
+function animateValue(element,start,end,duration){if(!element)return;const range=end-start;const increment=range/(duration/16);let current=start;const timer=setInterval(()=>{current+=increment;if(current>=end){current=end;clearInterval(timer)}if(element.id.includes('Donation')||element.id.includes('Savings')||element.id.includes('Progress')){element.textContent='$'+Math.floor(current).toLocaleString()}else if(element.id.includes('Rate')){element.textContent=Math.floor(current)+'%'}else{element.textContent=Math.floor(current).toLocaleString()}},16)}
+function updateBadgeCount(badgeId,change){const badge=document.getElementById(badgeId);if(badge){const currentCount=parseInt(badge.textContent)||0;const newCount=Math.max(0,currentCount+change);badge.textContent=newCount.toString()}}
+document.addEventListener('DOMContentLoaded',function(){const savedTheme=localStorage.getItem('meaux-theme')||'dark';setTheme(savedTheme);checkAuth();document.querySelectorAll('#meaux-dashboard .nav-item').forEach(link=>{link.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();const sectionId=this.getAttribute('data-section');if(sectionId){showSection(sectionId)}if(window.innerWidth<=768){closeSidebar()}return false},true)});const sidebarToggle=document.getElementById('sidebarToggle');if(sidebarToggle){sidebarToggle.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();toggleSidebar()})}const sidebarOverlay=document.getElementById('sidebarOverlay');if(sidebarOverlay){sidebarOverlay.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();closeSidebar()})}document.getElementById('toolGuideModal').addEventListener('click',function(e){if(e.target===this){closeModal('toolGuideModal')}});document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeModal('toolGuideModal')}});['click','keypress','scroll','mousemove'].forEach(event=>{document.addEventListener(event,startSessionTimer,true)});setInterval(()=>{slideCarousel(1)},8000);console.log('🚀 Meauxbility Ready! hey@meauxbility.com | 337-450-9998')});
+</script>
+</body>
+</html>
