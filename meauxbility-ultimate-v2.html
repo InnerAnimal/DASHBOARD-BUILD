@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meauxbility Ultimate Automation Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+<link rel="stylesheet" href="meauxbility-ultimate-styles.css">
+</head>
+<body>
+<div id="meaux-dashboard" data-theme="dark">
+<div class="login-screen" id="loginScreen">
+<!-- Epic Single 3D Model -->
+<div class="login-3d-model">
+<model-viewer src="https://cdn.shopify.com/3d/models/4b0a47ca8a38b77c/Kinetic_Symmetry_0831084700_generate.glb" 
+              alt="Kinetic Symmetry 3D Model" 
+              auto-rotate 
+              rotation-per-second="15deg"
+              camera-controls 
+              disable-zoom
+              disable-pan
+              poster=""
+              environment-image="neutral"
+              style="width:100%;height:100%;pointer-events:none">
+</model-viewer>
+</div>
+
+<!-- Advanced Theme Toggle -->
+<div class="theme-toggle">
+<button class="theme-btn active" id="darkBtn" onclick="setTheme('dark')" title="Dark Mode">🌙</button>
+<button class="theme-btn" id="lightBtn" onclick="setTheme('light')" title="Light Mode">☀️</button>
+<button class="theme-btn" id="focusBtn" onclick="setTheme('focus')" title="Focus Mode">🎯</button>
+</div>
+
+<div class="login-card">
+<h1 class="login-title">Meauxbility Dashboard</h1>
+<p class="login-subtitle">Ultimate Nonprofit Automation Hub</p>
+<form class="login-form" id="loginForm">
+<input type="password" class="form-input" id="password" placeholder="Enter password" required>
+<button type="submit" class="mbx-btn mbx-btn-primary">
+<span>Access Dashboard</span>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px">
+<path d="M5 12h14M12 5l7 7-7 7"/>
+</svg>
+</button>
+</form>
+<div class="error-message" id="loginError" style="display:none">Invalid password. Please try again.</div>
+</div>
+</div>
+
+<div class="dashboard" id="dashboard">
+<nav class="sidebar" id="sidebar">
+<div class="sidebar-header">
+<span class="sidebar-title">Meauxbility</span>
+<button class="sidebar-collapse-btn" onclick="toggleSidebar()" title="Collapse Sidebar">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px">
+<path d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+</svg>
+</button>
+</div>
+<div class="sidebar-nav">
+<div class="nav-item active" data-section="overview">
+<div class="nav-icon">📊</div>
+<span class="nav-text">Overview</span>
+<div class="nav-badge" id="overviewBadge">4</div>
+</div>
+<div class="nav-item" data-section="automation">
+<div class="nav-icon">🤖</div>
+<span class="nav-text">AI Automation</span>
+<div class="nav-badge" id="automationBadge">3</div>
+</div>
+<div class="nav-item" data-section="tools">
+<div class="nav-icon">🛠️</div>
+<span class="nav-text">AI Tools</span>
+<div class="nav-badge">5</div>
+</div>
+<div class="nav-item" data-section="donations">
+<div class="nav-icon">💰</div>
+<span class="nav-text">Donations</span>
+<div class="nav-badge" id="donationsBadge">2</div>
+</div>
+<div class="nav-item" data-section="applications">
+<div class="nav-icon">📋</div>
+<span class="nav-text">Applications</span>
+<div class="nav-badge" id="applicationsBadge">1</div>
+</div>
+<div class="nav-item" data-section="volunteers">
+<div class="nav-icon">👥</div>
+<span class="nav-text">Volunteers</span>
+<div class="nav-badge">3</div>
+</div>
+<div class="nav-item" data-section="emails">
+<div class="nav-icon">📧</div>
+<span class="nav-text">Emails</span>
+<div class="nav-badge">12</div>
+</div>
+<div class="nav-item" data-section="integrations">
+<div class="nav-icon">🔗</div>
+<span class="nav-text">Integrations</span>
+<div class="nav-badge" id="integrationsBadge">15</div>
+</div>
+<div class="nav-item" data-section="tasks">
+<div class="nav-icon">✅</div>
+<span class="nav-text">Volunteer Tasks</span>
+<div class="nav-badge" id="tasksBadge">7</div>
+</div>
+<div class="nav-item" data-section="performance">
+<div class="nav-icon">📈</div>
+<span class="nav-text">Performance</span>
+<div class="nav-badge">Live</div>
+</div>
+</div>
+</nav>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<button class="sidebar-toggle" id="sidebarToggle">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px">
+<path d="M3 12h18m-9-9l9 9-9 9"/>
+</svg>
+</button>
+
+<main class="main-content">
+<header class="dashboard-header" id="dashboardHeader">
+<div class="header-left">
+<h1 class="header-title" id="headerTitle">Meauxbility Overview</h1>
+<div class="header-subtitle" id="headerSubtitle">Ultimate nonprofit automation hub</div>
+</div>
+<div class="header-right">
+<div class="header-stats">
+<div class="header-stat">
+<span class="header-stat-value" id="headerDonations">$35,280</span>
+<span class="header-stat-label">Raised</span>
+</div>
+<div class="header-stat">
+<span class="header-stat-value" id="headerTasks">156</span>
+<span class="header-stat-label">AI Tasks</span>
+</div>
+</div>
+<select class="filter-select">
+<option>Last 30 days</option>
+<option>Last 90 days</option>
+<option>All time</option>
+</select>
+</div>
+</header>
+
+<div class="container">
+<div class="page-section active" id="overview">
+<div class="stats-grid">
+<div class="stat-card primary">
+<div class="stat-header">
+<div class="stat-icon">💰</div>
+<div class="stat-change positive">+12%</div>
+</div>
+<div class="stat-value" id="totalDonations">$0</div>
+<div class="stat-label">Total Donations</div>
+<div class="stat-detail">DonMichael: $7,500 / $10,000</div>
+<div class="progress-bar">
+<div class="progress-fill" style="width:75%"></div>
+</div>
+</div>
+<div class="stat-card secondary">
+<div class="stat-header">
+<div class="stat-icon">🤖</div>
+<div class="stat-change positive">+25%</div>
+</div>
+<div class="stat-value" id="aiTasks">0</div>
+<div class="stat-label">AI Tasks Processed</div>
+<div class="stat-detail">Success Rate: 95.6%</div>
+</div>
+<div class="stat-card success">
+<div class="stat-header">
+<div class="stat-icon">💵</div>
+<div class="stat-change positive">-60%</div>
+</div>
+<div class="stat-value" id="costSavings">$0</div>
+<div class="stat-label">Cost Savings</div>
+<div class="stat-detail">API Budget: $23/month</div>
+</div>
+<div class="stat-card warning">
+<div class="stat-header">
+<div class="stat-icon">⏱️</div>
+<div class="stat-change positive">+89%</div>
+</div>
+<div class="stat-value" id="timeSaved">0</div>
+<div class="stat-label">Hours Saved</div>
+<div class="stat-detail">Volunteer efficiency boost</div>
+</div>
+</div>
+
+<div class="content-grid">
+<div class="card">
+<div class="card-header">
+<div class="card-icon">📊</div>
+<h2 class="card-title">Recent Activity</h2>
+<button class="card-action-btn" onclick="showSection('automation')">View All</button>
+</div>
+<div class="activity-list">
+<div class="activity-item">
+<div class="activity-icon">🤖</div>
+<div class="activity-content">
+<div class="activity-title">AI Email Generated</div>
+<div class="activity-desc">Thank you email for John Smith ($50 donation)</div>
+<div class="activity-time">2 minutes ago</div>
+</div>
+<div class="activity-status">
+<span class="status-badge pending">Pending Review</span>
+</div>
+</div>
+<div class="activity-item">
+<div class="activity-icon">💰</div>
+<div class="activity-content">
+<div class="activity-title">Donation Received</div>
+<div class="activity-desc">$50 monthly donation processed</div>
+<div class="activity-time">5 minutes ago</div>
+</div>
+<div class="activity-status">
+<span class="status-badge success">Completed</span>
+</div>
+</div>
+<div class="activity-item">
+<div class="activity-icon">📋</div>
+<div class="activity-content">
+<div class="activity-title">Application Submitted</div>
+<div class="activity-desc">Sarah Johnson - Equipment grant request</div>
+<div class="activity-time">1 hour ago</div>
+</div>
+<div class="activity-status">
+<span class="status-badge warning">Under Review</span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header">
+<div class="card-icon">🚀</div>
+<h2 class="card-title">Quick Actions</h2>
+</div>
+<div class="quick-actions-grid">
+<button class="quick-action-card" onclick="showSection('automation')">
+<div class="quick-action-icon">🤖</div>
+<div class="quick-action-title">Review AI Content</div>
+<div class="quick-action-desc">3 emails pending approval</div>
+</button>
+<button class="quick-action-card" onclick="showSection('tools')">
+<div class="quick-action-icon">🛠️</div>
+<div class="quick-action-title">AI Tool Guides</div>
+<div class="quick-action-desc">Master 5 AI tools</div>
+</button>
+<button class="quick-action-card" onclick="showSection('tasks')">
+<div class="quick-action-icon">✅</div>
+<div class="quick-action-title">Volunteer Tasks</div>
+<div class="quick-action-desc">7 tasks available</div>
+</button>
+<button class="quick-action-card" onclick="showSection('integrations')">
+<div class="quick-action-icon">🔗</div>
+<div class="quick-action-title">API Settings</div>
+<div class="quick-action-desc">15 integrations ready</div>
+</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="page-section" id="automation">
+<div class="stats-grid">
+<div class="stat-card primary">
+<div class="stat-header">
+<div class="stat-icon">🤖</div>
+<div class="stat-change positive">+25%</div>
+</div>
+<div class="stat-value" id="aiGenerated">0</div>
+<div class="stat-label">AI Emails Generated</div>
+<div class="stat-detail">This month</div>
+</div>
+<div class="stat-card success">
+<div class="stat-header">
+<div class="stat-icon">✅</div>
+<div class="stat-change positive">95%</div>
+</div>
+<div class="stat-value" id="successRate">0</div>
+<div class="stat-label">Success Rate</div>
+<div class="stat-detail">Approval efficiency</div>
+</div>
+<div class="stat-card secondary">
+<div class="stat-header">
+<div class="stat-icon">📈</div>
+<div class="stat-change positive">+18%</div>
+</div>
+<div class="stat-value" id="aiApproved">0</div>
+<div class="stat-label">Approved & Sent</div>
+<div class="stat-detail">Auto-delivered</div>
+</div>
+<div class="stat-card warning">
+<div class="stat-header">
+<div class="stat-icon">💰</div>
+<div class="stat-change neutral">$23</div>
+</div>
+<div class="stat-value" id="apiCosts">$0</div>
+<div class="stat-label">Monthly API Costs</div>
+<div class="stat-detail">Budget: $50</div>
+</div>
+</div>
+
+<div class="content-grid">
+<div class="card">
+<div class="card-header">
+<div class="card-icon">🤖</div>
+<h2 class="card-title">AI Content Review Queue</h2>
+<div class="card-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="bulkApprove()">Bulk Approve</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="generateNew()">Generate New</button>
+</div>
+</div>
+<div class="ai-queue">
+<div class="ai-item priority">
+<div class="ai-content">
+<div class="ai-type">Donation Thank You</div>
+<div class="ai-preview">Dear John, Thank you for your generous $50 donation to Meauxbility. Your support embodies our mission: Authority over sympathy, access over obstacles...</div>
+<div class="ai-meta">Generated 2 min ago • OpenAI GPT-4 • Donor: John Smith</div>
+</div>
+<div class="ai-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="approveAI('ai-1')">
+<span>Approve</span>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px">
+<path d="M20 6L9 17l-5-5"/>
+</svg>
+</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="editAI('ai-1')">
+<span>Edit</span>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px">
+<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+</svg>
+</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-teal" onclick="regenerateAI('ai-1')">
+<span>Regenerate</span>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px">
+<path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+</svg>
+</button>
+</div>
+</div>
+<div class="ai-item">
+<div class="ai-content">
+<div class="ai-type">Welcome Email</div>
+<div class="ai-preview">Welcome to Meauxbility! You just joined a revolution. More Options. More Access. More Life starts now...</div>
+<div class="ai-meta">Generated 5 min ago • OpenAI GPT-4 • Subscriber: New signup</div>
+</div>
+<div class="ai-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="approveAI('ai-2')">Approve</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="editAI('ai-2')">Edit</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-teal" onclick="regenerateAI('ai-2')">Regenerate</button>
+</div>
+</div>
+<div class="ai-item">
+<div class="ai-content">
+<div class="ai-type">Application Response</div>
+<div class="ai-preview">Hi Sarah, We've received your application for equipment assistance. Our team is reviewing your request...</div>
+<div class="ai-meta">Generated 10 min ago • OpenAI GPT-4 • Applicant: Sarah Johnson</div>
+</div>
+<div class="ai-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="approveAI('ai-3')">Approve</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="editAI('ai-3')">Edit</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-teal" onclick="regenerateAI('ai-3')">Regenerate</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header">
+<div class="card-icon">⚙️</div>
+<h2 class="card-title">Automation Settings</h2>
+</div>
+<div class="automation-settings">
+<div class="setting-item">
+<div class="setting-info">
+<div class="setting-title">Auto-approve donations under $100</div>
+<div class="setting-desc">Automatically approve and send thank you emails</div>
+</div>
+<label class="toggle-switch">
+<input type="checkbox" checked onchange="updateSetting('auto-approve', this.checked)">
+<span class="toggle-slider"></span>
+</label>
+</div>
+<div class="setting-item">
+<div class="setting-info">
+<div class="setting-title">AI content generation</div>
+<div class="setting-desc">Generate personalized emails for all interactions</div>
+</div>
+<label class="toggle-switch">
+<input type="checkbox" checked onchange="updateSetting('ai-generation', this.checked)">
+<span class="toggle-slider"></span>
+</label>
+</div>
+<div class="setting-item">
+<div class="setting-info">
+<div class="setting-title">Real-time notifications</div>
+<div class="setting-desc">Slack alerts for donations and applications</div>
+</div>
+<label class="toggle-switch">
+<input type="checkbox" onchange="updateSetting('notifications', this.checked)">
+<span class="toggle-slider"></span>
+</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="page-section" id="tools">
+<div class="card">
+<div class="card-header">
+<div class="card-icon">🛠️</div>
+<h2 class="card-title">AI Tools Mastery Center</h2>
+<div class="card-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="downloadAllGuides()">Download All Guides</button>
+</div>
+</div>
+<div class="tools-carousel enhanced">
+<div class="carousel-container" id="toolsCarousel">
+<div class="tool-card featured" onclick="showToolGuide('cursor')">
+<div class="tool-badge">Most Used</div>
+<div class="tool-icon">🖱️</div>
+<div class="tool-name">Cursor AI</div>
+<div class="tool-desc">Code with AI assistance - Press Cmd+L to start</div>
+<div class="tool-stats">
+<span>Used 45 times this month</span>
+</div>
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary">
+<span>Master Cursor</span>
+</button>
+</div>
+<div class="tool-card" onclick="showToolGuide('chatgpt')">
+<div class="tool-icon">💬</div>
+<div class="tool-name">ChatGPT</div>
+<div class="tool-desc">Generate content with Meauxbility brand voice</div>
+<div class="tool-stats">
+<span>Used 32 times this month</span>
+</div>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary">
+<span>Master ChatGPT</span>
+</button>
+</div>
+<div class="tool-card" onclick="showToolGuide('claude')">
+<div class="tool-icon">🧠</div>
+<div class="tool-name">Claude AI</div>
+<div class="tool-desc">Analyze applications and provide recommendations</div>
+<div class="tool-stats">
+<span>Used 28 times this month</span>
+</div>
+<button class="mbx-btn mbx-btn-sm mbx-btn-teal">
+<span>Use Claude</span>
+</button>
+</div>
+<div class="tool-card" onclick="showToolGuide('canva')">
+<div class="tool-icon">🎨</div>
+<div class="tool-name">Canva Pro</div>
+<div class="tool-desc">Create graphics with Meauxbility brand colors</div>
+<div class="tool-stats">
+<span>Used 19 times this month</span>
+</div>
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary">
+<span>Design Now</span>
+</button>
+</div>
+<div class="tool-card" onclick="showToolGuide('meshy')">
+<div class="tool-icon">🧊</div>
+<div class="tool-name">Meshy 3D</div>
+<div class="tool-desc">Generate 3D assets for presentations</div>
+<div class="tool-stats">
+<span>Used 8 times this month</span>
+</div>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary">
+<span>Create 3D</span>
+</button>
+</div>
+</div>
+<div class="carousel-nav">
+<button class="carousel-btn" onclick="slideCarousel(-1)" title="Previous">‹</button>
+<div class="carousel-dots">
+<span class="dot active" onclick="goToSlide(0)"></span>
+<span class="dot" onclick="goToSlide(1)"></span>
+<span class="dot" onclick="goToSlide(2)"></span>
+<span class="dot" onclick="goToSlide(3)"></span>
+<span class="dot" onclick="goToSlide(4)"></span>
+</div>
+<button class="carousel-btn" onclick="slideCarousel(1)" title="Next">›</button>
+</div>
+</div>
+</div>
+
+<div class="page-section" id="tasks">
+<div class="card">
+<div class="card-header">
+<div class="card-icon">✅</div>
+<h2 class="card-title">Volunteer Task Board</h2>
+<div class="card-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="createTask()">Create Task</button>
+</div>
+</div>
+<div class="task-board">
+<div class="task-column">
+<h3 class="task-column-title">Available Tasks</h3>
+<div class="task-item" onclick="claimTask('task-1')">
+<div class="task-header">
+<div class="task-type">Content Review</div>
+<div class="task-priority high">High</div>
+</div>
+<div class="task-title">Review AI-generated thank you email</div>
+<div class="task-desc">Donor: John Smith ($50) - Needs approval</div>
+<div class="task-meta">Est. 5 minutes • Assigned to: Anyone</div>
+</div>
+<div class="task-item" onclick="claimTask('task-2')">
+<div class="task-header">
+<div class="task-type">Application Review</div>
+<div class="task-priority medium">Medium</div>
+</div>
+<div class="task-title">Analyze grant application</div>
+<div class="task-desc">Sarah Johnson - $1,800 therapy equipment</div>
+<div class="task-meta">Est. 15 minutes • Assigned to: Anyone</div>
+</div>
+</div>
+<div class="task-column">
+<h3 class="task-column-title">In Progress</h3>
+<div class="task-item assigned">
+<div class="task-header">
+<div class="task-type">Social Media</div>
+<div class="task-priority low">Low</div>
+</div>
+<div class="task-title">Create DonMichael campaign post</div>
+<div class="task-desc">Design social media graphic for fundraising</div>
+<div class="task-meta">Est. 20 minutes • Assigned to: Mike Wilson</div>
+</div>
+</div>
+<div class="task-column">
+<h3 class="task-column-title">Completed</h3>
+<div class="task-item completed">
+<div class="task-header">
+<div class="task-type">Email</div>
+<div class="task-priority high">High</div>
+</div>
+<div class="task-title">Welcome email sequence</div>
+<div class="task-desc">New subscriber onboarding completed</div>
+<div class="task-meta">Completed by: Lisa Brown • 2 hours ago</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="page-section" id="performance">
+<div class="stats-grid">
+<div class="stat-card primary">
+<div class="stat-header">
+<div class="stat-icon">📈</div>
+<div class="stat-change positive">+15%</div>
+</div>
+<div class="stat-value">4.8</div>
+<div class="stat-label">Performance Score</div>
+<div class="stat-detail">Out of 5.0</div>
+</div>
+<div class="stat-card success">
+<div class="stat-header">
+<div class="stat-icon">⚡</div>
+<div class="stat-change positive">2.3s</div>
+</div>
+<div class="stat-value">98%</div>
+<div class="stat-label">Uptime</div>
+<div class="stat-detail">This month</div>
+</div>
+<div class="stat-card secondary">
+<div class="stat-header">
+<div class="stat-icon">🎯</div>
+<div class="stat-change positive">+22%</div>
+</div>
+<div class="stat-value">87%</div>
+<div class="stat-label">Goal Progress</div>
+<div class="stat-detail">2024 targets</div>
+</div>
+<div class="stat-card warning">
+<div class="stat-header">
+<div class="stat-icon">💡</div>
+<div class="stat-change neutral">3</div>
+</div>
+<div class="stat-value">12</div>
+<div class="stat-label">Optimizations</div>
+<div class="stat-detail">Available</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header">
+<div class="card-icon">📊</div>
+<h2 class="card-title">Real-Time KPI Dashboard</h2>
+</div>
+<div class="kpi-grid">
+<div class="kpi-item">
+<div class="kpi-label">Donation Conversion</div>
+<div class="kpi-value">3.2%</div>
+<div class="kpi-trend up">+0.8%</div>
+</div>
+<div class="kpi-item">
+<div class="kpi-label">Email Open Rate</div>
+<div class="kpi-value">28.7%</div>
+<div class="kpi-trend up">+2.1%</div>
+</div>
+<div class="kpi-item">
+<div class="kpi-label">Application Approval</div>
+<div class="kpi-value">67%</div>
+<div class="kpi-trend down">-5%</div>
+</div>
+<div class="kpi-item">
+<div class="kpi-label">Volunteer Efficiency</div>
+<div class="kpi-value">89%</div>
+<div class="kpi-trend up">+12%</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Comprehensive Integration Hub -->
+<div class="page-section" id="integrations">
+<div class="integration-grid">
+<!-- Core Payment Systems -->
+<div class="integration-category">
+<h3 class="category-title">💰 Payment Systems</h3>
+<div class="api-setting priority">
+<div class="api-header">
+<div class="api-title">🔑 Stripe Payment Processing</div>
+<span class="status-badge connected" id="stripeStatus">Connected</span>
+</div>
+<div class="api-desc">Primary donation processing • hey@meauxbility.com | 337-450-9998</div>
+<div class="api-stats">
+<span>$35,280 processed this month</span>
+<span>•</span>
+<span>156 transactions</span>
+</div>
+<div class="api-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="openModal('stripeModal')">Configure</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="testConnection('stripe')">Test</button>
+</div>
+</div>
+
+<div class="api-setting">
+<div class="api-header">
+<div class="api-title">💰 PayPal Integration</div>
+<span class="status-badge disconnected" id="paypalStatus">Setup Needed</span>
+</div>
+<div class="api-desc">Alternative payment method for donors</div>
+<div class="api-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="setupPayPal()">Setup PayPal</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="testConnection('paypal')">Test</button>
+</div>
+</div>
+</div>
+
+<!-- AI & Automation -->
+<div class="integration-category">
+<h3 class="category-title">🤖 AI & Automation</h3>
+<div class="api-setting priority">
+<div class="api-header">
+<div class="api-title">🗄️ Supabase Database</div>
+<span class="status-badge connected" id="supabaseStatus">Connected</span>
+</div>
+<div class="api-desc">AUTOMEAUXXX pipeline • ajhltmrehtytpzbdhepa.supabase.co</div>
+<div class="api-stats">
+<span>156 AI tasks processed</span>
+<span>•</span>
+<span>95% success rate</span>
+</div>
+<div class="api-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="openModal('supabaseModal')">Configure</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="testConnection('supabase')">Test</button>
+</div>
+</div>
+
+<div class="api-setting">
+<div class="api-header">
+<div class="api-title">🤖 OpenAI Content Generation</div>
+<span class="status-badge disconnected" id="openaiStatus">Setup Needed</span>
+</div>
+<div class="api-desc">AI email generation • $20/month budget</div>
+<div class="api-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="setupOpenAI()">Setup OpenAI</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="testConnection('openai')">Test</button>
+</div>
+</div>
+</div>
+
+<!-- Communication -->
+<div class="integration-category">
+<h3 class="category-title">📧 Communication</h3>
+<div class="api-setting">
+<div class="api-header">
+<div class="api-title">📧 Gmail API</div>
+<span class="status-badge disconnected" id="gmailStatus">Setup Needed</span>
+</div>
+<div class="api-desc">Automated emails from hey@meauxbility.com</div>
+<div class="api-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="setupGmail()">Setup Gmail</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="testConnection('gmail')">Test</button>
+</div>
+</div>
+
+<div class="api-setting">
+<div class="api-header">
+<div class="api-title">📬 Newsletter Automation</div>
+<span class="status-badge disconnected" id="newsletterStatus">Setup Needed</span>
+</div>
+<div class="api-desc">Mailchimp/ConvertKit integration</div>
+<div class="api-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="setupNewsletter()">Setup Newsletter</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="testConnection('newsletter')">Test</button>
+</div>
+</div>
+</div>
+
+<!-- Analytics & Social -->
+<div class="integration-category">
+<h3 class="category-title">📊 Analytics & Social</h3>
+<div class="api-setting">
+<div class="api-header">
+<div class="api-title">📊 Google Analytics</div>
+<span class="status-badge disconnected" id="analyticsStatus">Setup Needed</span>
+</div>
+<div class="api-desc">Track website performance and conversions</div>
+<div class="api-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="setupAnalytics()">Setup Analytics</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="testConnection('analytics')">Test</button>
+</div>
+</div>
+
+<div class="api-setting">
+<div class="api-header">
+<div class="api-title">📱 Social Media APIs</div>
+<span class="status-badge disconnected" id="socialStatus">Setup Needed</span>
+</div>
+<div class="api-desc">Facebook, Instagram, Twitter automation</div>
+<div class="api-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="setupSocial()">Setup Social</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="testConnection('social')">Test</button>
+</div>
+</div>
+</div>
+
+<!-- Team & Coordination -->
+<div class="integration-category">
+<h3 class="category-title">👥 Team & Coordination</h3>
+<div class="api-setting">
+<div class="api-header">
+<div class="api-title">🔔 Team Notifications</div>
+<span class="status-badge disconnected" id="notificationsStatus">Setup Needed</span>
+</div>
+<div class="api-desc">Slack/Discord real-time alerts</div>
+<div class="api-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="setupNotifications()">Setup Notifications</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="testConnection('notifications')">Test</button>
+</div>
+</div>
+
+<div class="api-setting">
+<div class="api-header">
+<div class="api-title">🎥 Meeting Integration</div>
+<span class="status-badge disconnected" id="meetingStatus">Setup Needed</span>
+</div>
+<div class="api-desc">Zoom/Calendar for donor meetings</div>
+<div class="api-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="setupMeetings()">Setup Meetings</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="testConnection('meetings')">Test</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Continue with other sections... -->
+<div class="page-section" id="donations">
+<div class="stats-grid">
+<div class="stat-card primary">
+<div class="stat-header">
+<div class="stat-icon">💰</div>
+<div class="stat-change positive">+12%</div>
+</div>
+<div class="stat-value" id="donationsTotal">$0</div>
+<div class="stat-label">Total Raised</div>
+<div class="stat-detail">Goal: $50,000</div>
+<div class="progress-bar">
+<div class="progress-fill" style="width:70%"></div>
+</div>
+</div>
+<div class="stat-card success">
+<div class="stat-header">
+<div class="stat-icon">🎯</div>
+<div class="stat-change positive">75%</div>
+</div>
+<div class="stat-value" id="donMichaelProgress">$0</div>
+<div class="stat-label">DonMichael Campaign</div>
+<div class="stat-detail">Goal: $10,000</div>
+<div class="progress-bar">
+<div class="progress-fill" style="width:75%"></div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header">
+<div class="card-icon">📋</div>
+<h2 class="card-title">Recent Donations</h2>
+<div class="card-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="exportDonations()">Export CSV</button>
+</div>
+</div>
+<div class="enhanced-table-container">
+<table class="enhanced-table">
+<thead>
+<tr>
+<th>Donor</th>
+<th>Amount</th>
+<th>Campaign</th>
+<th>Date</th>
+<th>Status</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody id="donationsTable">
+<tr><td>Loading donations...</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<!-- Enhanced Modal System -->
+<div class="modal" id="toolGuideModal">
+<div class="modal-content enhanced">
+<div class="modal-header">
+<h2 class="modal-title" id="toolGuideTitle">AI Tool Guide</h2>
+<button class="modal-close" onclick="closeModal('toolGuideModal')">&times;</button>
+</div>
+<div class="modal-body" id="toolGuideContent">Loading...</div>
+</div>
+</div>
+
+<!-- Debug Agent -->
+<div id="meaux-debug-agent">
+<div id="meaux-debug-header">
+<div id="meaux-debug-title">
+<span id="debugIcon">🔧</span>
+<span>Debug Agent</span>
+</div>
+<button id="meaux-debug-close" onclick="closeDebugAgent()">&times;</button>
+</div>
+<div id="meaux-debug-body">
+<div id="debugMessages"></div>
+</div>
+</div>
+
+<!-- Performance Monitor -->
+<div id="performance-monitor">
+<div class="perf-item">
+<span class="perf-label">CPU</span>
+<div class="perf-bar">
+<div class="perf-fill" id="cpuUsage" style="width:25%"></div>
+</div>
+<span class="perf-value">25%</span>
+</div>
+<div class="perf-item">
+<span class="perf-label">Memory</span>
+<div class="perf-bar">
+<div class="perf-fill" id="memoryUsage" style="width:45%"></div>
+</div>
+<span class="perf-value">45%</span>
+</div>
+</div>
+</div>
+
+<script src="meauxbility-ultimate-scripts.js"></script>
+</body>
+</html>
