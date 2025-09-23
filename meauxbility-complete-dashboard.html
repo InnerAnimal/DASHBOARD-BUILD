@@ -12,12 +12,24 @@
 #meaux-dashboard .login-screen{position:fixed;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,var(--meaux-deep) 0%,var(--meaux-dark) 30%,var(--meaux-teal-steel) 100%);display:flex;align-items:center;justify-content:center;z-index:10000;transition:opacity 0.3s ease,visibility 0.3s ease}
 #meaux-dashboard .login-screen.hidden{opacity:0;visibility:hidden}
 #meaux-dashboard .login-card{background:var(--meaux-glass);border:2px solid var(--meaux-border);border-radius:16px;backdrop-filter:blur(25px);box-shadow:var(--meaux-shadow-lg);width:100%;max-width:400px;text-align:center;padding:3rem;position:relative;overflow:visible;z-index:10001}
-#meaux-dashboard .login-3d-model{position:absolute;top:10%;left:10%;width:200px;height:200px;z-index:1;pointer-events:none;animation:complexFloat 20s ease-in-out infinite;filter:drop-shadow(0 0 20px rgba(58,139,152,0.4));opacity:0.4}
+#meaux-dashboard .login-3d-model{position:absolute;top:50%;left:50%;width:300px;height:300px;transform:translate(-50%,-50%);z-index:1;pointer-events:none;animation:epicFloat 25s ease-in-out infinite;filter:drop-shadow(0 0 30px rgba(58,139,152,0.6));opacity:0.4}
 #meaux-dashboard .login-3d-model model-viewer{width:100%;height:100%;--poster-color:transparent}
-#meaux-dashboard .login-3d-model-2{position:absolute;bottom:15%;right:15%;width:150px;height:150px;z-index:1;pointer-events:none;animation:complexFloat2 25s ease-in-out infinite reverse;filter:drop-shadow(0 0 15px rgba(255,118,25,0.3));opacity:0.3}
-#meaux-dashboard .login-3d-model-2 model-viewer{width:100%;height:100%;--poster-color:transparent}
-#meaux-dashboard .login-3d-model-3{position:absolute;top:60%;left:5%;width:120px;height:120px;z-index:1;pointer-events:none;animation:complexFloat3 30s ease-in-out infinite;filter:drop-shadow(0 0 10px rgba(33,196,140,0.3));opacity:0.25}
-#meaux-dashboard .login-3d-model-3 model-viewer{width:100%;height:100%;--poster-color:transparent}
+#meaux-dashboard[data-theme="light"] .login-3d-model{filter:drop-shadow(0 0 30px rgba(255,118,25,0.6))}
+#meaux-dashboard .theme-toggle{position:fixed;top:2rem;right:2rem;z-index:10002;background:var(--meaux-glass);border:2px solid var(--meaux-border);border-radius:50px;padding:0.5rem;backdrop-filter:blur(20px);display:flex;align-items:center;gap:0.5rem}
+#meaux-dashboard .theme-btn{width:40px;height:40px;border:none;border-radius:50%;cursor:pointer;transition:all 0.3s ease;display:flex;align-items:center;justify-content:center;font-size:1.25rem}
+#meaux-dashboard .theme-btn.active{background:var(--meaux-orange);color:var(--meaux-surface);box-shadow:var(--meaux-shadow-glow)}
+#meaux-dashboard .theme-btn:not(.active){background:transparent;color:var(--meaux-surface);opacity:0.6}
+#meaux-dashboard .theme-btn:hover{opacity:1;transform:scale(1.1)}
+#meaux-dashboard[data-theme="light"]{--meaux-glass:rgba(0,0,0,0.05);--meaux-border:rgba(0,0,0,0.1);--meaux-surface:#0C2D31;background:linear-gradient(135deg,#ffffff 0%,#f8fafb 100%) !important}
+#meaux-dashboard[data-theme="light"] .login-screen{background:linear-gradient(135deg,#ffffff 0%,#f8fafb 30%,#e5f7fa 100%)}
+#meaux-dashboard[data-theme="light"] .login-card{background:rgba(255,255,255,0.9);border-color:rgba(0,0,0,0.1)}
+#meaux-dashboard[data-theme="light"] .sidebar{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.1)}
+#meaux-dashboard[data-theme="light"] .dashboard-header{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.1)}
+#meaux-dashboard[data-theme="light"] .card{background:rgba(255,255,255,0.9);border-color:rgba(0,0,0,0.1)}
+#meaux-dashboard[data-theme="light"] .stat-card{background:rgba(255,255,255,0.9);border-color:rgba(0,0,0,0.1)}
+#meaux-dashboard[data-theme="light"] .table th{background:rgba(248,250,251,0.9);color:var(--meaux-teal-steel)}
+#meaux-dashboard[data-theme="light"] .form-input{background:rgba(248,250,251,0.8);border-color:rgba(0,0,0,0.2);color:var(--meaux-surface)}
+#meaux-dashboard[data-theme="light"] .api-setting{background:rgba(255,255,255,0.9);border-color:rgba(0,0,0,0.1)}
 #meaux-dashboard .login-title{font-size:2rem;font-weight:800;background:linear-gradient(135deg,var(--meaux-shine),var(--meaux-light-teal));-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:0.5rem;position:relative;z-index:2}
 #meaux-dashboard .login-subtitle{color:var(--meaux-surface);margin-bottom:2rem;position:relative;z-index:2;opacity:0.9}
 #meaux-dashboard .form-input{width:100%;padding:1rem 1.25rem;background:rgba(10,36,39,.6);border:2px solid var(--meaux-border);border-radius:14px;color:var(--meaux-surface);font-size:1rem;transition:all 0.3s ease}
@@ -114,9 +126,7 @@
 #meaux-dashboard .step-number{width:2rem;height:2rem;background:var(--meaux-orange);color:var(--meaux-surface);border-radius:50%;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 #meaux-dashboard .code-block{background:rgba(5,27,30,0.8);border:1px solid var(--meaux-border);border-radius:14px;padding:1rem;margin:1rem 0;font-family:Monaco,monospace;font-size:0.875rem;overflow-x:auto;color:var(--meaux-light-teal)}
 @keyframes complexRotation{0%{transform:rotateY(0deg) rotateX(0deg) rotateZ(0deg)}100%{transform:rotateY(360deg) rotateX(360deg) rotateZ(360deg)}}
-@keyframes complexFloat{0%{transform:translate(0,0) scale(1)}25%{transform:translate(calc(80vw - 200px),20vh) scale(1.1)}50%{transform:translate(calc(70vw - 200px),calc(70vh - 200px)) scale(0.9)}75%{transform:translate(10vw,calc(60vh - 200px)) scale(1.05)}100%{transform:translate(0,0) scale(1)}}
-@keyframes complexFloat2{0%{transform:translate(0,0) scale(1)}25%{transform:translate(-60vw,30vh) scale(0.8)}50%{transform:translate(-50vw,-40vh) scale(1.2)}75%{transform:translate(-20vw,-20vh) scale(0.95)}100%{transform:translate(0,0) scale(1)}}
-@keyframes complexFloat3{0%{transform:translate(0,0) scale(1)}33%{transform:translate(70vw,-30vh) scale(1.1)}66%{transform:translate(40vw,20vh) scale(0.85)}100%{transform:translate(0,0) scale(1)}}
+@keyframes epicFloat{0%{transform:translate(-50%,-50%) scale(1)}20%{transform:translate(calc(-50% + 40vw),calc(-50% + 20vh)) scale(1.2)}40%{transform:translate(calc(-50% + 30vw),calc(-50% - 30vh)) scale(0.8)}60%{transform:translate(calc(-50% - 35vw),calc(-50% - 20vh)) scale(1.1)}80%{transform:translate(calc(-50% - 25vw),calc(-50% + 25vh)) scale(0.9)}100%{transform:translate(-50%,-50%) scale(1)}}
 @media (max-width:1024px){
 #meaux-dashboard .sidebar{width:80px}
 #meaux-dashboard .sidebar .sidebar-title,#meaux-dashboard .sidebar .nav-text{opacity:0}
@@ -142,9 +152,9 @@
 #meaux-dashboard .modal-header,#meaux-dashboard .modal-body{padding:1.5rem}
 #meaux-dashboard .mbx-btn{padding:12px 20px;font-size:14px}
 #meaux-dashboard .tool-card{min-width:180px;padding:1rem}
-#meaux-dashboard .login-3d-model{width:120px;height:120px;opacity:0.3}
-#meaux-dashboard .login-3d-model-2{width:100px;height:100px;opacity:0.2}
-#meaux-dashboard .login-3d-model-3{width:80px;height:80px;opacity:0.15}
+#meaux-dashboard .login-3d-model{width:200px;height:200px;opacity:0.3}
+#meaux-dashboard .theme-toggle{top:1rem;right:1rem;padding:0.25rem}
+#meaux-dashboard .theme-btn{width:32px;height:32px;font-size:1rem}
 }
 @media (prefers-reduced-motion:reduce){
 #meaux-dashboard *{animation:none !important;transition:none !important}
@@ -155,42 +165,25 @@
 <body>
 <div id="meaux-dashboard">
 <div class="login-screen" id="loginScreen">
-<!-- Epic 3D Floating Models -->
+<!-- Epic Single 3D Model -->
 <div class="login-3d-model">
 <model-viewer src="https://cdn.shopify.com/3d/models/4b0a47ca8a38b77c/Kinetic_Symmetry_0831084700_generate.glb" 
               alt="Kinetic Symmetry 3D Model" 
               auto-rotate 
-              rotation-per-second="30deg"
+              rotation-per-second="20deg"
               camera-controls 
               disable-zoom
               disable-pan
               poster=""
+              environment-image="neutral"
               style="width:100%;height:100%;pointer-events:none">
 </model-viewer>
 </div>
-<div class="login-3d-model-2">
-<model-viewer src="https://cdn.shopify.com/3d/models/4b0a47ca8a38b77c/Kinetic_Symmetry_0831084700_generate.glb" 
-              alt="Kinetic Symmetry 3D Model" 
-              auto-rotate 
-              rotation-per-second="-25deg"
-              camera-controls 
-              disable-zoom
-              disable-pan
-              poster=""
-              style="width:100%;height:100%;pointer-events:none">
-</model-viewer>
-</div>
-<div class="login-3d-model-3">
-<model-viewer src="https://cdn.shopify.com/3d/models/4b0a47ca8a38b77c/Kinetic_Symmetry_0831084700_generate.glb" 
-              alt="Kinetic Symmetry 3D Model" 
-              auto-rotate 
-              rotation-per-second="40deg"
-              camera-controls 
-              disable-zoom
-              disable-pan
-              poster=""
-              style="width:100%;height:100%;pointer-events:none">
-</model-viewer>
+
+<!-- Theme Toggle -->
+<div class="theme-toggle">
+<button class="theme-btn active" id="darkBtn" onclick="setTheme('dark')">🌙</button>
+<button class="theme-btn" id="lightBtn" onclick="setTheme('light')">☀️</button>
 </div>
 <div class="login-card">
 <h1 class="login-title">Ultimate Dashboard</h1>
@@ -695,7 +688,8 @@ function editAI(aiId){alert('AI Editor: Modify template, adjust tone, regenerate
 async function testConnection(service){const statusElement=document.getElementById(service+'Status');if(!statusElement)return;statusElement.textContent='Testing...';statusElement.className='status-badge warning';setTimeout(()=>{statusElement.textContent='Connected';statusElement.className='status-badge connected'},2000)}
 async function loadDashboardData(){animateValue(document.getElementById('totalDonations'),0,35280,2000);animateValue(document.getElementById('aiTasks'),0,156,1800);animateValue(document.getElementById('costSavings'),0,2340,2500);animateValue(document.getElementById('aiGenerated'),0,156,2000);animateValue(document.getElementById('successRate'),0,95,1500);animateValue(document.getElementById('donationsTotal'),0,35280,2000);animateValue(document.getElementById('donMichaelProgress'),0,7500,2000)}
 function animateValue(element,start,end,duration){if(!element)return;const range=end-start;const increment=range/(duration/16);let current=start;const timer=setInterval(()=>{current+=increment;if(current>=end){current=end;clearInterval(timer)}if(element.id.includes('Donation')||element.id.includes('Savings')||element.id.includes('Progress')){element.textContent='$'+Math.floor(current).toLocaleString()}else if(element.id.includes('Rate')){element.textContent=Math.floor(current)+'%'}else{element.textContent=Math.floor(current).toLocaleString()}},16)}
-document.addEventListener('DOMContentLoaded',function(){checkAuth();document.querySelectorAll('#meaux-dashboard .nav-item').forEach(link=>{link.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();const sectionId=this.getAttribute('data-section');if(sectionId){showSection(sectionId)}if(window.innerWidth<=768){closeSidebar()}return false},true)});const sidebarToggle=document.getElementById('sidebarToggle');if(sidebarToggle){sidebarToggle.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();toggleSidebar()})}const sidebarOverlay=document.getElementById('sidebarOverlay');if(sidebarOverlay){sidebarOverlay.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();closeSidebar()})}document.getElementById('toolGuideModal').addEventListener('click',function(e){if(e.target===this){closeModal('toolGuideModal')}});document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeModal('toolGuideModal')}});['click','keypress','scroll','mousemove'].forEach(event=>{document.addEventListener(event,startSessionTimer,true)});setInterval(()=>{slideCarousel(1)},6000);console.log('🚀 Clay.Global Nonprofit Dashboard Ready! hey@meauxbility.com | 337-450-9998')});
+function setTheme(theme){const dashboard=document.getElementById('meaux-dashboard');const darkBtn=document.getElementById('darkBtn');const lightBtn=document.getElementById('lightBtn');if(theme==='light'){dashboard.setAttribute('data-theme','light');darkBtn.classList.remove('active');lightBtn.classList.add('active');localStorage.setItem('meaux-theme','light')}else{dashboard.removeAttribute('data-theme');darkBtn.classList.add('active');lightBtn.classList.remove('active');localStorage.setItem('meaux-theme','dark')}console.log(`Theme switched to: ${theme}`)}
+document.addEventListener('DOMContentLoaded',function(){const savedTheme=localStorage.getItem('meaux-theme')||'dark';setTheme(savedTheme);checkAuth();document.querySelectorAll('#meaux-dashboard .nav-item').forEach(link=>{link.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();const sectionId=this.getAttribute('data-section');if(sectionId){showSection(sectionId)}if(window.innerWidth<=768){closeSidebar()}return false},true)});const sidebarToggle=document.getElementById('sidebarToggle');if(sidebarToggle){sidebarToggle.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();toggleSidebar()})}const sidebarOverlay=document.getElementById('sidebarOverlay');if(sidebarOverlay){sidebarOverlay.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();closeSidebar()})}document.getElementById('toolGuideModal').addEventListener('click',function(e){if(e.target===this){closeModal('toolGuideModal')}});document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeModal('toolGuideModal')}});['click','keypress','scroll','mousemove'].forEach(event=>{document.addEventListener(event,startSessionTimer,true)});setInterval(()=>{slideCarousel(1)},6000);console.log('🚀 Clay.Global Nonprofit Dashboard Ready! hey@meauxbility.com | 337-450-9998')});
 </script>
 </body>
 </html>
