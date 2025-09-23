@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meauxbility Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+#meaux-dashboard{--teal-950:#0a1416;--teal-900:#0f1f22;--teal-800:#1a2f33;--teal-700:#176B78;--teal-600:#1F97A9;--teal-500:#1F97A9;--teal-400:#3AAFBF;--teal-300:#5eead4;--teal-200:#99f6e4;--teal-100:#ccfbf1;--teal-50:#f0fdfa;--orange:#FF7619;--green:#21c48c;--green-light:#51e9ae;--gold:#E2AF1D;--glass:rgba(15,31,34,.85);--border:rgba(31,151,169,.30);--ink:#f0fdfa;--ink-muted:#ccfbf1;--shadow-soft:0 10px 40px rgba(0,0,0,.3);--shadow-intense:0 25px 100px rgba(0,0,0,.4);--radius-sm:8px;--radius-md:16px;--radius-lg:24px;--radius-xl:32px;--t-base:.4s cubic-bezier(.4,0,.2,1);--t-slow:.8s cubic-bezier(.4,0,.2,1);font-family:Inter,system-ui,sans-serif;color:var(--ink);position:relative;background:var(--ink);min-height:100vh;isolation:isolate}
+#meaux-dashboard *{margin:0;padding:0;box-sizing:border-box}
+#meaux-dashboard .login-screen{position:fixed;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,var(--teal-950) 0%,var(--teal-900) 30%,var(--teal-800) 70%,var(--teal-700) 100%);display:flex;align-items:center;justify-content:center;z-index:10000;transition:opacity 0.3s ease,visibility 0.3s ease}
+#meaux-dashboard .login-screen.hidden{opacity:0;visibility:hidden}
+#meaux-dashboard .login-card{background:var(--glass);border:2px solid var(--border);border-radius:var(--radius-xl);backdrop-filter:blur(25px);box-shadow:var(--shadow-intense);width:100%;max-width:400px;text-align:center;padding:3rem;position:relative;overflow:hidden}
+#meaux-dashboard .login-card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(58,175,191,0.1) 0%,transparent 70%);animation:float-bg 8s ease-in-out infinite}
+#meaux-dashboard .login-title{font-size:2rem;font-weight:800;background:linear-gradient(135deg,var(--teal-400),var(--teal-600));-webkit-background-clip:text;color:transparent;margin-bottom:0.5rem;position:relative;z-index:2}
+#meaux-dashboard .login-subtitle{color:var(--ink-muted);margin-bottom:2rem;position:relative;z-index:2;opacity:0.9}
+#meaux-dashboard .login-form{display:flex;flex-direction:column;gap:1.5rem;position:relative;z-index:2}
+#meaux-dashboard .form-group{text-align:left}
+#meaux-dashboard .form-label{display:block;font-weight:600;color:var(--ink);margin-bottom:0.5rem}
+#meaux-dashboard .form-input{width:100%;padding:1rem 1.25rem;background:rgba(15,31,34,.6);border:2px solid var(--border);border-radius:var(--radius-md);color:var(--ink);font-size:1rem;transition:var(--t-base)}
+#meaux-dashboard .form-input:focus{outline:none;border-color:var(--teal-400);background:rgba(15,31,34,.8);box-shadow:0 0 0 3px rgba(58,175,191,.2)}
+#meaux-dashboard .btn{padding:1rem 1.5rem;border:none;border-radius:var(--radius-md);font-weight:700;font-size:1rem;cursor:pointer;transition:var(--t-base);display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;position:relative;overflow:hidden}
+#meaux-dashboard .btn-primary{background:linear-gradient(135deg,var(--green),var(--green-light));color:var(--teal-950);box-shadow:var(--shadow-soft)}
+#meaux-dashboard .btn-primary:hover{transform:translateY(-2px);box-shadow:var(--shadow-intense)}
+#meaux-dashboard .btn-secondary{background:var(--glass);color:var(--ink);border:2px solid var(--border)}
+#meaux-dashboard .btn-secondary:hover{background:rgba(31,151,169,.2);border-color:var(--teal-400)}
+#meaux-dashboard .btn-sm{padding:0.5rem 1rem;font-size:0.875rem}
+#meaux-dashboard .dashboard{display:none;min-height:100vh;background:linear-gradient(135deg,var(--teal-950),var(--teal-900))}
+#meaux-dashboard .dashboard.active{display:flex}
+#meaux-dashboard .sidebar{width:280px;background:var(--glass);border-right:2px solid var(--border);backdrop-filter:blur(25px);position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:1000;transition:transform 0.3s ease}
+#meaux-dashboard .sidebar.collapsed{width:80px}
+#meaux-dashboard .sidebar-header{padding:1.5rem;border-bottom:2px solid var(--border);text-align:center}
+#meaux-dashboard .sidebar-title{font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,var(--teal-400),var(--green));-webkit-background-clip:text;color:transparent;opacity:1;transition:opacity 0.3s ease}
+#meaux-dashboard .sidebar.collapsed .sidebar-title{opacity:0}
+#meaux-dashboard .sidebar-nav{padding:1rem 0}
+#meaux-dashboard .nav-item{display:flex;align-items:center;gap:1rem;padding:1rem 1.5rem;color:var(--ink-muted);text-decoration:none;transition:var(--t-base);border-left:3px solid transparent}
+#meaux-dashboard .nav-item:hover{background:rgba(58,175,191,.1);color:var(--ink);border-left-color:var(--teal-400)}
+#meaux-dashboard .nav-item.active{background:rgba(33,196,140,.15);color:var(--green-light);border-left-color:var(--green-light);box-shadow:inset 0 0 20px rgba(33,196,140,.1)}
+#meaux-dashboard .nav-icon{width:24px;height:24px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.25rem}
+#meaux-dashboard .nav-text{white-space:nowrap;opacity:1;transition:opacity 0.3s ease;font-weight:600}
+#meaux-dashboard .sidebar.collapsed .nav-text{opacity:0}
+#meaux-dashboard .sidebar-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:999}
+#meaux-dashboard .sidebar-toggle{display:none;position:fixed;top:1rem;left:1rem;z-index:1001;background:var(--glass);border:2px solid var(--border);border-radius:var(--radius-md);padding:0.5rem;cursor:pointer;backdrop-filter:blur(20px);color:var(--ink);font-size:1.25rem}
+#meaux-dashboard .dashboard-header{position:sticky;top:0;background:var(--glass);border-bottom:2px solid var(--border);backdrop-filter:blur(25px);padding:1.5rem 2rem;z-index:100;display:flex;align-items:center;justify-content:space-between;transform:translateY(0);transition:transform 0.3s ease}
+#meaux-dashboard .dashboard-header.hidden{transform:translateY(-100%)}
+#meaux-dashboard .header-title{font-size:1.75rem;font-weight:800;background:linear-gradient(135deg,var(--teal-400),var(--green));-webkit-background-clip:text;color:transparent}
+#meaux-dashboard .header-filters{display:flex;gap:1rem;align-items:center}
+#meaux-dashboard .filter-select{padding:0.5rem 1rem;border:2px solid var(--border);border-radius:var(--radius-md);background:var(--glass);color:var(--ink);cursor:pointer;backdrop-filter:blur(10px)}
+#meaux-dashboard .main-content{flex:1;margin-left:280px;transition:margin-left 0.3s ease}
+#meaux-dashboard .sidebar.collapsed + .main-content{margin-left:80px}
+#meaux-dashboard .container{max-width:1440px;margin:0 auto;padding:2rem}
+#meaux-dashboard .page-section{display:none}
+#meaux-dashboard .page-section.active{display:block}
+#meaux-dashboard .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;margin-bottom:2rem}
+#meaux-dashboard .stat-card{background:var(--glass);border:2px solid var(--border);border-radius:var(--radius-lg);backdrop-filter:blur(25px);padding:2rem;transition:var(--t-base);position:relative;overflow:hidden}
+#meaux-dashboard .stat-card::before{content:'';position:absolute;top:-50%;right:-50%;width:100%;height:100%;background:radial-gradient(circle,rgba(33,196,140,0.1) 0%,transparent 70%);opacity:0;transition:opacity 0.3s ease}
+#meaux-dashboard .stat-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-intense);border-color:var(--teal-400)}
+#meaux-dashboard .stat-card:hover::before{opacity:1}
+#meaux-dashboard .stat-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
+#meaux-dashboard .stat-icon{width:4rem;height:4rem;border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;font-size:2rem;background:linear-gradient(135deg,var(--teal-400),var(--green));color:var(--teal-950);box-shadow:var(--shadow-soft)}
+#meaux-dashboard .stat-value{font-size:3rem;font-weight:900;background:linear-gradient(135deg,var(--ink),var(--teal-100));-webkit-background-clip:text;color:transparent;margin-bottom:0.5rem}
+#meaux-dashboard .stat-label{color:var(--ink-muted);font-weight:600;font-size:1.1rem}
+#meaux-dashboard .stat-change{font-size:0.875rem;font-weight:700;padding:0.5rem 1rem;border-radius:var(--radius-sm);background:rgba(33,196,140,.2);color:var(--green-light)}
+#meaux-dashboard .donation-visual{margin-top:1rem;position:relative}
+#meaux-dashboard .progress-ring{width:120px;height:120px;margin:0 auto;position:relative}
+#meaux-dashboard .progress-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+#meaux-dashboard .progress-ring circle{fill:none;stroke-width:8;r:52;cx:60;cy:60}
+#meaux-dashboard .progress-bg{stroke:rgba(31,151,169,.2)}
+#meaux-dashboard .progress-fill{stroke:url(#gradient);stroke-linecap:round;stroke-dasharray:327;stroke-dashoffset:327;animation:progress-fill 2s ease-out forwards}
+#meaux-dashboard .progress-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-weight:800;font-size:1.25rem;color:var(--green-light)}
+#meaux-dashboard .card{background:var(--glass);border:2px solid var(--border);border-radius:var(--radius-lg);backdrop-filter:blur(25px);padding:2rem;transition:var(--t-base);margin-bottom:2rem;position:relative;overflow:hidden}
+#meaux-dashboard .card::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(58,175,191,0.1),transparent);transition:left 0.5s ease}
+#meaux-dashboard .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-intense);border-color:var(--teal-400)}
+#meaux-dashboard .card:hover::before{left:100%}
+#meaux-dashboard .card-header{display:flex;align-items:center;margin-bottom:2rem}
+#meaux-dashboard .card-title{font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,var(--teal-400),var(--green));-webkit-background-clip:text;color:transparent}
+#meaux-dashboard .card-icon{width:3rem;height:3rem;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-right:1rem;background:linear-gradient(135deg,var(--teal-400),var(--green));color:var(--teal-950);box-shadow:var(--shadow-soft)}
+#meaux-dashboard .content-grid{display:grid;grid-template-columns:2fr 1fr;gap:2rem}
+#meaux-dashboard .table-container{overflow-x:auto;border-radius:var(--radius-lg);border:2px solid var(--border);background:var(--glass);backdrop-filter:blur(25px)}
+#meaux-dashboard .table{width:100%;border-collapse:collapse}
+#meaux-dashboard .table th,#meaux-dashboard .table td{padding:1rem;text-align:left;border-bottom:1px solid var(--border)}
+#meaux-dashboard .table th{background:rgba(15,31,34,.6);font-weight:700;color:var(--teal-300);font-size:0.875rem;text-transform:uppercase;letter-spacing:0.5px}
+#meaux-dashboard .table td{color:var(--ink-muted)}
+#meaux-dashboard .table tr:hover{background:rgba(58,175,191,.1)}
+#meaux-dashboard .status-badge{padding:0.5rem 1rem;border-radius:var(--radius-sm);font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
+#meaux-dashboard .status-badge.success{background:rgba(33,196,140,.2);color:var(--green-light)}
+#meaux-dashboard .status-badge.warning{background:rgba(255,118,25,.2);color:var(--orange)}
+#meaux-dashboard .status-badge.connected{background:rgba(33,196,140,.2);color:var(--green-light)}
+#meaux-dashboard .status-badge.disconnected{background:rgba(255,118,25,.2);color:var(--orange)}
+#meaux-dashboard .integration-card{background:var(--glass);border:2px solid var(--border);border-radius:var(--radius-lg);backdrop-filter:blur(25px);padding:2rem;transition:var(--t-base);margin-bottom:1.5rem;position:relative;overflow:hidden}
+#meaux-dashboard .integration-card::after{content:'';position:absolute;top:-2px;left:-2px;right:-2px;bottom:-2px;background:linear-gradient(135deg,var(--teal-400),var(--green),var(--orange),var(--gold));border-radius:var(--radius-lg);z-index:-1;opacity:0;transition:opacity 0.3s ease}
+#meaux-dashboard .integration-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-intense)}
+#meaux-dashboard .integration-card:hover::after{opacity:1}
+#meaux-dashboard .integration-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+#meaux-dashboard .integration-title{font-size:1.25rem;font-weight:700;color:var(--ink)}
+#meaux-dashboard .integration-description{color:var(--ink-muted);margin-bottom:1.5rem;line-height:1.6}
+#meaux-dashboard .integration-actions{display:flex;gap:1rem}
+#meaux-dashboard .modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(10px);z-index:10000;align-items:center;justify-content:center}
+#meaux-dashboard .modal.active{display:flex}
+#meaux-dashboard .modal-content{background:var(--glass);border:2px solid var(--border);border-radius:var(--radius-xl);backdrop-filter:blur(25px);max-width:600px;width:90%;max-height:80vh;overflow-y:auto;box-shadow:var(--shadow-intense);animation:modalSlideIn 0.4s cubic-bezier(0.4,0,0.2,1)}
+#meaux-dashboard .modal-header{padding:2rem 2rem 1rem;border-bottom:2px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+#meaux-dashboard .modal-title{font-size:1.75rem;font-weight:800;background:linear-gradient(135deg,var(--teal-400),var(--green));-webkit-background-clip:text;color:transparent}
+#meaux-dashboard .modal-close{background:none;border:none;font-size:2rem;cursor:pointer;color:var(--ink-muted);padding:0.5rem;border-radius:var(--radius-md);transition:var(--t-base);width:3rem;height:3rem;display:flex;align-items:center;justify-content:center}
+#meaux-dashboard .modal-close:hover{background:rgba(255,118,25,.2);color:var(--orange)}
+#meaux-dashboard .modal-body{padding:2rem}
+#meaux-dashboard .setup-step{margin-bottom:2rem;padding-bottom:2rem;border-bottom:1px solid var(--border)}
+#meaux-dashboard .setup-step:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+#meaux-dashboard .step-number{display:inline-flex;align-items:center;justify-content:center;width:2.5rem;height:2.5rem;background:linear-gradient(135deg,var(--teal-400),var(--green));color:var(--teal-950);border-radius:50%;font-weight:800;margin-right:1rem;box-shadow:var(--shadow-soft)}
+#meaux-dashboard .step-title{font-size:1.25rem;font-weight:700;color:var(--ink);margin-bottom:0.75rem;display:flex;align-items:center}
+#meaux-dashboard .step-content{margin-left:3.5rem;color:var(--ink-muted);line-height:1.6}
+#meaux-dashboard .code-block{background:rgba(0,0,0,0.4);border:1px solid var(--border);border-radius:var(--radius-md);padding:1rem;margin:1rem 0;font-family:Monaco,Menlo,monospace;font-size:0.875rem;overflow-x:auto;color:var(--teal-100)}
+#meaux-dashboard .error-message{background:rgba(255,118,25,.2);color:var(--orange);padding:1rem;border-radius:var(--radius-md);border:2px solid var(--orange);margin-bottom:1rem}
+@keyframes float-bg{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(10px,-10px) scale(1.05)}}
+@keyframes progress-fill{to{stroke-dashoffset:0}}
+@keyframes modalSlideIn{from{opacity:0;transform:translateY(50px) scale(0.9)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media (max-width:1024px){
+#meaux-dashboard .sidebar{width:80px}
+#meaux-dashboard .sidebar .sidebar-title,#meaux-dashboard .sidebar .nav-text{opacity:0}
+#meaux-dashboard .main-content{margin-left:80px}
+#meaux-dashboard .content-grid{grid-template-columns:1fr}
+}
+@media (max-width:768px){
+#meaux-dashboard .sidebar{transform:translateX(-100%);width:280px}
+#meaux-dashboard .sidebar.active{transform:translateX(0)}
+#meaux-dashboard .sidebar-overlay.active{display:block}
+#meaux-dashboard .sidebar-toggle{display:flex;align-items:center;justify-content:center}
+#meaux-dashboard .main-content{margin-left:0}
+#meaux-dashboard .stats-grid{grid-template-columns:1fr}
+#meaux-dashboard .container{padding:1rem}
+#meaux-dashboard .dashboard-header{padding:1rem}
+#meaux-dashboard .header-filters{display:none}
+}
+@media (max-width:480px){
+#meaux-dashboard .login-card{margin:1rem;padding:2rem}
+#meaux-dashboard .modal-content{width:95%;margin:1rem}
+#meaux-dashboard .modal-header,#meaux-dashboard .modal-body{padding:1.5rem}
+}
+@media (prefers-reduced-motion:reduce){
+#meaux-dashboard *{animation:none !important;transition:none !important}
+}
+</style>
+</head>
+<body>
+<div id="meaux-dashboard">
+<div class="login-screen" id="loginScreen">
+<div class="login-card">
+<h1 class="login-title">Dashboard</h1>
+<p class="login-subtitle">Access your control center</p>
+<form class="login-form" id="loginForm">
+<div class="form-group">
+<label class="form-label" for="password">Password</label>
+<input type="password" class="form-input" id="password" placeholder="Enter password" required>
+</div>
+<button type="submit" class="btn btn-primary">Access Dashboard</button>
+</form>
+<div class="error-message" id="loginError" style="display:none">Invalid password. Please try again.</div>
+</div>
+</div>
+
+<div class="dashboard" id="dashboard">
+<nav class="sidebar" id="sidebar">
+<div class="sidebar-header">
+<span class="sidebar-title">Meauxbility</span>
+</div>
+<div class="sidebar-nav">
+<a href="#" class="nav-item active" data-section="overview">
+<div class="nav-icon">📊</div>
+<span class="nav-text">Overview</span>
+</a>
+<a href="#" class="nav-item" data-section="donations">
+<div class="nav-icon">💰</div>
+<span class="nav-text">Donations</span>
+</a>
+<a href="#" class="nav-item" data-section="applications">
+<div class="nav-icon">📋</div>
+<span class="nav-text">Applications</span>
+</a>
+<a href="#" class="nav-item" data-section="volunteers">
+<div class="nav-icon">👥</div>
+<span class="nav-text">Volunteers</span>
+</a>
+<a href="#" class="nav-item" data-section="emails">
+<div class="nav-icon">📧</div>
+<span class="nav-text">Emails</span>
+</a>
+<a href="#" class="nav-item" data-section="integrations">
+<div class="nav-icon">🔗</div>
+<span class="nav-text">Integrations</span>
+</a>
+</div>
+</nav>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<button class="sidebar-toggle" id="sidebarToggle">☰</button>
+
+<main class="main-content">
+<header class="dashboard-header" id="dashboardHeader">
+<h1 class="header-title" id="headerTitle">Dashboard Overview</h1>
+<div class="header-filters">
+<select class="filter-select">
+<option>Last 30 days</option>
+<option>Last 90 days</option>
+<option>Last year</option>
+</select>
+<select class="filter-select">
+<option>All channels</option>
+<option>Website</option>
+<option>Email</option>
+</select>
+</div>
+</header>
+
+<div class="container">
+<div class="page-section active" id="overview">
+<div class="stats-grid">
+<div class="stat-card">
+<div class="stat-header">
+<div class="stat-icon">💰</div>
+<div class="stat-change">+12%</div>
+</div>
+<div class="stat-value" id="totalDonations">$0</div>
+<div class="stat-label">Total Donations</div>
+</div>
+<div class="stat-card">
+<div class="stat-header">
+<div class="stat-icon">📋</div>
+<div class="stat-change">+8%</div>
+</div>
+<div class="stat-value" id="totalApplications">0</div>
+<div class="stat-label">Applications</div>
+</div>
+<div class="stat-card">
+<div class="stat-header">
+<div class="stat-icon">👥</div>
+<div class="stat-change">+15%</div>
+</div>
+<div class="stat-value" id="totalVolunteers">0</div>
+<div class="stat-label">Active Volunteers</div>
+</div>
+<div class="stat-card">
+<div class="stat-header">
+<div class="stat-icon">📧</div>
+<div class="stat-change">+23%</div>
+</div>
+<div class="stat-value" id="totalEmails">0</div>
+<div class="stat-label">Emails Sent</div>
+</div>
+</div>
+
+<div class="content-grid">
+<div class="card">
+<div class="card-header">
+<div class="card-icon">📊</div>
+<h2 class="card-title">Recent Activity</h2>
+</div>
+<div class="table-container">
+<table class="table">
+<thead>
+<tr><th>Type</th><th>Description</th><th>Amount</th><th>Status</th></tr>
+</thead>
+<tbody id="recentActivity">
+<tr><td>Donation</td><td>Monthly supporter</td><td>$50</td><td><span class="status-badge success">Completed</span></td></tr>
+<tr><td>Application</td><td>Mobility grant request</td><td>$2,500</td><td><span class="status-badge warning">Pending</span></td></tr>
+<tr><td>Volunteer</td><td>New volunteer signup</td><td>-</td><td><span class="status-badge success">Active</span></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header">
+<div class="card-icon">🔗</div>
+<h2 class="card-title">Quick Actions</h2>
+</div>
+<div style="display:flex;flex-direction:column;gap:1rem">
+<button class="btn btn-primary" onclick="showSection('donations')">View Donations</button>
+<button class="btn btn-secondary" onclick="showSection('applications')">Review Applications</button>
+<button class="btn btn-secondary" onclick="showSection('integrations')">Manage Integrations</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="page-section" id="donations">
+<div class="stats-grid">
+<div class="stat-card">
+<div class="stat-header">
+<div class="stat-icon">💰</div>
+<div class="stat-change">+12%</div>
+</div>
+<div class="stat-value" id="donationsTotal">$0</div>
+<div class="stat-label">Total Raised</div>
+<div class="donation-visual">
+<div class="progress-ring">
+<svg>
+<defs>
+<linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" style="stop-color:#21c48c"/>
+<stop offset="100%" style="stop-color:#51e9ae"/>
+</linearGradient>
+</defs>
+<circle class="progress-bg" cx="60" cy="60" r="52"/>
+<circle class="progress-fill" cx="60" cy="60" r="52"/>
+</svg>
+<div class="progress-text">75%</div>
+</div>
+</div>
+</div>
+<div class="stat-card">
+<div class="stat-header">
+<div class="stat-icon">👥</div>
+<div class="stat-change">+8%</div>
+</div>
+<div class="stat-value" id="donationsCount">0</div>
+<div class="stat-label">Total Donors</div>
+</div>
+<div class="stat-card">
+<div class="stat-header">
+<div class="stat-icon">📈</div>
+<div class="stat-change">+15%</div>
+</div>
+<div class="stat-value" id="avgDonation">$0</div>
+<div class="stat-label">Average Donation</div>
+</div>
+<div class="stat-card">
+<div class="stat-header">
+<div class="stat-icon">🔄</div>
+<div class="stat-change">+23%</div>
+</div>
+<div class="stat-value" id="recurringDonors">0</div>
+<div class="stat-label">Recurring Donors</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header">
+<div class="card-icon">📋</div>
+<h2 class="card-title">Recent Donations</h2>
+</div>
+<div class="table-container">
+<table class="table">
+<thead>
+<tr><th>Donor</th><th>Amount</th><th>Type</th><th>Date</th><th>Status</th></tr>
+</thead>
+<tbody id="donationsTable">
+<tr><td>Loading donations...</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div class="page-section" id="applications">
+<div class="card">
+<div class="card-header">
+<div class="card-icon">📋</div>
+<h2 class="card-title">Application Status</h2>
+</div>
+<div class="table-container">
+<table class="table">
+<thead>
+<tr><th>Applicant</th><th>Amount</th><th>Date</th><th>Status</th><th>Actions</th></tr>
+</thead>
+<tbody>
+<tr><td>John Smith</td><td>$2,500</td><td>2024-01-15</td><td><span class="status-badge warning">Review</span></td><td><button class="btn btn-sm btn-primary">Review</button></td></tr>
+<tr><td>Sarah Johnson</td><td>$1,800</td><td>2024-01-14</td><td><span class="status-badge success">Approved</span></td><td><button class="btn btn-sm btn-secondary">View</button></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div class="page-section" id="volunteers">
+<div class="card">
+<div class="card-header">
+<div class="card-icon">👥</div>
+<h2 class="card-title">Active Volunteers</h2>
+</div>
+<div class="table-container">
+<table class="table">
+<thead>
+<tr><th>Name</th><th>Email</th><th>Role</th><th>Hours</th><th>Status</th></tr>
+</thead>
+<tbody>
+<tr><td>Mike Wilson</td><td>mike@example.com</td><td>Event Coordinator</td><td>45</td><td><span class="status-badge success">Active</span></td></tr>
+<tr><td>Lisa Brown</td><td>lisa@example.com</td><td>Fundraising</td><td>32</td><td><span class="status-badge success">Active</span></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div class="page-section" id="emails">
+<div class="card">
+<div class="card-header">
+<div class="card-icon">📧</div>
+<h2 class="card-title">Campaign Performance</h2>
+</div>
+<div class="table-container">
+<table class="table">
+<thead>
+<tr><th>Campaign</th><th>Sent</th><th>Opens</th><th>Clicks</th><th>Rate</th></tr>
+</thead>
+<tbody>
+<tr><td>Monthly Newsletter</td><td>1,250</td><td>312</td><td>45</td><td>25%</td></tr>
+<tr><td>Fundraising Appeal</td><td>2,100</td><td>630</td><td>89</td><td>30%</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div class="page-section" id="integrations">
+<div class="integration-card">
+<div class="integration-header">
+<h3 class="integration-title">Stripe Payment Processing</h3>
+<span class="status-badge disconnected" id="stripeStatus">Disconnected</span>
+</div>
+<p class="integration-description">Process donations and manage payment data securely. Connect your Stripe account to start accepting payments.</p>
+<div class="integration-actions">
+<button class="btn btn-primary btn-sm" onclick="openModal('stripeModal')">Setup Guide</button>
+<button class="btn btn-secondary btn-sm" onclick="testConnection('stripe')">Test Connection</button>
+</div>
+</div>
+
+<div class="integration-card">
+<div class="integration-header">
+<h3 class="integration-title">Supabase Database</h3>
+<span class="status-badge disconnected" id="supabaseStatus">Disconnected</span>
+</div>
+<p class="integration-description">Store and manage all your organization's data. Applications, donations, volunteers, and more.</p>
+<div class="integration-actions">
+<button class="btn btn-primary btn-sm" onclick="openModal('supabaseModal')">Setup Guide</button>
+<button class="btn btn-secondary btn-sm" onclick="testConnection('supabase')">Test Connection</button>
+</div>
+</div>
+
+<div class="integration-card">
+<div class="integration-header">
+<h3 class="integration-title">OpenAI Integration</h3>
+<span class="status-badge disconnected" id="openaiStatus">Disconnected</span>
+</div>
+<p class="integration-description">AI-powered features for content generation, email automation, and data analysis.</p>
+<div class="integration-actions">
+<button class="btn btn-primary btn-sm" onclick="openModal('openaiModal')">Setup Guide</button>
+<button class="btn btn-secondary btn-sm" onclick="testConnection('openai')">Test Connection</button>
+</div>
+</div>
+
+<div class="integration-card">
+<div class="integration-header">
+<h3 class="integration-title">Email Marketing</h3>
+<span class="status-badge disconnected" id="emailStatus">Disconnected</span>
+</div>
+<p class="integration-description">Send newsletters, fundraising appeals, and automated email campaigns to your supporters.</p>
+<div class="integration-actions">
+<button class="btn btn-primary btn-sm" onclick="openModal('emailModal')">Setup Guide</button>
+<button class="btn btn-secondary btn-sm" onclick="testConnection('email')">Test Connection</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+<!-- Modals -->
+<div class="modal" id="stripeModal">
+<div class="modal-content">
+<div class="modal-header">
+<h2 class="modal-title">Stripe Setup Guide</h2>
+<button class="modal-close" onclick="closeModal('stripeModal')">&times;</button>
+</div>
+<div class="modal-body">
+<div class="setup-step">
+<h3 class="step-title"><span class="step-number">1</span>Create Stripe Account</h3>
+<div class="step-content"><p>Sign up for a Stripe account at <a href="https://stripe.com" target="_blank" style="color:var(--teal-400)">stripe.com</a></p></div>
+</div>
+<div class="setup-step">
+<h3 class="step-title"><span class="step-number">2</span>Get API Keys</h3>
+<div class="step-content"><p>Navigate to Dashboard → Developers → API keys. Copy your Publishable key and Secret key.</p></div>
+</div>
+<div class="setup-step">
+<h3 class="step-title"><span class="step-number">3</span>Configure Webhook</h3>
+<div class="step-content">
+<p>Create webhook endpoint in Stripe Dashboard → Developers → Webhooks</p>
+<div class="code-block">Webhook URL: https://yourdomain.com/api/stripe-webhook<br>Events: checkout.session.completed, payment_intent.payment_failed</div>
+</div>
+</div>
+<div class="setup-step">
+<h3 class="step-title"><span class="step-number">4</span>Environment Variables</h3>
+<div class="step-content">
+<div class="code-block">STRIPE_PUBLISHABLE_KEY=pk_live_your_key_here<br>STRIPE_SECRET_KEY=sk_live_your_key_here<br>STRIPE_WEBHOOK_SECRET=whsec_your_webhook_secret</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="modal" id="supabaseModal">
+<div class="modal-content">
+<div class="modal-header">
+<h2 class="modal-title">Supabase Setup Guide</h2>
+<button class="modal-close" onclick="closeModal('supabaseModal')">&times;</button>
+</div>
+<div class="modal-body">
+<div class="setup-step">
+<h3 class="step-title"><span class="step-number">1</span>Create Project</h3>
+<div class="step-content"><p>Sign up at <a href="https://supabase.com" target="_blank" style="color:var(--teal-400)">supabase.com</a> and create a new project</p></div>
+</div>
+<div class="setup-step">
+<h3 class="step-title"><span class="step-number">2</span>Get Credentials</h3>
+<div class="step-content"><p>From project settings, copy: Project URL, API Key (anon/public), Service Role Key</p></div>
+</div>
+<div class="setup-step">
+<h3 class="step-title"><span class="step-number">3</span>Create Tables</h3>
+<div class="step-content">
+<div class="code-block">CREATE TABLE donations (<br>  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,<br>  amount DECIMAL(10,2) NOT NULL,<br>  donor_email TEXT,<br>  status TEXT DEFAULT 'pending'<br>);</div>
+</div>
+</div>
+<div class="setup-step">
+<h3 class="step-title"><span class="step-number">4</span>Environment Variables</h3>
+<div class="step-content">
+<div class="code-block">SUPABASE_URL=https://your-project.supabase.co<br>SUPABASE_ANON_KEY=your_anon_key_here</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="modal" id="openaiModal">
+<div class="modal-content">
+<div class="modal-header">
+<h2 class="modal-title">OpenAI Setup Guide</h2>
+<button class="modal-close" onclick="closeModal('openaiModal')">&times;</button>
+</div>
+<div class="modal-body">
+<div class="setup-step">
+<h3 class="step-title"><span class="step-number">1</span>Get API Key</h3>
+<div class="step-content"><p>Sign up at <a href="https://platform.openai.com" target="_blank" style="color:var(--teal-400)">platform.openai.com</a> and create a new secret key</p></div>
+</div>
+<div class="setup-step">
+<h3 class="step-title"><span class="step-number">2</span>Set Usage Limits</h3>
+<div class="step-content"><p>Set monthly usage limits to control costs. Start with $10-20/month for testing.</p></div>
+</div>
+<div class="setup-step">
+<h3 class="step-title"><span class="step-number">3</span>Environment Variables</h3>
+<div class="step-content">
+<div class="code-block">OPENAI_API_KEY=sk-your_api_key_here</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="modal" id="emailModal">
+<div class="modal-content">
+<div class="modal-header">
+<h2 class="modal-title">Email Marketing Setup</h2>
+<button class="modal-close" onclick="closeModal('emailModal')">&times;</button>
+</div>
+<div class="modal-body">
+<div class="setup-step">
+<h3 class="step-title"><span class="step-number">1</span>Choose Provider</h3>
+<div class="step-content"><p>Select: Mailchimp, ConvertKit, SendGrid, or Mailgun</p></div>
+</div>
+<div class="setup-step">
+<h3 class="step-title"><span class="step-number">2</span>Get API Credentials</h3>
+<div class="step-content"><p>Generate API key from your provider's dashboard and verify sending domain</p></div>
+</div>
+<div class="setup-step">
+<h3 class="step-title"><span class="step-number">3</span>Configure Environment</h3>
+<div class="step-content">
+<div class="code-block">SENDGRID_API_KEY=SG.your_api_key_here<br>SENDGRID_FROM_EMAIL=noreply@yourdomain.com</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+const ADMIN_PASSWORD="Meauxbility";const SESSION_TIMEOUT=30;let sessionTimer;let lastScrollY=0;
+function checkAuth(){const isAuthenticated=sessionStorage.getItem('authenticated')==='true';if(isAuthenticated){showDashboard();startSessionTimer()}else{showLogin()}}
+function showLogin(){document.getElementById('loginScreen').classList.remove('hidden');document.getElementById('dashboard').classList.remove('active')}
+function showDashboard(){document.getElementById('loginScreen').classList.add('hidden');document.getElementById('dashboard').classList.add('active');loadDashboardData();initializeScrollHandler()}
+function startSessionTimer(){clearTimeout(sessionTimer);sessionTimer=setTimeout(()=>{logout()},SESSION_TIMEOUT*60*1000)}
+function logout(){sessionStorage.removeItem('authenticated');showLogin();document.getElementById('password').value=''}
+document.getElementById('loginForm').addEventListener('submit',function(e){e.preventDefault();e.stopPropagation();const password=document.getElementById('password').value;const errorDiv=document.getElementById('loginError');if(password===ADMIN_PASSWORD){sessionStorage.setItem('authenticated','true');showDashboard();startSessionTimer();errorDiv.style.display='none'}else{errorDiv.style.display='block';document.getElementById('password').value=''}});
+function showSection(sectionId){document.querySelectorAll('.page-section').forEach(section=>{section.classList.remove('active')});document.getElementById(sectionId).classList.add('active');document.querySelectorAll('.nav-item').forEach(link=>{link.classList.remove('active');if(link.dataset.section===sectionId){link.classList.add('active')}});const titles={'overview':'Dashboard Overview','donations':'Donations Management','applications':'Grant Applications','volunteers':'Volunteer Management','emails':'Email Campaigns','integrations':'API Integrations'};document.getElementById('headerTitle').textContent=titles[sectionId]||'Dashboard'}
+function toggleSidebar(){const sidebar=document.getElementById('sidebar');const overlay=document.getElementById('sidebarOverlay');if(window.innerWidth<=768){sidebar.classList.toggle('active');overlay.classList.toggle('active')}else{sidebar.classList.toggle('collapsed')}}
+function closeSidebar(){const sidebar=document.getElementById('sidebar');const overlay=document.getElementById('sidebarOverlay');sidebar.classList.remove('active');overlay.classList.remove('active')}
+function initializeScrollHandler(){const header=document.getElementById('dashboardHeader');window.addEventListener('scroll',()=>{const currentScrollY=window.scrollY;if(currentScrollY>lastScrollY&&currentScrollY>100){header.classList.add('hidden')}else{header.classList.remove('hidden')}lastScrollY=currentScrollY})}
+function openModal(modalId){document.getElementById(modalId).classList.add('active');document.body.style.overflow='hidden'}
+function closeModal(modalId){document.getElementById(modalId).classList.remove('active');document.body.style.overflow=''}
+async function loadDashboardData(){animateValue(document.getElementById('totalDonations'),0,35280,2000);animateValue(document.getElementById('totalApplications'),0,45,1500);animateValue(document.getElementById('totalVolunteers'),0,20,1000);animateValue(document.getElementById('totalEmails'),0,12984,2500);await loadDonationsData()}
+async function loadDonationsData(){try{setTimeout(()=>{animateValue(document.getElementById('donationsTotal'),0,35280,2000);animateValue(document.getElementById('donationsCount'),0,4657,1500);animateValue(document.getElementById('avgDonation'),0,75,1000);animateValue(document.getElementById('recurringDonors'),0,234,1200);const table=document.getElementById('donationsTable');table.innerHTML=`<tr><td>John Smith</td><td>$50.00</td><td>Monthly</td><td>2024-01-15</td><td><span class="status-badge success">Completed</span></td></tr><tr><td>Sarah Johnson</td><td>$100.00</td><td>One-time</td><td>2024-01-14</td><td><span class="status-badge success">Completed</span></td></tr><tr><td>Mike Wilson</td><td>$25.00</td><td>Monthly</td><td>2024-01-13</td><td><span class="status-badge success">Completed</span></td></tr>`},1000)}catch(error){console.error('Error loading donations:',error)}}
+function animateValue(element,start,end,duration){if(!element)return;const range=end-start;const increment=range/(duration/16);let current=start;const timer=setInterval(()=>{current+=increment;if(current>=end){current=end;clearInterval(timer)}if(element.id.includes('Donation')||element.id.includes('Total')){element.textContent='$'+Math.floor(current).toLocaleString()}else{element.textContent=Math.floor(current).toLocaleString()}},16)}
+async function testConnection(service){const statusElement=document.getElementById(service+'Status');if(!statusElement)return;statusElement.textContent='Testing...';statusElement.className='status-badge warning';setTimeout(()=>{statusElement.textContent='Connected';statusElement.className='status-badge connected'},2000)}
+document.addEventListener('DOMContentLoaded',function(){checkAuth();document.querySelectorAll('.nav-item').forEach(link=>{link.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();const sectionId=this.dataset.section;if(sectionId)showSection(sectionId);if(window.innerWidth<=768)closeSidebar()})});const sidebarToggle=document.getElementById('sidebarToggle');if(sidebarToggle){sidebarToggle.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();toggleSidebar()})}const sidebarOverlay=document.getElementById('sidebarOverlay');if(sidebarOverlay){sidebarOverlay.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();closeSidebar()})}document.querySelectorAll('.modal').forEach(modal=>{modal.addEventListener('click',function(e){if(e.target===this){e.preventDefault();e.stopPropagation();this.classList.remove('active');document.body.style.overflow=''}})});document.addEventListener('keydown',function(e){if(e.key==='Escape'){document.querySelectorAll('.modal.active').forEach(modal=>{modal.classList.remove('active')});document.body.style.overflow=''}});['click','keypress','scroll','mousemove'].forEach(event=>{document.addEventListener(event,startSessionTimer,true)});window.addEventListener('resize',function(){if(window.innerWidth>768){closeSidebar()}})});
+</script>
+</body>
+</html>
