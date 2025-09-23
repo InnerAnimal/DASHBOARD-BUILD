@@ -135,6 +135,21 @@
 @media (prefers-reduced-motion:reduce){
 #meaux-dashboard *{animation:none !important;transition:none !important}
 }
+#meaux-debug-agent{position:fixed;bottom:-300px;right:20px;width:320px;background:var(--meaux-glass);border:2px solid var(--meaux-border);border-radius:14px;backdrop-filter:blur(25px);box-shadow:var(--meaux-shadow-lg);z-index:10001;transition:bottom 0.4s ease;max-height:400px;overflow-y:auto}
+#meaux-debug-agent.active{bottom:20px}
+#meaux-debug-agent.error{border-color:var(--meaux-error);animation:pulse-error 2s infinite}
+#meaux-debug-agent.warning{border-color:var(--meaux-warning)}
+#meaux-debug-header{padding:1rem;border-bottom:1px solid var(--meaux-border);display:flex;align-items:center;justify-content:space-between;background:rgba(5,27,30,0.8)}
+#meaux-debug-title{font-weight:700;color:var(--meaux-surface);font-size:0.875rem;display:flex;align-items:center;gap:0.5rem}
+#meaux-debug-close{background:none;border:none;color:var(--meaux-surface);cursor:pointer;opacity:0.7;font-size:1.25rem}
+#meaux-debug-close:hover{opacity:1}
+#meaux-debug-body{padding:1rem;max-height:250px;overflow-y:auto}
+#meaux-debug-item{padding:0.5rem;margin-bottom:0.5rem;border-radius:8px;font-size:0.75rem;line-height:1.4}
+#meaux-debug-item.error{background:rgba(231,76,60,0.2);color:var(--meaux-error)}
+#meaux-debug-item.warning{background:rgba(245,158,11,0.2);color:var(--meaux-warning)}
+#meaux-debug-item.success{background:rgba(33,196,140,0.2);color:var(--meaux-success)}
+#meaux-debug-item.info{background:rgba(58,139,152,0.2);color:var(--meaux-light-teal)}
+@keyframes pulse-error{0%,100%{border-color:var(--meaux-error)}50%{border-color:rgba(231,76,60,0.5)}}
 </style>
 </head>
 <body>
@@ -463,6 +478,20 @@
 </div>
 </div>
 </div>
+
+<!-- Debug Agent - Only appears when issues detected -->
+<div id="meaux-debug-agent">
+<div id="meaux-debug-header">
+<div id="meaux-debug-title">
+<span id="debugIcon">🔧</span>
+<span>Debug Agent</span>
+</div>
+<button id="meaux-debug-close" onclick="closeDebugAgent()">&times;</button>
+</div>
+<div id="meaux-debug-body">
+<div id="debugMessages"></div>
+</div>
+</div>
 </div>
 
 <script>
@@ -491,7 +520,18 @@ function approveAI(aiId){const item=document.querySelector(`[onclick*="${aiId}"]
 function editAI(aiId){alert('AI Editor: Modify email template, adjust tone, or regenerate. Contact: hey@meauxbility.com for support.')}
 async function loadDashboardData(){animateValue(document.getElementById('totalDonations'),0,35280,2000);animateValue(document.getElementById('aiTasks'),0,156,1800);animateValue(document.getElementById('costSavings'),0,2340,2500);animateValue(document.getElementById('timeSaved'),0,89,1800);animateValue(document.getElementById('aiGenerated'),0,156,2000);animateValue(document.getElementById('successRate'),0,95,1500);animateValue(document.getElementById('donationsTotal'),0,35280,2000);animateValue(document.getElementById('donMichaelProgress'),0,7500,2000);setTimeout(()=>{const table=document.getElementById('donationsTable');if(table){table.innerHTML=`<tr><td>John Smith</td><td>$50</td><td>General</td><td><span class="status-badge success">Completed</span></td></tr><tr><td>Sarah Johnson</td><td>$100</td><td>DonMichael</td><td><span class="status-badge success">Completed</span></td></tr>`}},1000)}
 function animateValue(element,start,end,duration){if(!element)return;const range=end-start;const increment=range/(duration/16);let current=start;const timer=setInterval(()=>{current+=increment;if(current>=end){current=end;clearInterval(timer)}if(element.id.includes('Donation')||element.id.includes('Savings')||element.id.includes('Progress')){element.textContent='$'+Math.floor(current).toLocaleString()}else if(element.id.includes('Rate')){element.textContent=Math.floor(current)+'%'}else{element.textContent=Math.floor(current).toLocaleString()}},16)}
-document.addEventListener('DOMContentLoaded',function(){checkAuth();document.querySelectorAll('#meaux-dashboard .nav-item').forEach(link=>{link.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();const sectionId=this.getAttribute('data-section');if(sectionId){showSection(sectionId)}if(window.innerWidth<=768){closeSidebar()}return false},true)});const sidebarToggle=document.getElementById('sidebarToggle');if(sidebarToggle){sidebarToggle.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();toggleSidebar()})}const sidebarOverlay=document.getElementById('sidebarOverlay');if(sidebarOverlay){sidebarOverlay.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();closeSidebar()})}document.getElementById('toolGuideModal').addEventListener('click',function(e){if(e.target===this){closeModal('toolGuideModal')}});document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeModal('toolGuideModal')}});['click','keypress','scroll','mousemove'].forEach(event=>{document.addEventListener(event,startSessionTimer,true)});window.addEventListener('resize',function(){if(window.innerWidth>768){closeSidebar()}});setInterval(()=>{slideCarousel(1)},5000);console.log('🚀 Meauxbility Automation Dashboard Ready! hey@meauxbility.com | 337-450-9998')});
+document.addEventListener('DOMContentLoaded',function(){checkAuth();document.querySelectorAll('#meaux-dashboard .nav-item').forEach(link=>{link.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();const sectionId=this.getAttribute('data-section');if(sectionId){showSection(sectionId)}if(window.innerWidth<=768){closeSidebar()}return false},true)});const sidebarToggle=document.getElementById('sidebarToggle');if(sidebarToggle){sidebarToggle.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();toggleSidebar()})}const sidebarOverlay=document.getElementById('sidebarOverlay');if(sidebarOverlay){sidebarOverlay.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();closeSidebar()})}document.getElementById('toolGuideModal').addEventListener('click',function(e){if(e.target===this){closeModal('toolGuideModal')}});document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeModal('toolGuideModal')}});['click','keypress','scroll','mousemove'].forEach(event=>{document.addEventListener(event,startSessionTimer,true)});window.addEventListener('resize',function(){if(window.innerWidth>768){closeSidebar()}});setInterval(()=>{slideCarousel(1)},5000);initDebugAgent();console.log('🚀 Meauxbility Dashboard Ready! hey@meauxbility.com | 337-450-9998')});
+let debugAgent={issues:[],isActive:false,checkInterval:null};
+function initDebugAgent(){debugAgent.checkInterval=setInterval(runDiagnostics,10000);runDiagnostics();window.addEventListener('error',handleError);window.addEventListener('unhandledrejection',handlePromiseError)}
+function runDiagnostics(){const issues=[];if(!document.getElementById('meaux-dashboard')){issues.push({type:'error',message:'Dashboard container missing',fix:'Refresh page'})}const navItems=document.querySelectorAll('#meaux-dashboard .nav-item');if(navItems.length===0){issues.push({type:'error',message:'Navigation broken',fix:'Contact hey@meauxbility.com'})}if(window.innerWidth<360){issues.push({type:'warning',message:'Screen too small for optimal experience',fix:'Rotate device or use larger screen'})}const memory=performance.memory;if(memory&&memory.usedJSHeapSize>50*1024*1024){issues.push({type:'warning',message:'High memory usage detected',fix:'Refresh page to clear memory'})}if(document.body.scrollWidth>window.innerWidth+50){issues.push({type:'warning',message:'Horizontal overflow detected',fix:'Check responsive design'})}const tables=document.querySelectorAll('.table');tables.forEach(table=>{if(table.scrollWidth>table.clientWidth+10){issues.push({type:'info',message:'Table scrollable on mobile',fix:'Swipe left/right to see more data'})}});if(sessionStorage.getItem('meaux-authenticated')&&!sessionTimer){issues.push({type:'warning',message:'Session timer not active',fix:'Auto-logout may not work'})}updateDebugAgent(issues)}
+function handleError(e){const issue={type:'error',message:`JavaScript Error: ${e.message}`,fix:'Refresh page or contact hey@meauxbility.com'};showDebugAgent([issue])}
+function handlePromiseError(e){const issue={type:'error',message:`Promise Error: ${e.reason}`,fix:'Check internet connection'};showDebugAgent([issue])}
+function updateDebugAgent(issues){if(issues.length===0&&debugAgent.isActive){hideDebugAgent();return}if(issues.length>0){debugAgent.issues=issues;showDebugAgent(issues)}}
+function showDebugAgent(issues){const agent=document.getElementById('meaux-debug-agent');const messages=document.getElementById('debugMessages');const icon=document.getElementById('debugIcon');if(!agent||!messages||!icon)return;debugAgent.isActive=true;messages.innerHTML='';const hasErrors=issues.some(i=>i.type==='error');const hasWarnings=issues.some(i=>i.type==='warning');if(hasErrors){agent.className='error';icon.textContent='🚨'}else if(hasWarnings){agent.className='warning';icon.textContent='⚠️'}else{agent.className='';icon.textContent='ℹ️'}issues.forEach(issue=>{const item=document.createElement('div');item.className=`meaux-debug-item ${issue.type}`;item.innerHTML=`<strong>${issue.type.toUpperCase()}:</strong> ${issue.message}<br><em>Fix: ${issue.fix}</em>`;messages.appendChild(item)});agent.classList.add('active')}
+function hideDebugAgent(){const agent=document.getElementById('meaux-debug-agent');if(agent){agent.classList.remove('active','error','warning');debugAgent.isActive=false}}
+function closeDebugAgent(){hideDebugAgent()}
+function testAllSystems(){const tests=[{name:'Navigation',test:()=>document.querySelectorAll('#meaux-dashboard .nav-item').length>0},{name:'Authentication',test:()=>typeof checkAuth==='function'},{name:'Modal System',test:()=>document.getElementById('toolGuideModal')!==null},{name:'Responsive Design',test:()=>window.innerWidth>=320},{name:'API Ready',test:()=>typeof testConnection==='function'}];const results=tests.map(t=>({name:t.name,passed:t.test()}));const failed=results.filter(r=>!r.passed);if(failed.length>0){const issues=failed.map(f=>({type:'error',message:`${f.name} system failure`,fix:'Contact hey@meauxbility.com for support'}));showDebugAgent(issues)}else{showDebugAgent([{type:'success',message:'All systems operational',fix:'Dashboard ready for use'}]);setTimeout(hideDebugAgent,3000)}}
+window.addEventListener('resize',()=>{setTimeout(runDiagnostics,100)});document.addEventListener('visibilitychange',()=>{if(!document.hidden){setTimeout(runDiagnostics,500)}});
 </script>
 </body>
 </html>
