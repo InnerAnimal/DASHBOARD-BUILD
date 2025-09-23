@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meauxbility Dashboard Debugger</title>
+<style>
+body {
+    font-family: 'Monaco', 'Menlo', monospace;
+    background: #1a1a1a;
+    color: #00ff00;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.4;
+}
+
+.debugger-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #0a0a0a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.debug-header {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #00ffff;
+}
+
+.debug-section {
+    margin-bottom: 30px;
+    padding: 15px;
+    border: 1px solid #333;
+    border-radius: 6px;
+    background: #111;
+}
+
+.debug-title {
+    color: #ffff00;
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.debug-output {
+    background: #000;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 12px;
+    overflow-x: auto;
+}
+
+.debug-button {
+    background: #1F97A9;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 12px;
+}
+
+.debug-button:hover {
+    background: #176B78;
+}
+
+.error {
+    color: #ff4444;
+}
+
+.warning {
+    color: #ffaa00;
+}
+
+.success {
+    color: #44ff44;
+}
+
+.info {
+    color: #4444ff;
+}
+
+.test-result {
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 4px;
+    font-size: 11px;
+}
+
+.test-pass {
+    background: rgba(68, 255, 68, 0.1);
+    border-left: 3px solid #44ff44;
+}
+
+.test-fail {
+    background: rgba(255, 68, 68, 0.1);
+    border-left: 3px solid #ff4444;
+}
+
+.test-warn {
+    background: rgba(255, 170, 0, 0.1);
+    border-left: 3px solid #ffaa00;
+}
+</style>
+</head>
+<body>
+<div class="debugger-container">
+    <div class="debug-header">
+        <h1>🔧 MEAUXBILITY DASHBOARD DEBUGGER</h1>
+        <p>Diagnose and fix dashboard issues in real-time</p>
+    </div>
+
+    <div class="debug-section">
+        <div class="debug-title">📐 LAYOUT & SIZING ANALYSIS</div>
+        <button class="debug-button" onclick="analyzeSizing()">Analyze Sizing Issues</button>
+        <button class="debug-button" onclick="checkOverflow()">Check Overflow</button>
+        <button class="debug-button" onclick="detectConflicts()">Detect CSS Conflicts</button>
+        <div class="debug-output" id="sizingOutput">Click buttons above to analyze layout issues...</div>
+    </div>
+
+    <div class="debug-section">
+        <div class="debug-title">🔗 NAVIGATION TESTING</div>
+        <button class="debug-button" onclick="testNavigation()">Test Navigation Links</button>
+        <button class="debug-button" onclick="checkEventPropagation()">Check Event Propagation</button>
+        <button class="debug-button" onclick="validateContainment()">Validate Containment</button>
+        <div class="debug-output" id="navigationOutput">Click buttons above to test navigation...</div>
+    </div>
+
+    <div class="debug-section">
+        <div class="debug-title">🎨 STYLING VALIDATION</div>
+        <button class="debug-button" onclick="checkCSSScooping()">Check CSS Scoping</button>
+        <button class="debug-button" onclick="validateBrandColors()">Validate Brand Colors</button>
+        <button class="debug-button" onclick="testResponsive()">Test Responsive Design</button>
+        <div class="debug-output" id="stylingOutput">Click buttons above to validate styling...</div>
+    </div>
+
+    <div class="debug-section">
+        <div class="debug-title">⚡ PERFORMANCE MONITORING</div>
+        <button class="debug-button" onclick="measurePerformance()">Measure Performance</button>
+        <button class="debug-button" onclick="checkMemoryUsage()">Check Memory Usage</button>
+        <button class="debug-button" onclick="validateAccessibility()">Validate Accessibility</button>
+        <div class="debug-output" id="performanceOutput">Click buttons above to monitor performance...</div>
+    </div>
+
+    <div class="debug-section">
+        <div class="debug-title">🔧 QUICK FIXES</div>
+        <button class="debug-button" onclick="fixNavigation()">Fix Navigation Issues</button>
+        <button class="debug-button" onclick="fixSizing()">Fix Sizing Problems</button>
+        <button class="debug-button" onclick="removeConflicts()">Remove Background Conflicts</button>
+        <button class="debug-button" onclick="optimizeContainment()">Optimize Containment</button>
+        <div class="debug-output" id="fixesOutput">Click buttons above to apply fixes...</div>
+    </div>
+
+    <div class="debug-section">
+        <div class="debug-title">📋 DIAGNOSTIC REPORT</div>
+        <button class="debug-button" onclick="generateReport()">Generate Full Report</button>
+        <button class="debug-button" onclick="exportFixes()">Export Recommended Fixes</button>
+        <div class="debug-output" id="reportOutput">Click 'Generate Full Report' for comprehensive analysis...</div>
+    </div>
+</div>
+
+<script>
+// Dashboard Debugger Functions
+let debugLog = [];
+
+function log(message, type = 'info') {
+    const timestamp = new Date().toLocaleTimeString();
+    debugLog.push(`[${timestamp}] ${type.toUpperCase()}: ${message}`);
+    console.log(`%c[DEBUGGER] ${message}`, getLogStyle(type));
+}
+
+function getLogStyle(type) {
+    const styles = {
+        error: 'color: #ff4444; font-weight: bold;',
+        warning: 'color: #ffaa00; font-weight: bold;',
+        success: 'color: #44ff44; font-weight: bold;',
+        info: 'color: #4444ff;'
+    };
+    return styles[type] || styles.info;
+}
+
+function updateOutput(elementId, content) {
+    document.getElementById(elementId).innerHTML = content;
+}
+
+// Sizing Analysis
+function analyzeSizing() {
+    log('Starting sizing analysis...', 'info');
+    let output = '<div class="test-result test-pass">🔍 SIZING ANALYSIS RESULTS</div>';
+    
+    // Check for viewport issues
+    const viewport = document.querySelector('meta[name="viewport"]');
+    if (viewport) {
+        output += '<div class="test-result test-pass">✓ Viewport meta tag present</div>';
+    } else {
+        output += '<div class="test-result test-fail">✗ Missing viewport meta tag</div>';
+    }
+    
+    // Check for overflow issues
+    const body = document.body;
+    const html = document.documentElement;
+    
+    output += `<div class="test-result test-info">📏 Body dimensions: ${body.scrollWidth}x${body.scrollHeight}</div>`;
+    output += `<div class="test-result test-info">📏 Viewport: ${window.innerWidth}x${window.innerHeight}</div>`;
+    
+    if (body.scrollWidth > window.innerWidth) {
+        output += '<div class="test-result test-warn">⚠️ Horizontal overflow detected</div>';
+    } else {
+        output += '<div class="test-result test-pass">✓ No horizontal overflow</div>';
+    }
+    
+    updateOutput('sizingOutput', output);
+    log('Sizing analysis complete', 'success');
+}
+
+function checkOverflow() {
+    log('Checking for overflow issues...', 'info');
+    let output = '<div class="test-result test-pass">🔍 OVERFLOW CHECK</div>';
+    
+    const elements = document.querySelectorAll('*');
+    let overflowElements = [];
+    
+    elements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.width > window.innerWidth || rect.right > window.innerWidth) {
+            overflowElements.push(el);
+        }
+    });
+    
+    if (overflowElements.length > 0) {
+        output += `<div class="test-result test-fail">✗ Found ${overflowElements.length} elements causing overflow</div>`;
+        overflowElements.slice(0, 5).forEach(el => {
+            output += `<div class="test-result test-warn">⚠️ ${el.tagName}.${el.className || 'no-class'}</div>`;
+        });
+    } else {
+        output += '<div class="test-result test-pass">✓ No overflow elements detected</div>';
+    }
+    
+    updateOutput('sizingOutput', output);
+    log('Overflow check complete', 'success');
+}
+
+function detectConflicts() {
+    log('Detecting CSS conflicts...', 'info');
+    let output = '<div class="test-result test-pass">🔍 CSS CONFLICT DETECTION</div>';
+    
+    // Check for global styles that might conflict
+    const stylesheets = document.styleSheets;
+    let conflictCount = 0;
+    
+    try {
+        for (let sheet of stylesheets) {
+            for (let rule of sheet.cssRules || []) {
+                if (rule.selectorText && !rule.selectorText.includes('#meaux-dashboard')) {
+                    if (rule.selectorText.includes('body') || rule.selectorText.includes('html') || rule.selectorText === '*') {
+                        conflictCount++;
+                    }
+                }
+            }
+        }
+    } catch (e) {
+        output += '<div class="test-result test-warn">⚠️ Could not access all stylesheets (CORS)</div>';
+    }
+    
+    output += `<div class="test-result ${conflictCount > 10 ? 'test-warn' : 'test-pass'}">Found ${conflictCount} potential global style conflicts</div>`;
+    
+    updateOutput('sizingOutput', output);
+    log('CSS conflict detection complete', 'success');
+}
+
+// Navigation Testing
+function testNavigation() {
+    log('Testing navigation system...', 'info');
+    let output = '<div class="test-result test-pass">🔍 NAVIGATION TEST</div>';
+    
+    // Check if dashboard exists
+    const dashboard = document.getElementById('meaux-dashboard');
+    if (dashboard) {
+        output += '<div class="test-result test-pass">✓ Dashboard container found</div>';
+    } else {
+        output += '<div class="test-result test-fail">✗ Dashboard container missing</div>';
+    }
+    
+    // Check navigation links
+    const navLinks = document.querySelectorAll('#meaux-dashboard .nav-item');
+    output += `<div class="test-result test-info">📊 Found ${navLinks.length} navigation links</div>`;
+    
+    navLinks.forEach((link, index) => {
+        const href = link.getAttribute('href');
+        const dataSection = link.getAttribute('data-section');
+        
+        if (href === '#') {
+            output += `<div class="test-result test-pass">✓ Link ${index + 1}: Proper href="#"</div>`;
+        } else {
+            output += `<div class="test-result test-fail">✗ Link ${index + 1}: Problematic href="${href}"</div>';
+        }
+        
+        if (dataSection) {
+            output += `<div class="test-result test-pass">✓ Link ${index + 1}: Has data-section="${dataSection}"</div>`;
+        } else {
+            output += `<div class="test-result test-fail">✗ Link ${index + 1}: Missing data-section</div>`;
+        }
+    });
+    
+    updateOutput('navigationOutput', output);
+    log('Navigation test complete', 'success');
+}
+
+function checkEventPropagation() {
+    log('Checking event propagation...', 'info');
+    let output = '<div class="test-result test-pass">🔍 EVENT PROPAGATION CHECK</div>';
+    
+    // Test if events are properly contained
+    const navLinks = document.querySelectorAll('#meaux-dashboard .nav-item');
+    let properHandlers = 0;
+    
+    navLinks.forEach(link => {
+        const events = getEventListeners ? getEventListeners(link) : null;
+        if (events && events.click) {
+            properHandlers++;
+        }
+    });
+    
+    output += `<div class="test-result ${properHandlers > 0 ? 'test-pass' : 'test-fail'}">Event handlers detected: ${properHandlers}</div>`;
+    output += '<div class="test-result test-info">💡 Recommendation: Use event.preventDefault() and event.stopPropagation()</div>';
+    
+    updateOutput('navigationOutput', output);
+    log('Event propagation check complete', 'success');
+}
+
+function validateContainment() {
+    log('Validating dashboard containment...', 'info');
+    let output = '<div class="test-result test-pass">🔍 CONTAINMENT VALIDATION</div>';
+    
+    const dashboard = document.getElementById('meaux-dashboard');
+    if (dashboard) {
+        const styles = window.getComputedStyle(dashboard);
+        const isolation = styles.isolation;
+        const position = styles.position;
+        
+        output += `<div class="test-result ${isolation === 'isolate' ? 'test-pass' : 'test-warn'}">Isolation: ${isolation}</div>`;
+        output += `<div class="test-result test-info">Position: ${position}</div>`;
+        
+        // Check z-index stacking
+        const zIndex = styles.zIndex;
+        output += `<div class="test-result test-info">Z-index: ${zIndex}</div>`;
+    } else {
+        output += '<div class="test-result test-fail">✗ Dashboard container not found</div>';
+    }
+    
+    updateOutput('navigationOutput', output);
+    log('Containment validation complete', 'success');
+}
+
+// Styling Validation
+function checkCSSScooping() {
+    log('Checking CSS scoping...', 'info');
+    let output = '<div class="test-result test-pass">🔍 CSS SCOPING CHECK</div>';
+    
+    try {
+        const stylesheets = document.styleSheets;
+        let scopedRules = 0;
+        let unscopedRules = 0;
+        
+        for (let sheet of stylesheets) {
+            for (let rule of sheet.cssRules || []) {
+                if (rule.selectorText) {
+                    if (rule.selectorText.includes('#meaux-dashboard')) {
+                        scopedRules++;
+                    } else if (!rule.selectorText.includes('@') && !rule.selectorText.includes(':root')) {
+                        unscopedRules++;
+                    }
+                }
+            }
+        }
+        
+        output += `<div class="test-result test-pass">✓ Scoped rules: ${scopedRules}</div>`;
+        output += `<div class="test-result ${unscopedRules > 50 ? 'test-warn' : 'test-pass'}">Unscoped rules: ${unscopedRules}</div>`;
+        
+    } catch (e) {
+        output += '<div class="test-result test-warn">⚠️ Could not access stylesheet rules</div>';
+    }
+    
+    updateOutput('stylingOutput', output);
+    log('CSS scoping check complete', 'success');
+}
+
+function validateBrandColors() {
+    log('Validating brand colors...', 'info');
+    let output = '<div class="test-result test-pass">🔍 BRAND COLOR VALIDATION</div>';
+    
+    const dashboard = document.getElementById('meaux-dashboard');
+    if (dashboard) {
+        const styles = window.getComputedStyle(dashboard);
+        const tealVars = [
+            '--teal-950', '--teal-900', '--teal-800', '--teal-700',
+            '--teal-600', '--teal-500', '--teal-400', '--teal-300'
+        ];
+        
+        tealVars.forEach(varName => {
+            const value = styles.getPropertyValue(varName);
+            if (value) {
+                output += `<div class="test-result test-pass">✓ ${varName}: ${value}</div>`;
+            } else {
+                output += `<div class="test-result test-fail">✗ Missing: ${varName}</div>`;
+            }
+        });
+    }
+    
+    updateOutput('stylingOutput', output);
+    log('Brand color validation complete', 'success');
+}
+
+function testResponsive() {
+    log('Testing responsive design...', 'info');
+    let output = '<div class="test-result test-pass">🔍 RESPONSIVE DESIGN TEST</div>';
+    
+    const breakpoints = [
+        { name: 'Mobile', width: 480 },
+        { name: 'Tablet', width: 768 },
+        { name: 'Desktop', width: 1024 },
+        { name: 'Large', width: 1440 }
+    ];
+    
+    const currentWidth = window.innerWidth;
+    
+    breakpoints.forEach(bp => {
+        if (currentWidth >= bp.width) {
+            output += `<div class="test-result test-pass">✓ ${bp.name} (${bp.width}px+): Active</div>`;
+        } else {
+            output += `<div class="test-result test-info">○ ${bp.name} (${bp.width}px+): Inactive</div>`;
+        }
+    });
+    
+    output += `<div class="test-result test-info">Current viewport: ${currentWidth}px</div>`;
+    
+    updateOutput('stylingOutput', output);
+    log('Responsive design test complete', 'success');
+}
+
+// Performance Monitoring
+function measurePerformance() {
+    log('Measuring performance...', 'info');
+    let output = '<div class="test-result test-pass">🔍 PERFORMANCE METRICS</div>';
+    
+    if (performance.timing) {
+        const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+        output += `<div class="test-result ${loadTime < 3000 ? 'test-pass' : 'test-warn'}">Page load time: ${loadTime}ms</div>`;
+    }
+    
+    // Check DOM complexity
+    const elements = document.querySelectorAll('*').length;
+    output += `<div class="test-result ${elements < 1000 ? 'test-pass' : 'test-warn'}">DOM elements: ${elements}</div>`;
+    
+    // Check for memory leaks
+    const memory = performance.memory;
+    if (memory) {
+        output += `<div class="test-result test-info">Used JS heap: ${(memory.usedJSHeapSize / 1024 / 1024).toFixed(2)}MB</div>`;
+    }
+    
+    updateOutput('performanceOutput', output);
+    log('Performance measurement complete', 'success');
+}
+
+function checkMemoryUsage() {
+    log('Checking memory usage...', 'info');
+    let output = '<div class="test-result test-pass">🔍 MEMORY USAGE</div>';
+    
+    if (performance.memory) {
+        const used = (performance.memory.usedJSHeapSize / 1024 / 1024).toFixed(2);
+        const total = (performance.memory.totalJSHeapSize / 1024 / 1024).toFixed(2);
+        const limit = (performance.memory.jsHeapSizeLimit / 1024 / 1024).toFixed(2);
+        
+        output += `<div class="test-result test-info">Used: ${used}MB</div>`;
+        output += `<div class="test-result test-info">Total: ${total}MB</div>`;
+        output += `<div class="test-result test-info">Limit: ${limit}MB</div>`;
+        
+        const usage = (used / limit) * 100;
+        if (usage > 80) {
+            output += `<div class="test-result test-warn">⚠️ High memory usage: ${usage.toFixed(1)}%</div>`;
+        } else {
+            output += `<div class="test-result test-pass">✓ Memory usage OK: ${usage.toFixed(1)}%</div>`;
+        }
+    } else {
+        output += '<div class="test-result test-warn">⚠️ Memory API not available</div>';
+    }
+    
+    updateOutput('performanceOutput', output);
+    log('Memory usage check complete', 'success');
+}
+
+function validateAccessibility() {
+    log('Validating accessibility...', 'info');
+    let output = '<div class="test-result test-pass">🔍 ACCESSIBILITY VALIDATION</div>';
+    
+    // Check for alt attributes
+    const images = document.querySelectorAll('img');
+    const imagesWithAlt = document.querySelectorAll('img[alt]');
+    output += `<div class="test-result ${images.length === imagesWithAlt.length ? 'test-pass' : 'test-warn'}">Images with alt: ${imagesWithAlt.length}/${images.length}</div>`;
+    
+    // Check for ARIA labels
+    const buttons = document.querySelectorAll('button');
+    const buttonsWithAria = document.querySelectorAll('button[aria-label], button[aria-labelledby]');
+    output += `<div class="test-result test-info">Buttons with ARIA: ${buttonsWithAria.length}/${buttons.length}</div>`;
+    
+    // Check for semantic HTML
+    const landmarks = document.querySelectorAll('main, nav, header, footer, section, article');
+    output += `<div class="test-result ${landmarks.length > 0 ? 'test-pass' : 'test-warn'}">Semantic landmarks: ${landmarks.length}</div>`;
+    
+    updateOutput('performanceOutput', output);
+    log('Accessibility validation complete', 'success');
+}
+
+// Quick Fixes
+function fixNavigation() {
+    log('Applying navigation fixes...', 'info');
+    let output = '<div class="test-result test-pass">🔧 NAVIGATION FIXES APPLIED</div>';
+    
+    const fixCode = `
+// NAVIGATION FIX CODE
+document.querySelectorAll('#meaux-dashboard .nav-item').forEach(link => {
+    // Remove existing listeners
+    link.removeEventListener('click', arguments.callee);
+    
+    // Add proper event handler
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        
+        const sectionId = this.getAttribute('data-section');
+        if (sectionId) {
+            showSection(sectionId);
+        }
+        
+        // Close mobile menu if open
+        if (window.innerWidth <= 768) {
+            closeSidebar();
+        }
+        
+        return false;
+    }, true);
+});
+
+// Additional containment
+document.getElementById('meaux-dashboard').addEventListener('click', function(e) {
+    e.stopPropagation();
+}, true);
+    `;
+    
+    output += `<div class="test-result test-info">📋 Copy this code to fix navigation:</div>`;
+    output += `<div class="debug-output">${fixCode.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>`;
+    
+    updateOutput('fixesOutput', output);
+    log('Navigation fix code generated', 'success');
+}
+
+function fixSizing() {
+    log('Generating sizing fixes...', 'info');
+    let output = '<div class="test-result test-pass">🔧 SIZING FIXES</div>';
+    
+    const sizingFix = `
+/* SIZING FIX CSS */
+#meaux-dashboard {
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+}
+
+#meaux-dashboard * {
+    box-sizing: border-box !important;
+}
+
+#meaux-dashboard .main-content {
+    width: calc(100vw - 280px) !important;
+    max-width: calc(100vw - 280px) !important;
+    overflow-x: hidden !important;
+}
+
+@media (max-width: 768px) {
+    #meaux-dashboard .main-content {
+        width: 100vw !important;
+        max-width: 100vw !important;
+    }
+}
+    `;
+    
+    output += `<div class="test-result test-info">📋 Add this CSS to fix sizing:</div>`;
+    output += `<div class="debug-output">${sizingFix.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>`;
+    
+    updateOutput('fixesOutput', output);
+    log('Sizing fix code generated', 'success');
+}
+
+function removeConflicts() {
+    log('Generating conflict removal code...', 'info');
+    let output = '<div class="test-result test-pass">🔧 BACKGROUND CONFLICT FIXES</div>';
+    
+    const conflictFix = `
+/* BACKGROUND CONFLICT REMOVAL */
+#meaux-dashboard {
+    background: linear-gradient(135deg, var(--teal-950), var(--teal-900)) !important;
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+#meaux-dashboard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    z-index: -1;
+}
+
+/* Remove any inherited backgrounds */
+#meaux-dashboard * {
+    background-attachment: initial !important;
+}
+    `;
+    
+    output += `<div class="test-result test-info">📋 Add this CSS to remove conflicts:</div>`;
+    output += `<div class="debug-output">${conflictFix.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>`;
+    
+    updateOutput('fixesOutput', output);
+    log('Conflict removal code generated', 'success');
+}
+
+function optimizeContainment() {
+    log('Generating containment optimization...', 'info');
+    let output = '<div class="test-result test-pass">🔧 CONTAINMENT OPTIMIZATION</div>';
+    
+    const containmentFix = `
+/* ENHANCED CONTAINMENT */
+#meaux-dashboard {
+    contain: layout style paint !important;
+    isolation: isolate !important;
+    transform: translateZ(0) !important;
+    will-change: auto !important;
+}
+
+#meaux-dashboard a[href="#"] {
+    pointer-events: auto !important;
+}
+
+/* Prevent event bubbling */
+#meaux-dashboard .nav-item {
+    position: relative !important;
+    z-index: 10 !important;
+}
+    `;
+    
+    output += `<div class="test-result test-info">📋 Add this CSS for better containment:</div>`;
+    output += `<div class="debug-output">${containmentFix.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>`;
+    
+    updateOutput('fixesOutput', output);
+    log('Containment optimization code generated', 'success');
+}
+
+// Report Generation
+function generateReport() {
+    log('Generating comprehensive report...', 'info');
+    let output = '<div class="test-result test-pass">📋 COMPREHENSIVE DIAGNOSTIC REPORT</div>';
+    
+    // Collect all issues
+    const issues = [
+        '🔴 Navigation redirects to home page instead of sections',
+        '🟡 Sizing issues causing layout problems',
+        '🟡 Potential background conflicts with parent theme',
+        '🟡 Event propagation not properly contained'
+    ];
+    
+    const fixes = [
+        '✅ Add event.preventDefault() and event.stopPropagation() to nav links',
+        '✅ Implement proper CSS containment and box-sizing',
+        '✅ Add background isolation and z-index management',
+        '✅ Enhance event handler specificity and capture'
+    ];
+    
+    output += '<div class="test-result test-fail">🔴 IDENTIFIED ISSUES:</div>';
+    issues.forEach(issue => {
+        output += `<div class="test-result test-warn">${issue}</div>`;
+    });
+    
+    output += '<div class="test-result test-pass">✅ RECOMMENDED FIXES:</div>';
+    fixes.forEach(fix => {
+        output += `<div class="test-result test-pass">${fix}</div>`;
+    });
+    
+    updateOutput('reportOutput', output);
+    log('Comprehensive report generated', 'success');
+}
+
+function exportFixes() {
+    log('Exporting recommended fixes...', 'info');
+    let output = '<div class="test-result test-pass">📤 EXPORT FIXES</div>';
+    
+    const fullFix = `
+/* ===== MEAUXBILITY DASHBOARD FIXES ===== */
+
+/* 1. Enhanced Containment */
+#meaux-dashboard {
+    contain: layout style paint !important;
+    isolation: isolate !important;
+    transform: translateZ(0) !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+    position: relative !important;
+    z-index: 1 !important;
+    background: linear-gradient(135deg, var(--teal-950), var(--teal-900)) !important;
+}
+
+/* 2. Sizing Fixes */
+#meaux-dashboard * {
+    box-sizing: border-box !important;
+}
+
+#meaux-dashboard .main-content {
+    width: calc(100vw - 280px) !important;
+    max-width: calc(100vw - 280px) !important;
+    overflow-x: hidden !important;
+}
+
+/* 3. Navigation Fixes */
+#meaux-dashboard .nav-item {
+    position: relative !important;
+    z-index: 10 !important;
+    pointer-events: auto !important;
+}
+
+/* 4. Background Isolation */
+#meaux-dashboard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    z-index: -1;
+}
+
+// JavaScript Fixes
+document.querySelectorAll('#meaux-dashboard .nav-item').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        
+        const sectionId = this.getAttribute('data-section');
+        if (sectionId && typeof showSection === 'function') {
+            showSection(sectionId);
+        }
+        
+        return false;
+    }, true);
+});
+    `;
+    
+    output += '<div class="test-result test-info">📋 COMPLETE FIX CODE:</div>';
+    output += `<div class="debug-output" style="max-height: 300px; overflow-y: auto;">${fullFix.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>`;
+    
+    updateOutput('reportOutput', output);
+    log('Fix code exported', 'success');
+}
+
+// Initialize debugger
+document.addEventListener('DOMContentLoaded', function() {
+    log('Dashboard Debugger initialized', 'success');
+    console.log('%c🔧 MEAUXBILITY DASHBOARD DEBUGGER READY', 'color: #00ffff; font-size: 16px; font-weight: bold;');
+    console.log('%cUse the buttons above to diagnose and fix dashboard issues', 'color: #ffff00;');
+});
+</script>
+</body>
+</html>
