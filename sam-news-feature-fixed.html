@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sam's Journey - Breaking Barriers | KATC News Feature</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Completely isolated styles - no conflicts with Shopify Dawn */
+        .meaux-news-feature {
+            all: initial;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            display: block;
+            width: 100%;
+            min-height: 100vh;
+            background: #ffffff;
+            color: #173E45;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .meaux-news-feature *,
+        .meaux-news-feature *::before,
+        .meaux-news-feature *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+        /* Override Shopify Dawn reset conflicts */
+        .meaux-news-feature h1,
+        .meaux-news-feature h2,
+        .meaux-news-feature h3,
+        .meaux-news-feature h4,
+        .meaux-news-feature h5,
+        .meaux-news-feature h6 {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+        .meaux-news-feature p {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+        :root {
+            /* Meauxbility Brand Colors */
+            --meaux-orange: #FF6B00;
+            --meaux-orange-hover: #E85D00;
+            --meaux-teal: #339999;
+            --meaux-teal-hover: #2C8B8B;
+            --meaux-deep: #0C2D31;
+            --meaux-ink: #173E45;
+            --meaux-white: #ffffff;
+            --meaux-gray-light: #F8FAFB;
+            --meaux-gray: #6B7280;
+            
+            /* Meauxbility Premium Shadows */
+            --meaux-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+            --meaux-shadow-md: 0 4px 24px rgba(0, 0, 0, 0.08);
+            --meaux-shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.12);
+            --meaux-shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.15);
+            --meaux-shadow-glow: 0 0 48px rgba(255, 107, 0, 0.15);
+            
+            /* Meauxbility Typography */
+            --meaux-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+
+        /* ========== MEAUXBILITY NEWS HERO ========== */
+        .meaux-hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background: #ffffff;
+            position: relative;
+            will-change: auto;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+
+        /* Meauxbility Animated Background - Optimized for performance */
+        .meaux-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 107, 0, 0.02) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 50%, rgba(51, 153, 153, 0.02) 0%, transparent 50%);
+            animation: meauxGradientPulse 15s ease infinite;
+            pointer-events: none;
+            will-change: transform, opacity;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+
+        /* Clean featured by styling - absolutely no background */
+        .meaux-featured-by {
+            background: none !important;
+            border: none !important;
+            padding: 0 !important;
+            margin-top: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+            color: #6B7280;
+        }
+
+        @keyframes meauxGradientPulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+
+        /* ========== MEAUXBILITY HEADER ========== */
+        .meaux-header {
+            text-align: center;
+            max-width: 900px;
+            margin-bottom: 48px;
+            animation: meauxFadeInDown 0.8s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+
+        .meaux-title {
+            font-size: clamp(2.5rem, 7vw, 4rem);
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 20px;
+            letter-spacing: -0.03em;
+            color: #0C2D31;
+            background: none;
+            -webkit-text-fill-color: initial;
+        }
+
+        .meaux-subtitle {
+            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            color: var(--meaux-gray);
+            line-height: 1.5;
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .meaux-featured-by {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 20px;
+            padding: 12px 20px;
+            background: var(--meaux-gray-light);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            color: var(--meaux-gray);
+        }
+
+        .meaux-katc-logo {
+            font-weight: 800;
+            color: var(--meaux-orange);
+            font-size: 1.1rem;
+        }
+
+        /* ========== MEAUXBILITY VIDEO SHOWCASE ========== */
+        .meaux-showcase {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            animation: meauxFadeInUp 1s ease 0.4s both;
+        }
+
+        /* Meauxbility Premium Container */
+        .meaux-video-frame {
+            position: relative;
+            width: 100%;
+            padding: 24px;
+            background: linear-gradient(135deg, var(--meaux-white) 0%, var(--meaux-gray-light) 100%);
+            border-radius: 28px;
+            box-shadow: var(--meaux-shadow-lg);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .meaux-video-frame:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: var(--meaux-shadow-xl), var(--meaux-shadow-glow);
+        }
+
+        /* Meauxbility 16:9 Container */
+        .meaux-aspect-box {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 */
+            background: var(--meaux-white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .meaux-video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--meaux-white);
+        }
+
+        /* Meauxbility Video Styles */
+        .meaux-news-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: var(--meaux-white);
+            object-fit: cover;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+        }
+
+        .meaux-news-video:hover {
+            opacity: 0.95;
+        }
+
+        /* Custom Fullscreen Button */
+        .meaux-fullscreen-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--meaux-orange);
+            border: 2px solid white;
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .meaux-fullscreen-btn:hover {
+            background: var(--meaux-orange-hover);
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(255, 107, 0, 0.4);
+        }
+
+        .meaux-fullscreen-btn:active {
+            transform: scale(0.95);
+            background: var(--meaux-orange-hover);
+        }
+
+        .meaux-fullscreen-btn:focus {
+            outline: 3px solid rgba(255, 107, 0, 0.5);
+            outline-offset: 2px;
+        }
+
+        /* Click to play overlay hint */
+        .meaux-video-container::after {
+            content: 'Click to play/pause • Click fullscreen button';
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 5;
+        }
+
+        .meaux-video-container:hover::after {
+            opacity: 1;
+        }
+
+
+        /* Meauxbility Loading Overlay */
+        .meaux-loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--meaux-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: opacity 0.5s ease;
+        }
+
+        .meaux-loading.meaux-hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .meaux-spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--meaux-gray-light);
+            border-top-color: var(--meaux-orange);
+            border-radius: 50%;
+            animation: meauxSpin 1s linear infinite;
+        }
+
+        @keyframes meauxSpin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Meauxbility Info Section */
+        .meaux-info {
+            margin-top: 40px;
+            text-align: center;
+            animation: meauxFadeIn 1s ease 0.6s both;
+        }
+
+        .meaux-info-title {
+            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: var(--meaux-deep);
+        }
+
+        .meaux-info-text {
+            font-size: 1.15rem;
+            color: var(--meaux-gray);
+            margin-bottom: 28px;
+            line-height: 1.6;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .meaux-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 36px;
+            background: var(--meaux-orange);
+            color: white;
+            text-decoration: none;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 14px rgba(255, 107, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .meaux-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .meaux-cta:hover::before {
+            left: 100%;
+        }
+
+        .meaux-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(255, 107, 0, 0.4);
+            background: var(--meaux-orange-hover);
+        }
+
+        .meaux-cta svg {
+            width: 22px;
+            height: 22px;
+            transition: transform 0.3s ease;
+        }
+
+        .meaux-cta:hover svg {
+            transform: translateX(5px);
+        }
+
+        /* ========== MEAUXBILITY ANIMATIONS ========== */
+        @keyframes meauxFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes meauxFadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes meauxFadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ========== MEAUXBILITY MOBILE ========== */
+        @media (max-width: 768px) {
+            .meaux-hero {
+                padding: 30px 16px;
+                min-height: auto;
+            }
+
+            .meaux-header {
+                margin-bottom: 36px;
+            }
+
+            .meaux-title {
+                font-size: 2.5rem;
+            }
+
+            .meaux-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .meaux-video-frame {
+                padding: 16px;
+                border-radius: 20px;
+            }
+
+            .meaux-aspect-box {
+                border-radius: 12px;
+            }
+
+            .meaux-info {
+                margin-top: 32px;
+                padding: 0 16px;
+            }
+
+            .meaux-cta {
+                width: 100%;
+                justify-content: center;
+                padding: 16px 32px;
+            }
+
+            /* Mobile video optimizations */
+            .meaux-news-video {
+                object-fit: contain; /* Better for mobile viewing */
+            }
+
+            /* Mobile fullscreen button */
+            .meaux-fullscreen-btn {
+                width: 60px;
+                height: 60px;
+                bottom: 15px;
+                right: 15px;
+                font-size: 20px;
+                opacity: 1; /* Always visible on mobile */
+                transform: translateY(0);
+                border: 3px solid white;
+                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+            }
+
+            /* Mobile click hint */
+            .meaux-video-container::after {
+                font-size: 11px;
+                padding: 6px 12px;
+                bottom: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .meaux-video-frame {
+                padding: 12px;
+            }
+
+            .meaux-title {
+                font-size: 2rem;
+            }
+
+            /* Small mobile optimizations */
+            .meaux-video-container::after {
+                font-size: 10px;
+                padding: 4px 8px;
+                bottom: 10px;
+            }
+        }
+
+        /* ========== LARGER SCREENS ========== */
+        @media (min-width: 1200px) {
+            .meaux-showcase {
+                max-width: 1400px;
+            }
+
+            .meaux-video-frame {
+                padding: 32px;
+            }
+        }
+
+        /* ========== ULTRA WIDE SCREENS ========== */
+        @media (min-width: 1600px) {
+            .meaux-showcase {
+                max-width: 1600px;
+            }
+        }
+
+        /* Meauxbility Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Prevent iOS issues */
+        @supports (-webkit-touch-callout: none) {
+            .meaux-hero {
+                min-height: -webkit-fill-available;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="meaux-news-feature">
+        <section class="meaux-hero">
+        <!-- Meauxbility Header Section -->
+        <div class="meaux-header">
+            <h1 class="meaux-title">Breaking Barriers</h1>
+            <p class="meaux-subtitle">
+                Lafayette man beats the odds after life-altering incident,<br>
+                inspiring a community through unwavering determination
+            </p>
+            
+            <div class="meaux-featured-by">
+                <span>As Featured on</span>
+                <span class="meaux-katc-logo">KATC NEWS</span>
+            </div>
+        </div>
+
+        <!-- Meauxbility Video Showcase -->
+        <div class="meaux-showcase">
+            <div class="meaux-video-frame">
+                <div class="meaux-aspect-box">
+                    <div class="meaux-video-container" id="meauxVideoContainer">
+                        <!-- Loading Spinner -->
+                        <div class="meaux-loading" id="meauxLoader">
+                            <div class="meaux-spinner"></div>
+                        </div>
+                        
+                        <!-- Fixed HTML5 Video - Loops the 2:24 clip -->
+                        <video 
+                            id="meaux-video"
+                            class="meaux-news-video"
+                            controls
+                            muted
+                            preload="metadata"
+                            playsinline
+                            webkit-playsinline
+                            poster="https://cf.cdn.uplynk.com/ause/slices/180/f777e7b891e1459dabc1eab38a649e4f/1805c7adbb774bb3902487e5a07b299f/poster_41128f30cdda4c2781cc7d20bc2c9540.jpg"
+                            title="Sam's Journey - KATC News Feature">
+                            <source src="" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        
+                        <!-- Custom Fullscreen Button -->
+                        <button class="meaux-fullscreen-btn" id="meauxFullscreenBtn" title="Fullscreen">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Meauxbility Info Section -->
+            <div class="meaux-info">
+                <h2 class="meaux-info-title">Sam's Journey: From Tragedy to Triumph</h2>
+                <p class="meaux-info-text">
+                    Watch the full story of how Sam Primeaux transformed a life-changing moment into 
+                    a movement that's inspiring others to discover their inner strength and 
+                    redefine what's possible.
+                </p>
+                <a href="https://meauxbility.org/pages/get-involved-lafayette-la" class="meaux-cta">
+                    Join the Movement
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+            
+            const meauxVideo = document.getElementById('meaux-video');
+            const meauxLoader = document.getElementById('meauxLoader');
+            const meauxContainer = document.getElementById('meauxVideoContainer');
+            const meauxFullscreenBtn = document.getElementById('meauxFullscreenBtn');
+            
+            if (!meauxVideo || !meauxLoader) return;
+
+            // FIXED: Use direct MP4 video instead of Scripps player to avoid playlist issues
+            // This gives us full control over playback and prevents other videos from showing
+            const meauxVideoUrl = 'https://cf.cdn.uplynk.com/ause/slices/180/f777e7b891e1459dabc1eab38a649e4f/1805c7adbb774bb3902487e5a07b299f/1805c7adbb774bb3902487e5a07b299f_e.mp4';
+
+            // Load video when ready
+            function meauxLoadVideo() {
+                const source = meauxVideo.querySelector('source');
+                source.src = meauxVideoUrl;
+                meauxVideo.load();
+                
+                // Hide loader after video loads and start autoplay
+                meauxVideo.addEventListener('loadeddata', function() {
+                    setTimeout(() => {
+                        meauxLoader.classList.add('meaux-hidden');
+                        // Start monitoring video time to loop at 2:24
+                        meauxMonitorVideoTime();
+                        // Start autoplay (muted)
+                        meauxStartAutoplay();
+                    }, 500);
+                });
+            }
+
+            // Start autoplay muted
+            function meauxStartAutoplay() {
+                meauxVideo.muted = true; // Ensure it's muted
+                meauxVideo.play().catch(e => {
+                    console.log('Meauxbility: Autoplay blocked by browser', e);
+                    // If autoplay fails, show a play button or handle gracefully
+                });
+            }
+
+            // Click to play/pause functionality
+            function meauxSetupClickToPlay() {
+                meauxVideo.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (meauxVideo.paused) {
+                        meauxVideo.play();
+                    } else {
+                        meauxVideo.pause();
+                    }
+                });
+            }
+
+            // Custom fullscreen functionality
+            function meauxSetupFullscreen() {
+                if (!meauxFullscreenBtn) {
+                    console.log('Meauxbility: Fullscreen button not found');
+                    return;
+                }
+
+                console.log('Meauxbility: Setting up fullscreen functionality');
+
+                // Custom fullscreen button click
+                meauxFullscreenBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Meauxbility: Fullscreen button clicked');
+                    meauxToggleFullscreen();
+                });
+
+                // Also add touch events for mobile
+                meauxFullscreenBtn.addEventListener('touchend', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Meauxbility: Fullscreen button touched');
+                    meauxToggleFullscreen();
+                });
+
+                // Listen for fullscreen changes
+                document.addEventListener('fullscreenchange', function() {
+                    console.log('Meauxbility: Fullscreen change detected');
+                    if (!document.fullscreenElement) {
+                        // Exited fullscreen - keep muted for autoplay compliance
+                        meauxVideo.muted = true;
+                        // Update button icon
+                        meauxUpdateFullscreenIcon(false);
+                        console.log('Meauxbility: Exited fullscreen');
+                    } else {
+                        // Entered fullscreen
+                        meauxUpdateFullscreenIcon(true);
+                        console.log('Meauxbility: Entered fullscreen');
+                    }
+                });
+
+                // Handle fullscreen errors
+                document.addEventListener('fullscreenerror', function(e) {
+                    console.log('Meauxbility: Fullscreen error:', e);
+                });
+            }
+
+            function meauxToggleFullscreen() {
+                console.log('Meauxbility: Toggling fullscreen, current state:', !!document.fullscreenElement);
+                
+                if (!document.fullscreenElement) {
+                    // Enter fullscreen
+                    console.log('Meauxbility: Attempting to enter fullscreen');
+                    
+                    if (meauxVideo.requestFullscreen) {
+                        console.log('Meauxbility: Using requestFullscreen');
+                        meauxVideo.requestFullscreen().catch(e => {
+                            console.log('Meauxbility: requestFullscreen failed:', e);
+                        });
+                    } else if (meauxVideo.webkitRequestFullscreen) {
+                        console.log('Meauxbility: Using webkitRequestFullscreen');
+                        meauxVideo.webkitRequestFullscreen();
+                    } else if (meauxVideo.mozRequestFullScreen) {
+                        console.log('Meauxbility: Using mozRequestFullScreen');
+                        meauxVideo.mozRequestFullScreen();
+                    } else if (meauxVideo.msRequestFullscreen) {
+                        console.log('Meauxbility: Using msRequestFullscreen');
+                        meauxVideo.msRequestFullscreen();
+                    } else {
+                        console.log('Meauxbility: No fullscreen API available');
+                        alert('Fullscreen not supported in this browser');
+                    }
+                } else {
+                    // Exit fullscreen
+                    console.log('Meauxbility: Attempting to exit fullscreen');
+                    
+                    if (document.exitFullscreen) {
+                        console.log('Meauxbility: Using exitFullscreen');
+                        document.exitFullscreen();
+                    } else if (document.webkitExitFullscreen) {
+                        console.log('Meauxbility: Using webkitExitFullscreen');
+                        document.webkitExitFullscreen();
+                    } else if (document.mozCancelFullScreen) {
+                        console.log('Meauxbility: Using mozCancelFullScreen');
+                        document.mozCancelFullScreen();
+                    } else if (document.msExitFullscreen) {
+                        console.log('Meauxbility: Using msExitFullscreen');
+                        document.msExitFullscreen();
+                    }
+                }
+            }
+
+            function meauxUpdateFullscreenIcon(isFullscreen) {
+                if (!meauxFullscreenBtn) return;
+                
+                const svg = meauxFullscreenBtn.querySelector('svg');
+                if (!svg) return;
+
+                if (isFullscreen) {
+                    // Exit fullscreen icon
+                    svg.innerHTML = '<path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/>';
+                } else {
+                    // Enter fullscreen icon
+                    svg.innerHTML = '<path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>';
+                }
+            }
+
+            // Monitor video time and loop at 2:24 (144 seconds)
+            function meauxMonitorVideoTime() {
+                meauxVideo.addEventListener('timeupdate', function() {
+                    // Loop video at 2:24 (144 seconds) - restart from beginning
+                    if (meauxVideo.currentTime >= 144) {
+                        meauxVideo.currentTime = 0; // Restart from beginning
+                        meauxVideo.play(); // Continue playing
+                    }
+                });
+            }
+
+            // Setup click-to-play and fullscreen functionality
+            meauxSetupClickToPlay();
+            meauxSetupFullscreen();
+
+            // Intersection Observer for lazy loading (performance optimization)
+            if ('IntersectionObserver' in window) {
+                const meauxObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            meauxLoadVideo();
+                            meauxObserver.disconnect();
+                        }
+                    });
+                }, { 
+                    rootMargin: '200px 0px', // Load 200px before entering viewport for smoother experience
+                    threshold: 0 
+                });
+                
+                meauxObserver.observe(meauxContainer);
+            } else {
+                // Fallback: load immediately
+                meauxLoadVideo();
+            }
+
+            // Performance optimization: pause when out of view
+            if ('IntersectionObserver' in window) {
+                const meauxVisibilityObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (!entry.isIntersecting && !meauxVideo.paused) {
+                            meauxVideo.pause();
+                        } else if (entry.isIntersecting && meauxVideo.paused) {
+                            // Resume playing (video will loop automatically)
+                            meauxVideo.play();
+                        }
+                    });
+                }, { threshold: 0.1 });
+                
+                meauxVisibilityObserver.observe(meauxContainer);
+            }
+
+            // Prevent iOS zoom
+            let meauxLastTouch = 0;
+            document.addEventListener('touchend', function(e) {
+                const now = Date.now();
+                if (now - meauxLastTouch <= 300) {
+                    e.preventDefault();
+                }
+                meauxLastTouch = now;
+            }, false);
+        })();
+    </script>
+</body>
+</html>

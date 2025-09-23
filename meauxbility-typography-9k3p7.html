@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meauxbility Typography System - 9k3p7</title>
+  <style>
+    /* Meauxbility Typography System - Unique ID: 9k3p7 */
+    :root {
+      /* Brand Colors */
+      --meaux-primary: #00FF7F;
+      --meaux-teal-deep: #0a1a1a;
+      --meaux-teal-mid: #0f2622;
+      --meaux-teal-light: #1a3530;
+      --meaux-white: #FFFFFF;
+      --meaux-mid-gray: #A0A0A0;
+      --meaux-dark-gray: #333333;
+      
+      /* Typography */
+      --font-primary: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-secondary: 'Georgia', 'Times New Roman', serif;
+      --font-mono: 'SF Mono', 'Monaco', 'Courier New', monospace;
+      
+      /* Spacing */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2rem;
+      --space-2xl: 3rem;
+      
+      /* Border Radius */
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-primary);
+      line-height: 1.6;
+      color: var(--meaux-white);
+      background: linear-gradient(135deg, var(--meaux-teal-deep) 0%, var(--meaux-teal-mid) 50%, var(--meaux-teal-light) 100%);
+      min-height: 100vh;
+    }
+
+    .meaux-container-9k3p7 {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: var(--space-xl);
+    }
+
+    .meaux-header-9k3p7 {
+      text-align: center;
+      margin-bottom: var(--space-2xl);
+    }
+
+    .meaux-title-9k3p7 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--meaux-primary);
+      margin-bottom: var(--space-md);
+    }
+
+    .meaux-subtitle-9k3p7 {
+      font-size: 1.1rem;
+      color: var(--meaux-mid-gray);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .meaux-type-scale-9k3p7 {
+      display: grid;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .meaux-type-example-9k3p7 {
+      padding: var(--space-lg);
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: var(--radius-md);
+      border-left: 4px solid var(--meaux-primary);
+      transition: transform 0.3s ease;
+    }
+
+    .meaux-type-example-9k3p7:hover {
+      transform: translateX(5px);
+    }
+
+    .meaux-type-label-9k3p7 {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--meaux-primary);
+      margin-bottom: var(--space-xs);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+
+    .meaux-h1-9k3p7 { 
+      font-size: 3.5rem; 
+      font-weight: 900; 
+      line-height: 1.1; 
+      color: var(--meaux-white);
+    }
+
+    .meaux-h2-9k3p7 { 
+      font-size: 2.5rem; 
+      font-weight: 800; 
+      line-height: 1.2; 
+      color: var(--meaux-white);
+    }
+
+    .meaux-h3-9k3p7 { 
+      font-size: 2rem; 
+      font-weight: 700; 
+      line-height: 1.3; 
+      color: var(--meaux-white);
+    }
+
+    .meaux-h4-9k3p7 { 
+      font-size: 1.5rem; 
+      font-weight: 600; 
+      line-height: 1.4; 
+      color: var(--meaux-white);
+    }
+
+    .meaux-body-9k3p7 { 
+      font-size: 1.1rem; 
+      font-weight: 400; 
+      line-height: 1.6; 
+      color: var(--meaux-white);
+    }
+
+    .meaux-caption-9k3p7 { 
+      font-size: 0.9rem; 
+      font-weight: 300; 
+      line-height: 1.5; 
+      color: var(--meaux-mid-gray);
+    }
+
+    .meaux-font-showcase-9k3p7 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-lg);
+      margin: var(--space-xl) 0;
+    }
+
+    .meaux-font-card-9k3p7 {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .meaux-font-title-9k3p7 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: var(--space-md);
+      color: var(--meaux-primary);
+    }
+
+    .meaux-font-sample-9k3p7 {
+      font-size: 1.5rem;
+      line-height: 1.4;
+      margin-bottom: var(--space-sm);
+      color: var(--meaux-white);
+    }
+
+    .meaux-font-info-9k3p7 {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--meaux-mid-gray);
+      background: rgba(0, 0, 0, 0.3);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--radius-sm);
+      display: inline-block;
+    }
+
+    .meaux-accessibility-9k3p7 {
+      background: rgba(0, 255, 127, 0.1);
+      border: 1px solid var(--meaux-primary);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      margin: var(--space-xl) 0;
+    }
+
+    .meaux-accessibility-9k3p7 h5 {
+      color: var(--meaux-primary);
+      margin-bottom: var(--space-sm);
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .meaux-accessibility-9k3p7 p {
+      color: var(--meaux-white);
+      line-height: 1.6;
+    }
+
+    .meaux-hierarchy-demo-9k3p7 {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      margin: var(--space-xl) 0;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .meaux-hierarchy-title-9k3p7 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: var(--space-lg);
+      color: var(--meaux-primary);
+      text-align: center;
+    }
+
+    .meaux-text-styles-9k3p7 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--space-md);
+      margin: var(--space-lg) 0;
+    }
+
+    .meaux-style-example-9k3p7 {
+      padding: var(--space-md);
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: var(--radius-md);
+      text-align: center;
+    }
+
+    .meaux-style-label-9k3p7 {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--meaux-primary);
+      margin-bottom: var(--space-xs);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .meaux-bold-9k3p7 { font-weight: 700; }
+    .meaux-italic-9k3p7 { font-style: italic; }
+    .meaux-underline-9k3p7 { text-decoration: underline; }
+    .meaux-uppercase-9k3p7 { text-transform: uppercase; letter-spacing: 1px; }
+    .meaux-lowercase-9k3p7 { text-transform: lowercase; }
+    .meaux-capitalize-9k3p7 { text-transform: capitalize; }
+
+    @media (max-width: 768px) {
+      .meaux-font-showcase-9k3p7,
+      .meaux-text-styles-9k3p7 {
+        grid-template-columns: 1fr;
+      }
+      
+      .meaux-title-9k3p7 {
+        font-size: 2rem;
+      }
+      
+      .meaux-h1-9k3p7 { font-size: 2.5rem; }
+      .meaux-h2-9k3p7 { font-size: 2rem; }
+      .meaux-h3-9k3p7 { font-size: 1.5rem; }
+    }
+
+    .meaux-fade-in-9k3p7 {
+      animation: meauxFadeIn-9k3p7 0.5s ease-in-out;
+    }
+
+    @keyframes meauxFadeIn-9k3p7 {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="meaux-container-9k3p7 meaux-fade-in-9k3p7">
+    <header class="meaux-header-9k3p7">
+      <h1 class="meaux-title-9k3p7">Meauxbility Typography</h1>
+      <p class="meaux-subtitle-9k3p7">
+        Clean, accessible typography that speaks to innovation while maintaining readability across all devices and abilities.
+      </p>
+    </header>
+    
+    <div class="meaux-type-scale-9k3p7">
+      <div class="meaux-type-example-9k3p7">
+        <div class="meaux-type-label-9k3p7">Heading 1 / Display</div>
+        <div class="meaux-h1-9k3p7">Empowering Mobility</div>
+      </div>
+      
+      <div class="meaux-type-example-9k3p7">
+        <div class="meaux-type-label-9k3p7">Heading 2 / Section</div>
+        <div class="meaux-h2-9k3p7">Breaking Barriers Together</div>
+      </div>
+      
+      <div class="meaux-type-example-9k3p7">
+        <div class="meaux-type-label-9k3p7">Heading 3 / Subsection</div>
+        <div class="meaux-h3-9k3p7">Innovation in Accessibility</div>
+      </div>
+      
+      <div class="meaux-type-example-9k3p7">
+        <div class="meaux-type-label-9k3p7">Heading 4 / Component</div>
+        <div class="meaux-h4-9k3p7">Supporting Every Journey</div>
+      </div>
+      
+      <div class="meaux-type-example-9k3p7">
+        <div class="meaux-type-label-9k3p7">Body Text</div>
+        <div class="meaux-body-9k3p7">
+          Our mission is to create a world where mobility limitations never define possibilities. Through community support and innovative funding, we're building bridges to independence.
+        </div>
+      </div>
+      
+      <div class="meaux-type-example-9k3p7">
+        <div class="meaux-type-label-9k3p7">Caption / Small</div>
+        <div class="meaux-caption-9k3p7">Supporting accessibility initiatives since 2024</div>
+      </div>
+    </div>
+
+    <div class="meaux-font-showcase-9k3p7">
+      <div class="meaux-font-card-9k3p7">
+        <h3 class="meaux-font-title-9k3p7">Primary Font</h3>
+        <div class="meaux-font-sample-9k3p7" style="font-family: var(--font-primary);">
+          SF Pro Display
+        </div>
+        <div class="meaux-font-info-9k3p7">
+          Headers, UI elements, body text
+        </div>
+        <p style="color: var(--meaux-mid-gray); font-size: 0.9rem; margin-top: var(--space-sm);">
+          Modern, clean system font optimized for readability and accessibility across all devices.
+        </p>
+      </div>
+      
+      <div class="meaux-font-card-9k3p7">
+        <h3 class="meaux-font-title-9k3p7">Secondary Font</h3>
+        <div class="meaux-font-sample-9k3p7" style="font-family: var(--font-secondary);">
+          Georgia Serif
+        </div>
+        <div class="meaux-font-info-9k3p7">
+          Quotes, emphasis, special content
+        </div>
+        <p style="color: var(--meaux-mid-gray); font-size: 0.9rem; margin-top: var(--space-sm);">
+          Traditional serif for quotes, testimonials, and content that needs emphasis or warmth.
+        </p>
+      </div>
+      
+      <div class="meaux-font-card-9k3p7">
+        <h3 class="meaux-font-title-9k3p7">Monospace Font</h3>
+        <div class="meaux-font-sample-9k3p7" style="font-family: var(--font-mono); font-size: 1.2rem;">
+          SF Mono Code
+        </div>
+        <div class="meaux-font-info-9k3p7">
+          Code, technical content, labels
+        </div>
+        <p style="color: var(--meaux-mid-gray); font-size: 0.9rem; margin-top: var(--space-sm);">
+          Monospace font for code snippets, technical specifications, and structured data.
+        </p>
+      </div>
+    </div>
+
+    <div class="meaux-hierarchy-demo-9k3p7">
+      <h3 class="meaux-hierarchy-title-9k3p7">Typography Hierarchy in Action</h3>
+      <div class="meaux-h1-9k3p7" style="margin-bottom: var(--space-md);">Campaign Title</div>
+      <div class="meaux-h2-9k3p7" style="margin-bottom: var(--space-sm);">Supporting DonMichael's Journey</div>
+      <div class="meaux-h3-9k3p7" style="margin-bottom: var(--space-sm);">Goal: $10,000 for Mobility Equipment</div>
+      <div class="meaux-body-9k3p7" style="margin-bottom: var(--space-md);">
+        DonMichael is working hard to achieve his mobility goals. With your support, we can help him get the equipment he needs to maintain his independence and continue his daily activities with confidence.
+      </div>
+      <div class="meaux-caption-9k3p7">
+        Campaign started 2 weeks ago • 127 supporters • 65% funded
+      </div>
+    </div>
+
+    <div class="meaux-text-styles-9k3p7">
+      <div class="meaux-style-example-9k3p7">
+        <div class="meaux-style-label-9k3p7">Bold</div>
+        <div class="meaux-bold-9k3p7" style="color: var(--meaux-white);">Strong Emphasis</div>
+      </div>
+      
+      <div class="meaux-style-example-9k3p7">
+        <div class="meaux-style-label-9k3p7">Italic</div>
+        <div class="meaux-italic-9k3p7" style="color: var(--meaux-white);">Emphasized Text</div>
+      </div>
+      
+      <div class="meaux-style-example-9k3p7">
+        <div class="meaux-style-label-9k3p7">Underline</div>
+        <div class="meaux-underline-9k3p7" style="color: var(--meaux-white);">Linked Content</div>
+      </div>
+      
+      <div class="meaux-style-example-9k3p7">
+        <div class="meaux-style-label-9k3p7">Uppercase</div>
+        <div class="meaux-uppercase-9k3p7" style="color: var(--meaux-primary); font-weight: 600;">Call to Action</div>
+      </div>
+      
+      <div class="meaux-style-example-9k3p7">
+        <div class="meaux-style-label-9k3p7">Lowercase</div>
+        <div class="meaux-lowercase-9k3p7" style="color: var(--meaux-white);">casual text</div>
+      </div>
+      
+      <div class="meaux-style-example-9k3p7">
+        <div class="meaux-style-label-9k3p7">Capitalize</div>
+        <div class="meaux-capitalize-9k3p7" style="color: var(--meaux-white);">proper titles</div>
+      </div>
+    </div>
+
+    <div class="meaux-accessibility-9k3p7">
+      <h5>♿ Accessibility Note</h5>
+      <p>
+        Typography uses system fonts for optimal performance and accessibility. Minimum 16px body text, high contrast ratios, and clear hierarchy support screen readers and users with visual impairments. All text maintains 4.5:1 contrast ratio minimum and scales properly with user preferences.
+      </p>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meauxbility Progress Tracking - 8m2k5</title>
+  <style>
+    /* Meauxbility Progress Tracking - Unique ID: 8m2k5 */
+    :root {
+      /* Brand Colors */
+      --meaux-primary: #00FF7F;
+      --meaux-primary-dark: #00C965;
+      --meaux-primary-light: #32FF9F;
+      --meaux-teal-deep: #0a1a1a;
+      --meaux-teal-mid: #0f2622;
+      --meaux-teal-light: #1a3530;
+      --meaux-white: #FFFFFF;
+      --meaux-mid-gray: #A0A0A0;
+      --meaux-dark-gray: #333333;
+      --meaux-blue-electric: #00D4FF;
+      --meaux-red-energy: #FF3366;
+      
+      /* Typography */
+      --font-primary: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'SF Mono', 'Monaco', 'Courier New', monospace;
+      
+      /* Spacing */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2rem;
+      --space-2xl: 3rem;
+      
+      /* Border Radius */
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-pill: 50px;
+      
+      /* Shadows */
+      --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+      --shadow-glow: 0 0 20px rgba(0, 255, 127, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-primary);
+      line-height: 1.6;
+      color: var(--meaux-white);
+      background: linear-gradient(135deg, var(--meaux-teal-deep) 0%, var(--meaux-teal-mid) 50%, var(--meaux-teal-light) 100%);
+      min-height: 100vh;
+    }
+
+    .meaux-container-8m2k5 {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: var(--space-xl);
+    }
+
+    .meaux-header-8m2k5 {
+      text-align: center;
+      margin-bottom: var(--space-xl);
+    }
+
+    .meaux-title-8m2k5 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--meaux-primary);
+      margin-bottom: var(--space-md);
+    }
+
+    .meaux-subtitle-8m2k5 {
+      font-size: 1.1rem;
+      color: var(--meaux-mid-gray);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .meaux-progress-grid-8m2k5 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    .meaux-progress-card-8m2k5 {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .meaux-progress-title-8m2k5 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: var(--space-md);
+      color: var(--meaux-primary);
+    }
+
+    /* Basic Progress Bar */
+    .meaux-progress-container-8m2k5 {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-pill);
+      height: 24px;
+      margin: var(--space-md) 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .meaux-progress-bar-8m2k5 {
+      height: 100%;
+      background: linear-gradient(90deg, var(--meaux-primary) 0%, var(--meaux-primary-light) 100%);
+      border-radius: var(--radius-pill);
+      width: 65%;
+      position: relative;
+      transition: width 0.5s ease;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .meaux-progress-text-8m2k5 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--meaux-black);
+      z-index: 2;
+    }
+
+    /* Animated Progress Bar */
+    .meaux-progress-animated-8m2k5 {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-pill);
+      height: 32px;
+      margin: var(--space-md) 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .meaux-progress-animated-8m2k5 .meaux-progress-bar-8m2k5 {
+      height: 100%;
+      background: linear-gradient(90deg, var(--meaux-primary) 0%, var(--meaux-primary-light) 100%);
+      border-radius: var(--radius-pill);
+      width: 0%;
+      position: relative;
+      animation: meauxProgressFill-8m2k5 2s ease-out forwards;
+    }
+
+    @keyframes meauxProgressFill-8m2k5 {
+      to { width: 75%; }
+    }
+
+    /* Step Progress */
+    .meaux-step-progress-8m2k5 {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: var(--space-lg) 0;
+      position: relative;
+    }
+
+    .meaux-step-progress-8m2k5::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.2);
+      z-index: 1;
+    }
+
+    .meaux-step-8m2k5 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .meaux-step-circle-8m2k5 {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      color: var(--meaux-white);
+      margin-bottom: var(--space-sm);
+      transition: all 0.3s ease;
+    }
+
+    .meaux-step-8m2k5.completed .meaux-step-circle-8m2k5 {
+      background: var(--meaux-primary);
+      border-color: var(--meaux-primary);
+      color: var(--meaux-black);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .meaux-step-8m2k5.active .meaux-step-circle-8m2k5 {
+      background: var(--meaux-blue-electric);
+      border-color: var(--meaux-blue-electric);
+      color: var(--meaux-black);
+    }
+
+    .meaux-step-label-8m2k5 {
+      font-size: 0.8rem;
+      color: var(--meaux-mid-gray);
+      text-align: center;
+      max-width: 80px;
+    }
+
+    .meaux-step-8m2k5.completed .meaux-step-label-8m2k5,
+    .meaux-step-8m2k5.active .meaux-step-label-8m2k5 {
+      color: var(--meaux-white);
+      font-weight: 600;
+    }
+
+    /* Circular Progress */
+    .meaux-circular-progress-8m2k5 {
+      width: 120px;
+      height: 120px;
+      position: relative;
+      margin: var(--space-lg) auto;
+    }
+
+    .meaux-circular-bg-8m2k5 {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: conic-gradient(var(--meaux-primary) 0deg, var(--meaux-primary) 234deg, rgba(255, 255, 255, 0.1) 234deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .meaux-circular-bg-8m2k5::before {
+      content: '';
+      position: absolute;
+      width: 80%;
+      height: 80%;
+      background: var(--meaux-teal-mid);
+      border-radius: 50%;
+    }
+
+    .meaux-circular-text-8m2k5 {
+      position: relative;
+      z-index: 2;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--meaux-primary);
+    }
+
+    /* Campaign Stats */
+    .meaux-campaign-stats-8m2k5 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: var(--space-md);
+      margin: var(--space-lg) 0;
+    }
+
+    .meaux-stat-item-8m2k5 {
+      text-align: center;
+      padding: var(--space-md);
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .meaux-stat-number-8m2k5 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--meaux-primary);
+      margin-bottom: var(--space-xs);
+    }
+
+    .meaux-stat-label-8m2k5 {
+      font-size: 0.9rem;
+      color: var(--meaux-mid-gray);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Milestone Progress */
+    .meaux-milestone-8m2k5 {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      margin: var(--space-md) 0;
+      border-left: 4px solid var(--meaux-primary);
+    }
+
+    .meaux-milestone-header-8m2k5 {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-sm);
+    }
+
+    .meaux-milestone-title-8m2k5 {
+      font-weight: 600;
+      color: var(--meaux-white);
+    }
+
+    .meaux-milestone-amount-8m2k5 {
+      font-weight: 700;
+      color: var(--meaux-primary);
+      font-family: var(--font-mono);
+    }
+
+    .meaux-milestone-progress-8m2k5 {
+      background: rgba(255, 255, 255, 0.1);
+      height: 8px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .meaux-milestone-bar-8m2k5 {
+      height: 100%;
+      background: var(--meaux-primary);
+      border-radius: var(--radius-sm);
+      transition: width 0.5s ease;
+    }
+
+    /* Interactive Demo */
+    .meaux-demo-section-8m2k5 {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      margin: var(--space-xl) 0;
+      border: 2px solid var(--meaux-primary);
+    }
+
+    .meaux-demo-title-8m2k5 {
+      color: var(--meaux-primary);
+      margin-bottom: var(--space-md);
+      font-weight: 600;
+    }
+
+    .meaux-demo-controls-8m2k5 {
+      display: flex;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    .meaux-demo-btn-8m2k5 {
+      padding: var(--space-sm) var(--space-md);
+      background: var(--meaux-primary);
+      color: var(--meaux-black);
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .meaux-demo-btn-8m2k5:hover {
+      background: var(--meaux-primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .meaux-accessibility-8m2k5 {
+      background: rgba(0, 255, 127, 0.1);
+      border: 1px solid var(--meaux-primary);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      margin: var(--space-xl) 0;
+    }
+
+    .meaux-accessibility-8m2k5 h5 {
+      color: var(--meaux-primary);
+      margin-bottom: var(--space-sm);
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .meaux-progress-grid-8m2k5 {
+        grid-template-columns: 1fr;
+      }
+      
+      .meaux-title-8m2k5 {
+        font-size: 2rem;
+      }
+      
+      .meaux-step-progress-8m2k5 {
+        flex-direction: column;
+        gap: var(--space-md);
+      }
+      
+      .meaux-step-progress-8m2k5::before {
+        display: none;
+      }
+      
+      .meaux-campaign-stats-8m2k5 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .meaux-fade-in-8m2k5 {
+      animation: meauxFadeIn-8m2k5 0.5s ease-in-out;
+    }
+
+    @keyframes meauxFadeIn-8m2k5 {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="meaux-container-8m2k5 meaux-fade-in-8m2k5">
+    <header class="meaux-header-8m2k5">
+      <h1 class="meaux-title-8m2k5">Meauxbility Progress Tracking</h1>
+      <p class="meaux-subtitle-8m2k5">
+        Campaign progress indicators and tracking components for donation goals and milestone achievements.
+      </p>
+    </header>
+    
+    <div class="meaux-progress-grid-8m2k5">
+      <div class="meaux-progress-card-8m2k5">
+        <h3 class="meaux-progress-title-8m2k5">Basic Progress Bar</h3>
+        <div class="meaux-progress-container-8m2k5">
+          <div class="meaux-progress-bar-8m2k5">
+            <div class="meaux-progress-text-8m2k5">$6,500 / $10,000</div>
+          </div>
+        </div>
+        <p style="color: var(--meaux-mid-gray); font-size: 0.9rem; margin-top: var(--space-sm);">
+          65% funded • 127 supporters • 12 days left
+        </p>
+      </div>
+      
+      <div class="meaux-progress-card-8m2k5">
+        <h3 class="meaux-progress-title-8m2k5">Animated Progress</h3>
+        <div class="meaux-progress-animated-8m2k5">
+          <div class="meaux-progress-bar-8m2k5">
+            <div class="meaux-progress-text-8m2k5">$7,500 / $10,000</div>
+          </div>
+        </div>
+        <p style="color: var(--meaux-mid-gray); font-size: 0.9rem; margin-top: var(--space-sm);">
+          75% funded • 142 supporters • 8 days left
+        </p>
+      </div>
+      
+      <div class="meaux-progress-card-8m2k5">
+        <h3 class="meaux-progress-title-8m2k5">Circular Progress</h3>
+        <div class="meaux-circular-progress-8m2k5">
+          <div class="meaux-circular-bg-8m2k5">
+            <div class="meaux-circular-text-8m2k5">65%</div>
+          </div>
+        </div>
+        <p style="color: var(--meaux-mid-gray); font-size: 0.9rem; text-align: center;">
+          Campaign Progress
+        </p>
+      </div>
+      
+      <div class="meaux-progress-card-8m2k5">
+        <h3 class="meaux-progress-title-8m2k5">Step Progress</h3>
+        <div class="meaux-step-progress-8m2k5">
+          <div class="meaux-step-8m2k5 completed">
+            <div class="meaux-step-circle-8m2k5">1</div>
+            <div class="meaux-step-label-8m2k5">Setup</div>
+          </div>
+          <div class="meaux-step-8m2k5 completed">
+            <div class="meaux-step-circle-8m2k5">2</div>
+            <div class="meaux-step-label-8m2k5">Launch</div>
+          </div>
+          <div class="meaux-step-8m2k5 active">
+            <div class="meaux-step-circle-8m2k5">3</div>
+            <div class="meaux-step-label-8m2k5">Fundraising</div>
+          </div>
+          <div class="meaux-step-8m2k5">
+            <div class="meaux-step-circle-8m2k5">4</div>
+            <div class="meaux-step-label-8m2k5">Complete</div>
+          </div>
+        </div>
+        <p style="color: var(--meaux-mid-gray); font-size: 0.9rem;">
+          Campaign is currently in the fundraising phase
+        </p>
+      </div>
+      
+      <div class="meaux-progress-card-8m2k5">
+        <h3 class="meaux-progress-title-8m2k5">Campaign Statistics</h3>
+        <div class="meaux-campaign-stats-8m2k5">
+          <div class="meaux-stat-item-8m2k5">
+            <div class="meaux-stat-number-8m2k5">127</div>
+            <div class="meaux-stat-label-8m2k5">Supporters</div>
+          </div>
+          <div class="meaux-stat-item-8m2k5">
+            <div class="meaux-stat-number-8m2k5">$6,500</div>
+            <div class="meaux-stat-label-8m2k5">Raised</div>
+          </div>
+          <div class="meaux-stat-item-8m2k5">
+            <div class="meaux-stat-number-8m2k5">12</div>
+            <div class="meaux-stat-label-8m2k5">Days Left</div>
+          </div>
+          <div class="meaux-stat-item-8m2k5">
+            <div class="meaux-stat-number-8m2k5">65%</div>
+            <div class="meaux-stat-label-8m2k5">Complete</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="meaux-progress-card-8m2k5">
+        <h3 class="meaux-progress-title-8m2k5">Milestone Progress</h3>
+        <div class="meaux-milestone-8m2k5">
+          <div class="meaux-milestone-header-8m2k5">
+            <div class="meaux-milestone-title-8m2k5">Equipment Purchase</div>
+            <div class="meaux-milestone-amount-8m2k5">$8,000</div>
+          </div>
+          <div class="meaux-milestone-progress-8m2k5">
+            <div class="meaux-milestone-bar-8m2k5" style="width: 81%;"></div>
+          </div>
+          <p style="color: var(--meaux-mid-gray); font-size: 0.9rem; margin-top: var(--space-sm);">
+            $6,500 raised of $8,000 needed
+          </p>
+        </div>
+        
+        <div class="meaux-milestone-8m2k5">
+          <div class="meaux-milestone-header-8m2k5">
+            <div class="meaux-milestone-title-8m2k5">Installation & Training</div>
+            <div class="meaux-milestone-amount-8m2k5">$2,000</div>
+          </div>
+          <div class="meaux-milestone-progress-8m2k5">
+            <div class="meaux-milestone-bar-8m2k5" style="width: 0%;"></div>
+          </div>
+          <p style="color: var(--meaux-mid-gray); font-size: 0.9rem; margin-top: var(--space-sm);">
+            $0 raised of $2,000 needed
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="meaux-demo-section-8m2k5">
+      <h4 class="meaux-demo-title-8m2k5">🎯 Interactive Demo</h4>
+      <p style="margin-bottom: var(--space-md); color: var(--meaux-white);">
+        Test progress bar interactions:
+      </p>
+      <div class="meaux-demo-controls-8m2k5">
+        <button class="meaux-demo-btn-8m2k5" onclick="simulateDonation()">Simulate Donation</button>
+        <button class="meaux-demo-btn-8m2k5" onclick="resetProgress()">Reset Progress</button>
+        <button class="meaux-demo-btn-8m2k5" onclick="completeCampaign()">Complete Campaign</button>
+      </div>
+      <div class="meaux-progress-container-8m2k5">
+        <div class="meaux-progress-bar-8m2k5" id="demo-progress">
+          <div class="meaux-progress-text-8m2k5" id="demo-text">$0 / $10,000</div>
+        </div>
+      </div>
+      <p style="color: var(--meaux-mid-gray); font-size: 0.9rem; margin-top: var(--space-sm);" id="demo-stats">
+        0% funded • 0 supporters • 30 days left
+      </p>
+    </div>
+
+    <div class="meaux-accessibility-8m2k5">
+      <h5>♿ Accessibility Features</h5>
+      <p style="color: var(--meaux-white); line-height: 1.6;">
+        All progress indicators include proper ARIA labels, screen reader announcements for percentage changes, 
+        and high contrast ratios. Progress bars use semantic markup and announce updates to assistive technologies. 
+        Color is not the only indicator of progress - text and numerical values are always provided.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    let currentAmount = 0;
+    let supporters = 0;
+    const goal = 10000;
+    const daysLeft = 30;
+
+    function updateProgress() {
+      const percentage = Math.min((currentAmount / goal) * 100, 100);
+      const progressBar = document.getElementById('demo-progress');
+      const progressText = document.getElementById('demo-text');
+      const stats = document.getElementById('demo-stats');
+      
+      progressBar.style.width = `${percentage}%`;
+      progressText.textContent = `$${currentAmount.toLocaleString()} / $${goal.toLocaleString()}`;
+      stats.textContent = `${Math.round(percentage)}% funded • ${supporters} supporters • ${daysLeft} days left`;
+      
+      // Announce to screen readers
+      const announcement = document.createElement('div');
+      announcement.setAttribute('aria-live', 'polite');
+      announcement.setAttribute('aria-atomic', 'true');
+      announcement.style.position = 'absolute';
+      announcement.style.left = '-10000px';
+      announcement.textContent = `Campaign progress: ${Math.round(percentage)}% complete`;
+      document.body.appendChild(announcement);
+      setTimeout(() => document.body.removeChild(announcement), 1000);
+    }
+
+    function simulateDonation() {
+      const donation = Math.floor(Math.random() * 500) + 25;
+      currentAmount += donation;
+      supporters += 1;
+      updateProgress();
+    }
+
+    function resetProgress() {
+      currentAmount = 0;
+      supporters = 0;
+      updateProgress();
+    }
+
+    function completeCampaign() {
+      currentAmount = goal;
+      supporters = Math.floor(Math.random() * 200) + 100;
+      updateProgress();
+    }
+
+    // Initialize
+    updateProgress();
+  </script>
+</body>
+</html>

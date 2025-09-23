@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meauxbility Core Variables - 7x9k2</title>
+  <style>
+    /* Meauxbility Core Brand Variables - Unique ID: 7x9k2 */
+    :root {
+      /* Primary Brand Colors */
+      --meaux-primary: #00FF7F;
+      --meaux-primary-dark: #00C965;
+      --meaux-primary-light: #32FF9F;
+      
+      /* Secondary Palette */
+      --meaux-teal-deep: #0a1a1a;
+      --meaux-teal-mid: #0f2622;
+      --meaux-teal-light: #1a3530;
+      
+      /* Accent Colors */
+      --meaux-purple-diamond: #8A2BE2;
+      --meaux-blue-electric: #00D4FF;
+      --meaux-red-energy: #FF3366;
+      
+      /* Neutrals */
+      --meaux-white: #FFFFFF;
+      --meaux-light-gray: #F5F5F5;
+      --meaux-mid-gray: #A0A0A0;
+      --meaux-dark-gray: #333333;
+      --meaux-black: #000000;
+      
+      /* Semantic Colors */
+      --meaux-success: var(--meaux-primary);
+      --meaux-warning: #FFB800;
+      --meaux-error: var(--meaux-red-energy);
+      --meaux-info: var(--meaux-blue-electric);
+      
+      /* Typography */
+      --font-primary: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-secondary: 'Georgia', 'Times New Roman', serif;
+      --font-mono: 'SF Mono', 'Monaco', 'Courier New', monospace;
+      
+      /* Spacing Scale */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2rem;
+      --space-2xl: 3rem;
+      --space-3xl: 4rem;
+      
+      /* Border Radius */
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+      --radius-pill: 50px;
+      
+      /* Shadows */
+      --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+      --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.2);
+      --shadow-glow: 0 0 20px rgba(0, 255, 127, 0.3);
+      
+      /* Theme Variables */
+      --meaux-bg-primary: linear-gradient(135deg, var(--meaux-teal-deep) 0%, var(--meaux-teal-mid) 50%, var(--meaux-teal-light) 100%);
+      --meaux-bg-card: rgba(255, 255, 255, 0.05);
+      --meaux-bg-overlay: rgba(0, 0, 0, 0.3);
+      --meaux-border-subtle: rgba(255, 255, 255, 0.1);
+      --meaux-border-focus: rgba(0, 255, 127, 0.1);
+    }
+
+    /* Base Reset for Meauxbility Components */
+    .meaux-reset-7x9k2 {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .meaux-reset-7x9k2 *,
+    .meaux-reset-7x9k2 *::before,
+    .meaux-reset-7x9k2 *::after {
+      box-sizing: border-box;
+    }
+
+    /* Base Typography */
+    .meaux-body-7x9k2 {
+      font-family: var(--font-primary);
+      line-height: 1.6;
+      color: var(--meaux-white);
+      background: var(--meaux-bg-primary);
+      min-height: 100vh;
+    }
+
+    /* Utility Classes */
+    .meaux-container-7x9k2 {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: var(--space-xl);
+    }
+
+    .meaux-text-center-7x9k2 {
+      text-align: center;
+    }
+
+    .meaux-mb-sm-7x9k2 { margin-bottom: var(--space-sm); }
+    .meaux-mb-md-7x9k2 { margin-bottom: var(--space-md); }
+    .meaux-mb-lg-7x9k2 { margin-bottom: var(--space-lg); }
+    .meaux-mb-xl-7x9k2 { margin-bottom: var(--space-xl); }
+
+    .meaux-mt-sm-7x9k2 { margin-top: var(--space-sm); }
+    .meaux-mt-md-7x9k2 { margin-top: var(--space-md); }
+    .meaux-mt-lg-7x9k2 { margin-top: var(--space-lg); }
+    .meaux-mt-xl-7x9k2 { margin-top: var(--space-xl); }
+
+    /* Glassmorphic Base */
+    .meaux-glass-7x9k2 {
+      background: var(--meaux-bg-card);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--meaux-border-subtle);
+      border-radius: var(--radius-lg);
+    }
+
+    /* Semi-glow Effect */
+    .meaux-glow-7x9k2 {
+      box-shadow: var(--shadow-glow);
+    }
+
+    /* Responsive Utilities */
+    @media (max-width: 768px) {
+      .meaux-container-7x9k2 {
+        padding: var(--space-md);
+      }
+    }
+
+    /* Animation Base */
+    .meaux-fade-in-7x9k2 {
+      animation: meauxFadeIn-7x9k2 0.5s ease-in-out;
+    }
+
+    @keyframes meauxFadeIn-7x9k2 {
+      from { 
+        opacity: 0; 
+        transform: translateY(20px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0); 
+      }
+    }
+
+    /* Focus States for Accessibility */
+    .meaux-focus-7x9k2:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px var(--meaux-border-focus);
+    }
+
+    /* High Contrast Mode Support */
+    @media (prefers-contrast: high) {
+      :root {
+        --meaux-border-subtle: rgba(255, 255, 255, 0.3);
+        --meaux-bg-card: rgba(255, 255, 255, 0.1);
+      }
+    }
+
+    /* Reduced Motion Support */
+    @media (prefers-reduced-motion: reduce) {
+      .meaux-fade-in-7x9k2 {
+        animation: none;
+      }
+      
+      * {
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="meaux-body-7x9k2 meaux-reset-7x9k2">
+  <div class="meaux-container-7x9k2 meaux-fade-in-7x9k2">
+    <h1 style="color: var(--meaux-primary); font-size: 2.5rem; font-weight: 800; margin-bottom: var(--space-lg);" class="meaux-text-center-7x9k2">
+      Meauxbility Core Variables
+    </h1>
+    
+    <div class="meaux-glass-7x9k2" style="padding: var(--space-xl); margin-bottom: var(--space-xl);">
+      <h2 style="color: var(--meaux-primary); margin-bottom: var(--space-md);">🎨 Brand Colors</h2>
+      <p style="color: var(--meaux-mid-gray); margin-bottom: var(--space-lg);">
+        All Meauxbility brand colors are defined as CSS custom properties for consistent theming across components.
+      </p>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-md);">
+        <div style="text-align: center;">
+          <div style="width: 100%; height: 60px; background: var(--meaux-primary); border-radius: var(--radius-md); margin-bottom: var(--space-sm); box-shadow: var(--shadow-glow);"></div>
+          <p style="color: var(--meaux-white); font-weight: 600;">Primary Green</p>
+          <p style="color: var(--meaux-mid-gray); font-size: 0.9rem; font-family: var(--font-mono);">#00FF7F</p>
+        </div>
+        
+        <div style="text-align: center;">
+          <div style="width: 100%; height: 60px; background: var(--meaux-teal-deep); border-radius: var(--radius-md); margin-bottom: var(--space-sm);"></div>
+          <p style="color: var(--meaux-white); font-weight: 600;">Deep Teal</p>
+          <p style="color: var(--meaux-mid-gray); font-size: 0.9rem; font-family: var(--font-mono);">#0A1A1A</p>
+        </div>
+        
+        <div style="text-align: center;">
+          <div style="width: 100%; height: 60px; background: var(--meaux-purple-diamond); border-radius: var(--radius-md); margin-bottom: var(--space-sm);"></div>
+          <p style="color: var(--meaux-white); font-weight: 600;">Diamond Purple</p>
+          <p style="color: var(--meaux-mid-gray); font-size: 0.9rem; font-family: var(--font-mono);">#8A2BE2</p>
+        </div>
+        
+        <div style="text-align: center;">
+          <div style="width: 100%; height: 60px; background: var(--meaux-blue-electric); border-radius: var(--radius-md); margin-bottom: var(--space-sm);"></div>
+          <p style="color: var(--meaux-white); font-weight: 600;">Electric Blue</p>
+          <p style="color: var(--meaux-mid-gray); font-size: 0.9rem; font-family: var(--font-mono);">#00D4FF</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="meaux-glass-7x9k2" style="padding: var(--space-xl);">
+      <h2 style="color: var(--meaux-primary); margin-bottom: var(--space-md);">📏 Spacing & Typography</h2>
+      <p style="color: var(--meaux-mid-gray); margin-bottom: var(--space-lg);">
+        Consistent spacing scale and typography system for all Meauxbility components.
+      </p>
+      
+      <div style="display: grid; gap: var(--space-md);">
+        <div style="padding: var(--space-md); background: rgba(0, 255, 127, 0.1); border-radius: var(--radius-md); border-left: 4px solid var(--meaux-primary);">
+          <p style="color: var(--meaux-primary); font-family: var(--font-mono); font-size: 0.8rem; margin-bottom: var(--space-xs); text-transform: uppercase;">Spacing Scale</p>
+          <p style="color: var(--meaux-white);">xs: 0.25rem • sm: 0.5rem • md: 1rem • lg: 1.5rem • xl: 2rem • 2xl: 3rem • 3xl: 4rem</p>
+        </div>
+        
+        <div style="padding: var(--space-md); background: rgba(0, 255, 127, 0.1); border-radius: var(--radius-md); border-left: 4px solid var(--meaux-primary);">
+          <p style="color: var(--meaux-primary); font-family: var(--font-mono); font-size: 0.8rem; margin-bottom: var(--space-xs); text-transform: uppercase;">Typography</p>
+          <p style="color: var(--meaux-white);">Primary: SF Pro Display • Secondary: Georgia • Mono: SF Mono</p>
+        </div>
+        
+        <div style="padding: var(--space-md); background: rgba(0, 255, 127, 0.1); border-radius: var(--radius-md); border-left: 4px solid var(--meaux-primary);">
+          <p style="color: var(--meaux-primary); font-family: var(--font-mono); font-size: 0.8rem; margin-bottom: var(--space-xs); text-transform: uppercase;">Border Radius</p>
+          <p style="color: var(--meaux-white);">sm: 4px • md: 8px • lg: 12px • xl: 16px • pill: 50px</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: var(--space-xl); padding: var(--space-lg); background: rgba(0, 255, 127, 0.1); border: 2px solid var(--meaux-primary); border-radius: var(--radius-lg);">
+      <h3 style="color: var(--meaux-primary); margin-bottom: var(--space-sm);">♿ Accessibility Features</h3>
+      <p style="color: var(--meaux-white); margin-bottom: var(--space-sm);">
+        This core variables system includes built-in accessibility support:
+      </p>
+      <ul style="color: var(--meaux-mid-gray); line-height: 1.8; list-style: none; padding-left: 0;">
+        <li>• High contrast mode support</li>
+        <li>• Reduced motion preferences</li>
+        <li>• Focus state management</li>
+        <li>• WCAG AA compliant color ratios</li>
+        <li>• Screen reader friendly structure</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

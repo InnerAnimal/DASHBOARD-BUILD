@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How We Allocate Funds</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+    /* ─── CLEAN WHITE SYSTEM VARIABLES ─── */
+    :root {
+      --k9x7m-bg-white: #ffffff;
+      --k9x7m-bg-light: #f8f9fa;
+      --k9x7m-cl-t1: #1F97A9;
+      --k9x7m-cl-o1: #FF7619;
+      --k9x7m-cl-g1: #21c48c;
+      --k9x7m-cl-dark: #1a1a1a;
+      --k9x7m-cl-gray: #6b7280;
+      --k9x7m-cl-border: #e5e7eb;
+      --k9x7m-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+      --k9x7m-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --k9x7m-shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+      --k9x7m-shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.12);
+      --k9x7m-rd-01: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--k9x7m-bg-white);
+      color: var(--k9x7m-cl-dark);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    /* ─── SECTION STYLES ─── */
+    .k9x7m_sec_a847 {
+      width: 100%;
+      min-height: 100vh;
+      padding: 80px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--k9x7m-bg-white);
+    }
+
+    .k9x7m_cmp_cnt1 {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    /* ─── TYPOGRAPHY WITH ANIMATED UNDERLINE ─── */
+    .k9x7m_txt_h1 {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin: 0 auto 20px;
+      color: var(--k9x7m-cl-dark);
+      position: relative;
+      display: inline-block;
+      letter-spacing: -0.02em;
+    }
+
+    .k9x7m_txt_h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%) scaleX(0);
+      width: 80px;
+      height: 4px;
+      background: var(--k9x7m-cl-o1);
+      border-radius: 2px;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: center;
+    }
+
+    .k9x7m_txt_h1.animate::after {
+      transform: translateX(-50%) scaleX(1);
+    }
+
+    .k9x7m_txt_sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--k9x7m-cl-gray);
+      font-weight: 400;
+      max-width: 700px;
+      margin: 0 auto 60px;
+      line-height: 1.7;
+    }
+
+    /* ─── GRID SYSTEM ─── */
+    .k9x7m_grd_01 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+      margin: 0 auto;
+      width: 100%;
+      max-width: 1100px;
+      padding: 0;
+    }
+
+    .k9x7m_cmp_fc92 {
+      background: var(--k9x7m-bg-white);
+      border-radius: var(--k9x7m-rd-01);
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      position: relative;
+      width: 100%;
+      height: auto;
+      border: 2px solid var(--k9x7m-cl-border);
+      box-shadow: var(--k9x7m-shadow-md);
+    }
+
+    /* Card-specific border colors - FULL BORDER */
+    .k9x7m_cmp_fc92:nth-child(1) {
+      border: 2px solid var(--k9x7m-cl-o1);
+    }
+
+    .k9x7m_cmp_fc92:nth-child(2) {
+      border: 2px solid var(--k9x7m-cl-t1);
+    }
+
+    .k9x7m_cmp_fc92:nth-child(3) {
+      border: 2px solid var(--k9x7m-cl-g1);
+    }
+
+    .k9x7m_cmp_fc92:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--k9x7m-shadow-xl);
+    }
+
+    .k9x7m_cmp_fc92:nth-child(1):hover {
+      border-color: var(--k9x7m-cl-o1);
+      box-shadow: 0 20px 40px rgba(255, 118, 25, 0.15);
+    }
+
+    .k9x7m_cmp_fc92:nth-child(2):hover {
+      border-color: var(--k9x7m-cl-t1);
+      box-shadow: 0 20px 40px rgba(31, 151, 169, 0.15);
+    }
+
+    .k9x7m_cmp_fc92:nth-child(3):hover {
+      border-color: var(--k9x7m-cl-g1);
+      box-shadow: 0 20px 40px rgba(33, 196, 140, 0.15);
+    }
+
+    .k9x7m_crd_cnt {
+      padding: 40px 30px;
+      background: var(--k9x7m-bg-white);
+      height: 100%;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+      position: relative;
+    }
+
+    .k9x7m_crd_ttl {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--k9x7m-cl-dark);
+      transition: color 0.3s ease;
+      line-height: 1.3;
+    }
+
+    .k9x7m_crd_stl {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--k9x7m-cl-gray);
+      margin-bottom: 24px;
+      line-height: 1.4;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .k9x7m_cmp_fc92:hover .k9x7m_crd_ttl {
+      color: var(--k9x7m-cl-o1);
+    }
+
+    .k9x7m_cmp_fc92:nth-child(2):hover .k9x7m_crd_ttl {
+      color: var(--k9x7m-cl-t1);
+    }
+
+    .k9x7m_cmp_fc92:nth-child(3):hover .k9x7m_crd_ttl {
+      color: var(--k9x7m-cl-g1);
+    }
+
+    .k9x7m_crd_amt {
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: var(--k9x7m-cl-o1);
+      margin-bottom: 24px;
+      line-height: 1;
+      transition: transform 0.3s ease;
+    }
+
+    .k9x7m_cmp_fc92:nth-child(2) .k9x7m_crd_amt {
+      color: var(--k9x7m-cl-t1);
+    }
+
+    .k9x7m_cmp_fc92:nth-child(3) .k9x7m_crd_amt {
+      color: var(--k9x7m-cl-g1);
+    }
+
+    .k9x7m_cmp_fc92:hover .k9x7m_crd_amt {
+      transform: scale(1.05);
+    }
+
+    .k9x7m_crd_dsc {
+      font-size: 1rem;
+      margin-bottom: 24px;
+      flex-grow: 1;
+      color: var(--k9x7m-cl-gray);
+      line-height: 1.7;
+      font-weight: 400;
+    }
+
+    .k9x7m_crd_dsc em {
+      color: var(--k9x7m-cl-dark);
+      font-weight: 600;
+      font-style: normal;
+    }
+
+    .k9x7m_crd_exm {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+
+    .k9x7m_exm_tag {
+      background: var(--k9x7m-bg-light);
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: var(--k9x7m-cl-gray);
+      font-weight: 500;
+      border: 1px solid var(--k9x7m-cl-border);
+      transition: all 0.3s ease;
+    }
+
+    .k9x7m_cmp_fc92:nth-child(1) .k9x7m_exm_tag:hover {
+      background: rgba(255, 118, 25, 0.1);
+      border-color: var(--k9x7m-cl-o1);
+      color: var(--k9x7m-cl-o1);
+    }
+
+    .k9x7m_cmp_fc92:nth-child(2) .k9x7m_exm_tag:hover {
+      background: rgba(31, 151, 169, 0.1);
+      border-color: var(--k9x7m-cl-t1);
+      color: var(--k9x7m-cl-t1);
+    }
+
+    .k9x7m_cmp_fc92:nth-child(3) .k9x7m_exm_tag:hover {
+      background: rgba(33, 196, 140, 0.1);
+      border-color: var(--k9x7m-cl-g1);
+      color: var(--k9x7m-cl-g1);
+    }
+
+    .k9x7m_btn_ppl {
+      background: var(--k9x7m-cl-o1);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: var(--k9x7m-shadow-md);
+    }
+
+    .k9x7m_cmp_fc92:nth-child(2) .k9x7m_btn_ppl {
+      background: var(--k9x7m-cl-t1);
+    }
+
+    .k9x7m_cmp_fc92:nth-child(3) .k9x7m_btn_ppl {
+      background: var(--k9x7m-cl-g1);
+    }
+
+    .k9x7m_btn_ppl:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--k9x7m-shadow-lg);
+      filter: brightness(1.1);
+    }
+
+    .k9x7m_btn_ppl:active {
+      transform: translateY(0);
+    }
+
+    /* ─── MODAL SYSTEM WITH UPDATED X ICON ─── */
+    .k9x7m_mdl_ovr {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .k9x7m_st_act {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .k9x7m_mdl_cnt {
+      max-width: 600px;
+      width: 100%;
+      max-height: 85vh;
+      background: var(--k9x7m-bg-white);
+      border-radius: 20px;
+      box-shadow: var(--k9x7m-shadow-xl);
+      position: relative;
+      transform: scale(0.9) translateY(20px);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .k9x7m_st_act .k9x7m_mdl_cnt {
+      transform: scale(1) translateY(0);
+    }
+
+    .k9x7m_mdl_hdr {
+      text-align: center;
+      padding: 30px 30px 20px;
+      border-bottom: 1px solid var(--k9x7m-cl-border);
+    }
+
+    .k9x7m_mdl_ttl {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--k9x7m-cl-dark);
+      margin-bottom: 8px;
+    }
+
+    .k9x7m_mdl_sub {
+      font-size: 1rem;
+      color: var(--k9x7m-cl-gray);
+      line-height: 1.5;
+    }
+
+    /* Updated X Close Button */
+    .k9x7m_mdl_close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      padding: 8px;
+      border-radius: 8px;
+      transition: background 0.3s ease;
+    }
+
+    .k9x7m_mdl_close:hover {
+      background: var(--k9x7m-bg-light);
+    }
+
+    .k9x7m_mdl_close span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--k9x7m-cl-gray);
+      margin: 4px 0;
+      transition: all 0.3s ease;
+    }
+    
+    .k9x7m_mdl_close.is-open span {
+      background: var(--k9x7m-cl-dark);
+    }
+    
+    .k9x7m_mdl_close.is-open span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .k9x7m_mdl_close.is-open span:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .k9x7m_mdl_close.is-open span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    .k9x7m_mdl_bdy {
+      flex: 1;
+      overflow-y: auto;
+      padding: 30px;
+    }
+
+    .k9x7m_frm_grp {
+      margin-bottom: 20px;
+    }
+
+    .k9x7m_frm_lbl {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--k9x7m-cl-dark);
+      margin-bottom: 8px;
+    }
+
+    .k9x7m_frm_inp,
+    .k9x7m_frm_txt,
+    .k9x7m_frm_sel {
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--k9x7m-bg-white);
+      border: 2px solid var(--k9x7m-cl-border);
+      border-radius: 10px;
+      color: var(--k9x7m-cl-dark);
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    .k9x7m_frm_inp:focus,
+    .k9x7m_frm_txt:focus,
+    .k9x7m_frm_sel:focus {
+      outline: none;
+      border-color: var(--k9x7m-cl-t1);
+      box-shadow: 0 0 0 3px rgba(31, 151, 169, 0.1);
+    }
+
+    .k9x7m_frm_txt {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .k9x7m_mdl_ftr {
+      padding: 20px 30px;
+      border-top: 1px solid var(--k9x7m-cl-border);
+    }
+
+    .k9x7m_btn_sub {
+      background: var(--k9x7m-cl-o1);
+      color: white;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      width: 100%;
+      box-shadow: var(--k9x7m-shadow-md);
+    }
+
+    .k9x7m_btn_sub:hover {
+      background: var(--k9x7m-cl-g1);
+      transform: translateY(-2px);
+      box-shadow: var(--k9x7m-shadow-lg);
+    }
+
+    .k9x7m_btn_sub:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .k9x7m_suc_msg {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--k9x7m-cl-g1);
+      color: white;
+      padding: 30px 40px;
+      border-radius: 16px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-align: center;
+      box-shadow: var(--k9x7m-shadow-xl);
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .k9x7m_st_vis {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .k9x7m_ani_fade {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    /* ─── RESPONSIVE DESIGN ─── */
+    @media (max-width: 768px) {
+      .k9x7m_sec_a847 {
+        padding: 60px 20px;
+      }
+
+      .k9x7m_grd_01 {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .k9x7m_crd_cnt {
+        padding: 32px 24px;
+        min-height: 350px;
+      }
+
+      .k9x7m_crd_ttl {
+        font-size: 1.5rem;
+      }
+
+      .k9x7m_crd_amt {
+        font-size: 3rem;
+      }
+
+      .k9x7m_mdl_cnt {
+        max-height: 92vh;
+        margin: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .k9x7m_txt_h1 {
+        font-size: 2rem;
+      }
+
+      .k9x7m_crd_amt {
+        font-size: 2.5rem;
+      }
+
+      .k9x7m_crd_ttl {
+        font-size: 1.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="k9x7m_sec_a847">
+    <div class="k9x7m_cmp_cnt1">
+      <h1 class="k9x7m_txt_h1">How We Allocate Funds</h1>
+      <p class="k9x7m_txt_sub">Empowering athletes through comprehensive support programs. Choose your path to make a difference.</p>
+      
+      <div class="k9x7m_grd_01">
+        <div class="k9x7m_cmp_fc92" onclick="k9x7m_fn_om('inneranimal')">
+          <div class="k9x7m_crd_cnt">
+            <h3 class="k9x7m_crd_ttl">Inner Animal Fund</h3>
+            <p class="k9x7m_crd_stl">Mental Health & Performance</p>
+            <div class="k9x7m_crd_amt">45%</div>
+            <p class="k9x7m_crd_dsc">Support for <em>mental health services</em>, performance psychology, and athlete wellness programs.</p>
+            <div class="k9x7m_crd_exm">
+              <span class="k9x7m_exm_tag">Therapy Sessions</span>
+              <span class="k9x7m_exm_tag">Performance Coaching</span>
+              <span class="k9x7m_exm_tag">Wellness Programs</span>
+            </div>
+            <button class="k9x7m_btn_ppl" onclick="k9x7m_fn_om('inneranimal')">Apply for Support</button>
+          </div>
+        </div>
+
+        <div class="k9x7m_cmp_fc92" onclick="k9x7m_fn_om('qualify')">
+          <div class="k9x7m_crd_cnt">
+            <h3 class="k9x7m_crd_ttl">Equipment Fund</h3>
+            <p class="k9x7m_crd_stl">Gear & Technology</p>
+            <div class="k9x7m_crd_amt">45%</div>
+            <p class="k9x7m_crd_dsc">Funding for <em>essential equipment</em>, training gear, and performance technology.</p>
+            <div class="k9x7m_crd_exm">
+              <span class="k9x7m_exm_tag">Training Equipment</span>
+              <span class="k9x7m_exm_tag">Performance Tech</span>
+              <span class="k9x7m_exm_tag">Safety Gear</span>
+            </div>
+            <button class="k9x7m_btn_ppl" onclick="k9x7m_fn_om('qualify')">Do I Qualify?</button>
+          </div>
+        </div>
+
+        <div class="k9x7m_cmp_fc92" onclick="k9x7m_fn_om('team')">
+          <div class="k9x7m_crd_cnt">
+            <h3 class="k9x7m_crd_ttl">Operations</h3>
+            <p class="k9x7m_crd_stl">Program & Infrastructure</p>
+            <div class="k9x7m_crd_amt">10%</div>
+            <p class="k9x7m_crd_dsc">Support for <em>program operations</em>, facility maintenance, and community outreach.</p>
+            <div class="k9x7m_crd_exm">
+              <span class="k9x7m_exm_tag">Facility Maintenance</span>
+              <span class="k9x7m_exm_tag">Program Operations</span>
+              <span class="k9x7m_exm_tag">Community Outreach</span>
+            </div>
+            <button class="k9x7m_btn_ppl" onclick="k9x7m_fn_om('team')">Join Our Team</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Modal Overlay -->
+  <div class="k9x7m_mdl_ovr" id="k9x7m_id_mdl">
+    <div class="k9x7m_mdl_cnt">
+      <button class="k9x7m_mdl_close" onclick="k9x7m_fn_cm()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      
+      <div class="k9x7m_mdl_hdr">
+        <h2 class="k9x7m_mdl_ttl" id="k9x7m_id_ttl">Application Form</h2>
+        <p class="k9x7m_mdl_sub" id="k9x7m_id_sub">Please fill out the form below to apply for support.</p>
+      </div>
+      
+      <div class="k9x7m_mdl_bdy">
+        <form class="k9x7m_frm" id="k9x7m_id_frm" onsubmit="k9x7m_fn_handleSubmit(event)">
+          <!-- Dynamic form content will be inserted here -->
+        </form>
+      </div>
+      
+      <div class="k9x7m_mdl_ftr">
+        <button type="submit" form="k9x7m_id_frm" class="k9x7m_btn_sub">
+          Submit Application
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Message -->
+  <div class="k9x7m_suc_msg" id="k9x7m_id_suc">
+    <div>✅ Application Submitted Successfully!</div>
+    <div style="font-size: 0.95rem; margin-top: 10px; opacity: 0.95;">We'll review your application and get back to you within 48 hours.</div>
+  </div>
+
+  <script>
+    // =============== API CONFIGURATION ===============
+    const K9X7M_API_BASE = 'https://ajhltmrehtytpzbdhepa.supabase.co/functions/v1';
+
+    const k9x7m_var_apps = {
+      inneranimal: {
+        title: "Apply for Support",
+        subtitle: "Apply for adaptive equipment, therapy & wellness support",
+        fields: [
+          { name: "fullName", label: "Full Name", type: "text", required: true },
+          { name: "email", label: "Email Address", type: "email", required: true },
+          { name: "phone", label: "Phone Number", type: "tel", required: true },
+          { name: "situation", label: "Describe your current situation", type: "textarea", required: true },
+          { name: "supportType", label: "What specific support are you requesting?", type: "textarea", required: true }
+        ]
+      },
+      qualify: {
+        title: "Do I Qualify?",
+        subtitle: "Check your eligibility for equipment and support programs",
+        fields: [
+          { name: "fullName", label: "Full Name", type: "text", required: true },
+          { name: "email", label: "Email Address", type: "email", required: true },
+          { name: "condition", label: "Condition/Disability", type: "text", required: true },
+          { name: "equipmentType", label: "Type of Equipment Needed", type: "select", options: ["Racing Wheelchair", "Daily Wheelchair", "Adaptive Sports Equipment", "Home Modifications", "Other"], required: true },
+          { name: "equipmentDetails", label: "Describe your specific needs", type: "textarea", required: true }
+        ]
+      },
+      team: {
+        title: "Join Our Team",
+        subtitle: "Apply to become part of our team - volunteer, staff, or partner",
+        fields: [
+          { name: "fullName", label: "Full Name", type: "text", required: true },
+          { name: "email", label: "Email Address", type: "email", required: true },
+          { name: "phone", label: "Phone Number", type: "tel", required: true },
+          { name: "roleType", label: "Position Type", type: "select", options: ["Volunteer", "Part-time", "Full-time", "Internship", "Partnership"], required: true },
+          { name: "motivation", label: "Why do you want to join us?", type: "textarea", required: true }
+        ]
+      }
+    };
+
+    // =============== FUNCTIONS ===============
+    function k9x7m_fn_om(appType) {
+      const modal = document.getElementById('k9x7m_id_mdl');
+      const title = document.getElementById('k9x7m_id_ttl');
+      const subtitle = document.getElementById('k9x7m_id_sub');
+      const form = document.getElementById('k9x7m_id_frm');
+      const closeBtn = document.querySelector('.k9x7m_mdl_close');
+      
+      const config = k9x7m_var_apps[appType];
+      if (!config) return;
+      
+      title.textContent = config.title;
+      subtitle.textContent = config.subtitle;
+      form.dataset.appType = appType;
+      
+      // Generate form fields
+      form.innerHTML = k9x7m_fn_gfs(config.fields);
+      
+      // Show modal
+      modal.classList.add('k9x7m_st_act');
+      closeBtn.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      
+      // Focus first input
+      setTimeout(() => {
+        const firstInput = form.querySelector('input, textarea, select');
+        if (firstInput) firstInput.focus();
+      }, 100);
+    }
+
+    function k9x7m_fn_gfs(fields) {
+      return fields.map(field => k9x7m_fn_gff(field)).join('');
+    }
+
+    function k9x7m_fn_gff(field) {
+      const required = field.required ? 'required' : '';
+      const placeholder = field.placeholder ? `placeholder="${field.placeholder}"` : '';
+      
+      if (field.type === 'textarea') {
+        return `
+          <div class="k9x7m_frm_grp">
+            <label class="k9x7m_frm_lbl" for="${field.name}">${field.label}</label>
+            <textarea class="k9x7m_frm_txt" id="${field.name}" name="${field.name}" ${required} ${placeholder}></textarea>
+          </div>
+        `;
+      } else if (field.type === 'select') {
+        const options = field.options.map(opt => `<option value="${opt}">${opt}</option>`).join('');
+        return `
+          <div class="k9x7m_frm_grp">
+            <label class="k9x7m_frm_lbl" for="${field.name}">${field.label}</label>
+            <select class="k9x7m_frm_sel" id="${field.name}" name="${field.name}" ${required}>
+              <option value="">Select ${field.label}</option>
+              ${options}
+            </select>
+          </div>
+        `;
+      } else {
+        return `
+          <div class="k9x7m_frm_grp">
+            <label class="k9x7m_frm_lbl" for="${field.name}">${field.label}</label>
+            <input class="k9x7m_frm_inp" type="${field.type}" id="${field.name}" name="${field.name}" ${required} ${placeholder}>
+          </div>
+        `;
+      }
+    }
+
+    function k9x7m_fn_cm(event) {
+      if (event) event.preventDefault();
+      const modal = document.getElementById('k9x7m_id_mdl');
+      const closeBtn = document.querySelector('.k9x7m_mdl_close');
+      
+      modal.classList.remove('k9x7m_st_act');
+      closeBtn.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    // =============== FORM SUBMISSION HANDLER ===============
+    async function k9x7m_fn_handleSubmit(event) {
+      return k9x7m_fn_sub(event);
+    }
+
+    async function k9x7m_fn_sub(event) {
+      event.preventDefault();
+      const form = event.target;
+      const appType = form.dataset.appType;
+      const config = k9x7m_var_apps[appType];
+      const formData = new FormData(form);
+      
+      // Validate form
+      const requiredFields = config.fields.filter(f => f.required);
+      for (const field of requiredFields) {
+        if (!formData.get(field.name)) {
+          alert(`Please fill in the ${field.label} field.`);
+          return;
+        }
+      }
+      
+      const submitBtn = document.querySelector('.k9x7m_btn_sub');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Submitting...';
+      submitBtn.disabled = true;
+      
+      try {
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        // Show success message
+        const successMsg = document.getElementById('k9x7m_id_suc');
+        successMsg.classList.add('k9x7m_st_vis');
+        
+        // Reset form
+        form.reset();
+        
+        // Close modal after delay
+        setTimeout(() => {
+          successMsg.classList.remove('k9x7m_st_vis');
+          k9x7m_fn_cm();
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+        }, 2500);
+        
+      } catch (error) {
+        console.error('Error submitting application:', error);
+        alert('There was an error submitting your application. Please try again.');
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }
+    }
+
+    // =============== EVENT LISTENERS ===============
+    document.addEventListener('DOMContentLoaded', function() {
+      // Keyboard event listener
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          k9x7m_fn_cm();
+        }
+      });
+      
+      // Page animations
+      const cards = document.querySelectorAll('.k9x7m_cmp_fc92');
+      cards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          card.classList.add('k9x7m_ani_fade');
+        }, index * 150);
+      });
+
+      // Title underline animation on scroll
+      const title = document.querySelector('.k9x7m_txt_h1');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate');
+          }
+        });
+      }, { threshold: 0.5 });
+
+      if (title) {
+        observer.observe(title);
+      }
+    });
+  </script>
+</body>
+</html>

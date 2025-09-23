@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meauxbility Payment Template</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://js.stripe.com/v3/"></script>
+  
+  <!-- Include the centralized payment configuration -->
+  <script src="meauxbility-payment-config.js"></script>
+  
+  <style>
+    /* =============== MEAUXBILITY BRAND SYSTEM =============== */
+    :root {
+      /* Meauxbility Brand Colors */
+      --meaux-orange: #FF6B00;
+      --meaux-orange-hover: #FF8A33;
+      --meaux-teal: #339999;
+      --meaux-teal-hover: #4AB3B3;
+      --meaux-deep: #051b1e;
+      --meaux-dark: #0a2427;
+      --meaux-blue: #0f2f33;
+      --meaux-teal-steel: #1a4a52;
+      --meaux-metallic: #2a6b75;
+      --meaux-shine: #3a8b98;
+      --meaux-light-teal: #4aabb8;
+      --meaux-surface: #ffffff;
+      --meaux-surface-2: #f8fafb;
+      --meaux-ink: #0C2D31;
+      --meaux-ink-light: #173E45;
+      --meaux-success: #21c48c;
+      --meaux-warning: #f59e0b;
+      --meaux-error: #e74c3c;
+      --meaux-info: #3b82f6;
+      
+      /* Gradients */
+      --meaux-gradient-primary: linear-gradient(135deg, var(--meaux-orange), var(--meaux-orange-hover));
+      --meaux-gradient-secondary: linear-gradient(135deg, var(--meaux-teal), var(--meaux-teal-hover));
+      --meaux-gradient-hero: linear-gradient(135deg, var(--meaux-deep) 0%, var(--meaux-teal-steel) 100%);
+      
+      /* Shadows */
+      --meaux-shadow-sm: 0 4px 12px rgba(0,0,0,0.06);
+      --meaux-shadow-md: 0 12px 32px rgba(0,0,0,0.10);
+      --meaux-shadow-lg: 0 24px 48px rgba(0,0,0,0.14);
+      --meaux-shadow-glow: 0 0 20px rgba(255, 107, 0, 0.3);
+      --meaux-shadow-glow-hover: 0 0 30px rgba(255, 107, 0, 0.5);
+      
+      /* Layout */
+      --meaux-radius: 16px;
+      --meaux-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--meaux-gradient-hero);
+      color: var(--meaux-surface);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* =============== HERO SECTION =============== */
+    .meaux-hero {
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 4rem 2rem 6rem 2rem;
+      background: linear-gradient(135deg, var(--meaux-deep) 0%, var(--meaux-teal-steel) 50%, rgba(255, 255, 255, 0) 100%);
+    }
+
+    .meaux-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(255, 107, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(51, 153, 153, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .meaux-hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100px;
+      background: linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3) 100%);
+      pointer-events: none;
+    }
+
+    .meaux-hero-content {
+      text-align: center;
+      max-width: 800px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .meaux-hero-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      color: var(--meaux-surface);
+      margin-bottom: 1rem;
+      line-height: 1.1;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .meaux-hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--meaux-light-teal);
+      margin-bottom: 2rem;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .meaux-hero-cta {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 0;
+    }
+
+    .meaux-cta-primary {
+      padding: 1.25rem 3rem;
+      background: var(--meaux-gradient-primary);
+      color: var(--meaux-surface);
+      border: none;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--meaux-transition);
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: var(--meaux-shadow-md);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .meaux-cta-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--meaux-shadow-glow-hover);
+    }
+
+    .meaux-cta-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .meaux-cta-primary:hover::before {
+      left: 100%;
+    }
+
+    /* =============== MODAL BACKDROP =============== */
+    .meaux-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 27, 30, 0.95);
+      backdrop-filter: blur(20px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      padding: 1rem;
+    }
+
+    .meaux-modal-backdrop.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .meaux-modal {
+      width: min(800px, 95vw);
+      max-height: 90vh;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: var(--meaux-radius);
+      box-shadow: var(--meaux-shadow-lg);
+      overflow: hidden;
+      transform: scale(0.9) translateY(20px);
+      transition: transform 0.3s ease;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .meaux-modal-backdrop.active .meaux-modal {
+      transform: scale(1) translateY(0);
+    }
+
+    /* =============== MODAL HEADER =============== */
+    .meaux-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.2);
+      position: relative;
+    }
+
+    .meaux-modal-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--meaux-gradient-primary);
+    }
+
+    .meaux-modal-title {
+      font-weight: 800;
+      color: var(--meaux-surface);
+      font-size: 1.8rem;
+      margin: 0;
+    }
+
+    .meaux-modal-subtitle {
+      color: var(--meaux-light-teal);
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .meaux-modal-close {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 1.65rem;
+      color: var(--meaux-surface);
+      transition: var(--meaux-transition);
+    }
+
+    .meaux-modal-close:hover {
+      background: rgba(255, 107, 0, 0.2);
+      color: var(--meaux-orange);
+      transform: rotate(90deg) scale(1.1);
+    }
+
+    /* =============== MODAL BODY =============== */
+    .meaux-modal-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.5rem;
+    }
+
+    /* =============== DONATION FORM GRID =============== */
+    .meaux-donate-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    /* =============== DONATION OPTIONS =============== */
+    .meaux-donate-options {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: var(--meaux-radius);
+      padding: 1.5rem;
+    }
+
+    .meaux-option-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--meaux-surface);
+      margin-bottom: 1.5rem;
+    }
+
+    /* =============== FREQUENCY TOGGLE =============== */
+    .meaux-frequency-toggle {
+      display: flex;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      padding: 4px;
+      margin-bottom: 1.5rem;
+    }
+
+    .meaux-frequency-btn {
+      flex: 1;
+      padding: 0.75rem;
+      background: transparent;
+      border: none;
+      color: var(--meaux-light-teal);
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: var(--meaux-transition);
+      font-size: 0.9rem;
+    }
+
+    .meaux-frequency-btn.active {
+      background: var(--meaux-gradient-primary);
+      color: var(--meaux-surface);
+      box-shadow: var(--meaux-shadow-glow);
+    }
+
+    /* =============== AMOUNT BUTTONS =============== */
+    .meaux-amount-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .meaux-amount-btn {
+      padding: 0.875rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      color: var(--meaux-surface);
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--meaux-transition);
+      font-size: 0.9rem;
+    }
+
+    .meaux-amount-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: var(--meaux-teal);
+      transform: translateY(-2px);
+    }
+
+    .meaux-amount-btn.selected {
+      background: var(--meaux-gradient-secondary);
+      border-color: var(--meaux-teal);
+      color: var(--meaux-surface);
+      box-shadow: 0 0 15px rgba(51, 153, 153, 0.3);
+    }
+
+    /* =============== CUSTOM AMOUNT =============== */
+    .meaux-custom-amount {
+      width: 100%;
+      padding: 0.875rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      color: var(--meaux-surface);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      transition: var(--meaux-transition);
+    }
+
+    .meaux-custom-amount::placeholder {
+      color: var(--meaux-ink-light);
+    }
+
+    .meaux-custom-amount:focus {
+      outline: none;
+      border-color: var(--meaux-teal);
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 0 3px rgba(51, 153, 153, 0.1);
+    }
+
+    /* =============== DESIGNATION =============== */
+    .meaux-designation {
+      margin-bottom: 1rem;
+    }
+
+    .meaux-designation label {
+      display: block;
+      color: var(--meaux-surface);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .meaux-designation select {
+      width: 100%;
+      padding: 0.875rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      color: var(--meaux-surface);
+      font-size: 0.9rem;
+      transition: var(--meaux-transition);
+    }
+
+    .meaux-designation select:focus {
+      outline: none;
+      border-color: var(--meaux-teal);
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* =============== DONOR INFORMATION =============== */
+    .meaux-donor-info {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: var(--meaux-radius);
+      padding: 1.5rem;
+    }
+
+    .meaux-form-group {
+      margin-bottom: 1rem;
+    }
+
+    .meaux-form-group label {
+      display: block;
+      color: var(--meaux-surface);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .meaux-form-input {
+      width: 100%;
+      padding: 0.875rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      color: var(--meaux-surface);
+      font-size: 0.9rem;
+      transition: var(--meaux-transition);
+    }
+
+    .meaux-form-input:focus {
+      outline: none;
+      border-color: var(--meaux-teal);
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 0 3px rgba(51, 153, 153, 0.1);
+    }
+
+    .meaux-form-input::placeholder {
+      color: var(--meaux-ink-light);
+    }
+
+    /* =============== NAME GRID =============== */
+    .meaux-name-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    /* =============== STRIPE ELEMENTS =============== */
+    .meaux-stripe-container {
+      margin-top: 1.5rem;
+    }
+
+    .meaux-stripe-element {
+      padding: 0.875rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      transition: var(--meaux-transition);
+    }
+
+    .meaux-stripe-element--focus {
+      border-color: var(--meaux-teal);
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 0 3px rgba(51, 153, 153, 0.1);
+    }
+
+    /* =============== SUBMIT BUTTON =============== */
+    .meaux-donate-submit {
+      width: 100%;
+      padding: 1.25rem;
+      background: var(--meaux-gradient-primary);
+      color: var(--meaux-surface);
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--meaux-transition);
+      margin-top: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .meaux-donate-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--meaux-shadow-glow-hover);
+    }
+
+    .meaux-donate-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .meaux-donate-submit::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .meaux-donate-submit:hover::before {
+      left: 100%;
+    }
+
+    /* =============== SECURITY NOTICE =============== */
+    .meaux-security-notice {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      color: var(--meaux-surface);
+      font-size: 0.85rem;
+    }
+
+    .meaux-lock-icon {
+      color: var(--meaux-success);
+      font-size: 1.1rem;
+    }
+
+    /* =============== LOADING STATE =============== */
+    .meaux-loading {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      color: var(--meaux-surface);
+      font-weight: 600;
+    }
+
+    .meaux-loading.active {
+      display: flex;
+    }
+
+    .meaux-spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-top: 2px solid var(--meaux-orange);
+      border-radius: 50%;
+      animation: meaux-spin 1s linear infinite;
+    }
+
+    @keyframes meaux-spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* =============== ERROR MESSAGES =============== */
+    .meaux-error {
+      color: var(--meaux-error);
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+      display: none;
+    }
+
+    .meaux-error.show {
+      display: block;
+    }
+
+    /* =============== SUCCESS MESSAGE =============== */
+    .meaux-success-message {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+      background: rgba(33, 196, 140, 0.1);
+      border: 1px solid rgba(33, 196, 140, 0.3);
+      border-radius: var(--meaux-radius);
+      margin-bottom: 2rem;
+    }
+
+    .meaux-success-message.show {
+      display: block;
+    }
+
+    .meaux-success-icon {
+      font-size: 3rem;
+      color: var(--meaux-success);
+      margin-bottom: 1rem;
+    }
+
+    .meaux-success-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--meaux-surface);
+      margin-bottom: 0.5rem;
+    }
+
+    .meaux-success-text {
+      color: var(--meaux-ink-light);
+      line-height: 1.6;
+    }
+
+    /* =============== RESPONSIVE DESIGN =============== */
+    @media (max-width: 768px) {
+      .meaux-hero {
+        padding: 1rem;
+      }
+      
+      .meaux-cta-primary {
+        width: 100%;
+        max-width: 300px;
+      }
+      
+      .meaux-modal {
+        width: 95vw;
+        max-height: 95vh;
+      }
+      
+      .meaux-modal-body {
+        padding: 1.5rem;
+      }
+      
+      .meaux-donate-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      .meaux-amount-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .meaux-name-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .meaux-modal-header {
+        padding: 1.5rem;
+      }
+      
+      .meaux-modal-title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- =============== HERO SECTION =============== -->
+  <section class="meaux-hero">
+    <div class="meaux-hero-content">
+      <h1 class="meaux-hero-title">Make an Impact</h1>
+      <p class="meaux-hero-subtitle">Every dollar directly transforms lives. Join us in ensuring no survivor navigates recovery alone.</p>
+      
+      <div class="meaux-hero-cta">
+        <button class="meaux-cta-primary" onclick="openMeauxbilityPaymentModal()">Donate Now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============== PAYMENT MODAL =============== -->
+  <div class="meaux-modal-backdrop" id="paymentModalBackdrop">
+    <div class="meaux-modal">
+      <div class="meaux-modal-header">
+        <div>
+          <h3 class="meaux-modal-title">Make Your Impact</h3>
+          <p class="meaux-modal-subtitle">Every dollar directly transforms lives. Join us in ensuring no survivor navigates recovery alone.</p>
+        </div>
+        <button class="meaux-modal-close" id="paymentModalClose" onclick="closeMeauxbilityPaymentModal()">&times;</button>
+      </div>
+
+      <div class="meaux-modal-body">
+        <!-- Success Message -->
+        <div class="meaux-success-message" id="successMessage">
+          <div class="meaux-success-icon">✅</div>
+          <div class="meaux-success-title">Thank You!</div>
+          <div class="meaux-success-text">Your donation has been processed successfully. You'll receive a confirmation email shortly.</div>
+        </div>
+
+        <!-- Main Form Grid -->
+        <div class="meaux-donate-grid">
+          <!-- Donation Options -->
+          <div class="meaux-donate-options">
+            <h3 class="meaux-option-title">Choose Your Gift</h3>
+            
+            <!-- Frequency Toggle -->
+            <div class="meaux-frequency-toggle">
+              <button class="meaux-frequency-btn active" onclick="setMeauxbilityFrequency('one_time')">One Time</button>
+              <button class="meaux-frequency-btn" onclick="setMeauxbilityFrequency('monthly')">Monthly</button>
+            </div>
+
+            <!-- Amount Buttons -->
+            <div class="meaux-amount-grid">
+              <button class="meaux-amount-btn" onclick="selectMeauxbilityAmount(25)">$25</button>
+              <button class="meaux-amount-btn" onclick="selectMeauxbilityAmount(50)">$50</button>
+              <button class="meaux-amount-btn" onclick="selectMeauxbilityAmount(100)">$100</button>
+              <button class="meaux-amount-btn" onclick="selectMeauxbilityAmount(250)">$250</button>
+              <button class="meaux-amount-btn selected" onclick="selectMeauxbilityAmount(500)">$500</button>
+              <button class="meaux-amount-btn" onclick="selectMeauxbilityAmount(1000)">$1,000</button>
+            </div>
+
+            <!-- Custom Amount -->
+            <input type="number" class="meaux-custom-amount" placeholder="Enter custom amount" min="1" oninput="selectMeauxbilityCustomAmount(this.value)">
+
+            <!-- Designation -->
+            <div class="meaux-designation">
+              <label>Designate Your Gift (Optional)</label>
+              <select id="donationDesignation">
+                <option value="general">Where Most Needed</option>
+                <option value="donmichael">DonMichael's Wheelchair Fundraiser</option>
+                <option value="samscar">Sam's Car Fund</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Donor Information -->
+          <div class="meaux-donor-info">
+            <h3 class="meaux-option-title">Your Information</h3>
+            
+            <div class="meaux-name-grid">
+              <div class="meaux-form-group">
+                <label>First Name *</label>
+                <input type="text" class="meaux-form-input" id="firstName" required>
+                <div class="meaux-error" id="firstNameError">First name is required</div>
+              </div>
+              <div class="meaux-form-group">
+                <label>Last Name *</label>
+                <input type="text" class="meaux-form-input" id="lastName" required>
+                <div class="meaux-error" id="lastNameError">Last name is required</div>
+              </div>
+            </div>
+
+            <div class="meaux-form-group">
+              <label>Email Address *</label>
+              <input type="email" class="meaux-form-input" id="email" required>
+              <div class="meaux-error" id="emailError">Valid email is required</div>
+            </div>
+
+            <div class="meaux-form-group">
+              <label>Phone Number</label>
+              <input type="tel" class="meaux-form-input" id="phone">
+            </div>
+
+            <!-- Stripe Elements Container -->
+            <div class="meaux-stripe-container">
+              <label>Payment Information *</label>
+              <div id="card-element" class="meaux-stripe-element">
+                <!-- Stripe Elements will create form elements here -->
+              </div>
+              <div class="meaux-error" id="cardError">Please enter valid payment information</div>
+            </div>
+
+            <button class="meaux-donate-submit" onclick="processMeauxbilityDonation()">
+              <span class="meaux-submit-text">Complete Donation</span>
+              <div class="meaux-loading" id="donationLoading">
+                <div class="meaux-spinner"></div>
+                <span>Processing...</span>
+              </div>
+            </button>
+
+            <div class="meaux-security-notice">
+              <span class="meaux-lock-icon">🔒</span>
+              <span>Your donation is secure and tax-deductible</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

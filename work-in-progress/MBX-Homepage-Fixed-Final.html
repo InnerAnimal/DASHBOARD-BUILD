@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Meauxbility — More Options. More Access. More Life.</title>
+<meta name="description" content="Built by a survivor for survivors. Meauxbility connects spinal cord injury survivors to world-class treatments, adaptive tech, and a verified resource hub—turning impossible into possible.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+</head>
+<body>
+<div id="meauxbility-animated">
+<style>
+/* ========== DESIGN SYSTEM ========== */
+#meauxbility-animated {
+--mbx-orange: #FF6B00;
+--mbx-orange-hover: #E85D00;
+--mbx-teal: #339999;
+--mbx-teal-dark: #2C8B8B;
+--mbx-purple: #8b5cf6;
+--mbx-ink: #0C2D31;
+--mbx-ink-2: #173E45;
+--mbx-surface: #FFFFFF;
+--mbx-surface-2: #F7FAFB;
+--mbx-gray-light: #F8FAFB;
+--mbx-max: 1200px;
+--mbx-radius: 20px;
+--mbx-px: clamp(20px, 4vw, 48px);
+--mbx-section-padding: clamp(80px, 10vw, 120px);
+--mbx-ease: cubic-bezier(0.16, 1, 0.3, 1);
+/* Unified shadows */
+--mbx-shadow-sm: 0 4px 12px rgba(0,0,0,0.06);
+--mbx-shadow-md: 0 12px 32px rgba(0,0,0,0.10);
+--mbx-shadow-lg: 0 24px 48px rgba(0,0,0,0.14);
+position: relative;
+color: var(--mbx-ink);
+font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+line-height: 1.6;
+background: var(--mbx-surface);
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+padding-top: 30px;
+overflow-x: hidden;
+}
+/* Subtle grain texture overlay */
+#meauxbility-animated::before {
+content: "";
+position: fixed;
+inset: 0;
+z-index: 1;
+pointer-events: none;
+opacity: 0.02;
+background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+/* Refined background gradient system */
+#meauxbility-animated::after {
+content: "";
+position: fixed;
+inset: 0;
+z-index: 0;
+pointer-events: none;
+background:
+radial-gradient(ellipse 1400px 900px at 15% 15%, rgba(255,107,0,0.025) 0%, transparent 55%),
+radial-gradient(ellipse 1200px 700px at 85% 75%, rgba(51,153,153,0.015) 0%, transparent 65%),
+linear-gradient(180deg, 
+#ffffff 0%, 
+#ffffff 30%,
+#fdfefe 40%,
+#fcfdfd 50%,
+#fbfcfc 60%,
+#fafbfb 70%,
+#f9fafa 80%,
+#f8f9f9 90%,
+rgba(51,153,153,0.01) 100%
+);
+}
+/* Layout utilities */
+#meauxbility-animated .mbx-wrap {
+max-width: var(--mbx-max);
+margin: 0 auto;
+padding: 0 var(--mbx-px);
+position: relative;
+z-index: 2;
+}
+#meauxbility-animated section {
+padding: var(--mbx-section-padding) 0;
+position: relative;
+z-index: 2;
+}
+/* Typography */
+#meauxbility-animated h2 {
+margin: 0 0 1.5rem;
+font-size: clamp(32px, 4vw, 48px);
+line-height: 1.15;
+letter-spacing: -0.02em;
+font-weight: 900;
+color: var(--mbx-ink);
+}
+#meauxbility-animated .mbx-lead {
+font-size: clamp(16px, 1.6vw, 20px);
+color: var(--mbx-ink-2);
+max-width: 68ch;
+font-weight: 500;
+line-height: 1.7;
+}
+/* Buttons */
+#meauxbility-animated .mbx-btn {
+display: inline-flex;
+align-items: center;
+gap: 8px;
+text-decoration: none;
+font-weight: 700;
+padding: 1rem 1.5rem;
+border-radius: var(--mbx-radius);
+border: 1px solid transparent;
+box-shadow: var(--mbx-shadow-sm);
+transition: all 0.3s var(--mbx-ease);
+font-size: clamp(14px, 1.6vw, 16px);
+position: relative;
+overflow: hidden;
+}
+#meauxbility-animated .mbx-btn:hover {
+transform: translateY(-2px);
+box-shadow: var(--mbx-shadow-md);
+}
+#meauxbility-animated .mbx-btn-primary {
+background: linear-gradient(135deg, var(--mbx-orange), var(--mbx-orange-hover));
+color: white;
+}
+#meauxbility-animated .mbx-btn-ghost {
+background: white;
+color: var(--mbx-ink);
+border-color: rgba(12,45,49,0.12);
+}
+/* Fade-in animation */
+#meauxbility-animated .mbx-fade-in {
+opacity: 0;
+transform: translateY(30px);
+transition: all 0.8s var(--mbx-ease);
+}
+#meauxbility-animated .mbx-fade-in.mbx-visible {
+opacity: 1;
+transform: translateY(0);
+}
+/* ========== RIBBON SECTION ========== */
+#meauxbility-animated .mbx-ribbon {
+position: relative;
+overflow: hidden;
+padding: 0.6rem 0;
+border-bottom: 1px solid rgba(12,45,49,0.08);
+background: rgba(255,255,255,0.98);
+backdrop-filter: blur(8px);
+z-index: 3;
+}
+#meauxbility-animated .mbx-ribbon-track {
+white-space: nowrap;
+display: flex;
+gap: 3rem;
+align-items: center;
+animation: mbx-scroll 30s linear infinite;
+color: var(--mbx-ink);
+font-weight: 900;
+letter-spacing: 0.02em;
+font-size: clamp(14px, 1.4vw, 16px);
+}
+@keyframes mbx-scroll {
+from { transform: translateX(0); }
+to { transform: translateX(-50%); }
+}
+#meauxbility-animated .mbx-ribbon-tag {
+color: var(--mbx-orange);
+margin: 0 0.5rem;
+}
+/* ========== HERO SECTION WITH ANIMATION ========== */
+#meauxbility-animated .mbx-hero {
+min-height: 85vh;
+display: flex;
+align-items: center;
+padding: 80px 0 60px;
+}
+#meauxbility-animated .mbx-hero-wrap {
+max-width: 1100px;
+margin: 0 auto;
+padding: 0 var(--mbx-px);
+text-align: center;
+}
+#meauxbility-animated .mbx-hero-card {
+position: relative;
+border-radius: var(--mbx-radius);
+overflow: hidden;
+background: var(--mbx-gray-light);
+box-shadow: var(--mbx-shadow-lg);
+margin-bottom: 40px;
+}
+#meauxbility-animated .mbx-hero-media {
+position: relative;
+width: 100%;
+aspect-ratio: 16/9;
+overflow: hidden;
+}
+/* HERO IMAGE ANIMATION - CORE FUNCTIONALITY */
+#meauxbility-animated .mbx-hero-img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+object-position: center;
+display: block;
+/* Initial state: zoomed in and offset down */
+transform: scale(1.15) translateY(30px);
+will-change: transform;
+transition: transform 1.2s var(--mbx-ease);
+}
+/* Overlay for depth */
+#meauxbility-animated .mbx-hero-media::after {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background: linear-gradient(
+to bottom,
+rgba(255, 255, 255, 0.05) 0%,
+rgba(255, 255, 255, 0) 50%,
+rgba(0, 0, 0, 0.05) 100%
+);
+z-index: 1;
+pointer-events: none;
+}
+#meauxbility-animated .mbx-hero-content {
+margin: 0 auto;
+max-width: 900px;
+}
+#meauxbility-animated .mbx-hero-title {
+font-weight: 900;
+line-height: 1.1;
+letter-spacing: -0.02em;
+color: var(--mbx-ink);
+font-size: clamp(36px, 5vw, 56px);
+margin: 0 0 24px;
+}
+#meauxbility-animated .mbx-hero-sub {
+font-size: clamp(18px, 2vw, 22px);
+line-height: 1.6;
+color: var(--mbx-ink-2);
+margin: 0 auto 36px;
+font-weight: 500;
+}
+#meauxbility-animated .mbx-hero-sub .mbx-hl {
+color: var(--mbx-orange);
+font-weight: 700;
+}
+#meauxbility-animated .mbx-hero-ctas {
+display: flex;
+gap: 16px;
+justify-content: center;
+flex-wrap: wrap;
+}
+/* ========== VALUES SECTION ========== */
+#meauxbility-animated .mbx-values {
+padding: var(--mbx-section-padding) 0;
+background: linear-gradient(180deg, 
+rgba(255,255,255,1) 0%, 
+rgba(255,250,248,0.4) 50%,
+rgba(255,255,255,1) 100%
+);
+}
+#meauxbility-animated .mbx-values-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: clamp(40px, 5vw, 60px);
+margin-top: 60px;
+text-align: center;
+}
+#meauxbility-animated .mbx-value-item {
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 24px;
+}
+#meauxbility-animated .mbx-value-icon {
+width: clamp(150px, 18.75vw, 225px);
+height: clamp(150px, 18.75vw, 225px);
+object-fit: contain;
+opacity: 0.9;
+filter: drop-shadow(0 8px 20px rgba(0,0,0,0.08));
+}
+#meauxbility-animated .mbx-value-content {
+max-width: 340px;
+}
+#meauxbility-animated .mbx-value-title {
+font-size: clamp(12px, 1.4vw, 14px);
+font-weight: 800;
+text-transform: uppercase;
+letter-spacing: 0.1em;
+color: var(--mbx-orange);
+margin-bottom: 8px;
+}
+#meauxbility-animated .mbx-value-heading {
+font-size: clamp(22px, 2.5vw, 28px);
+font-weight: 900;
+color: var(--mbx-ink);
+margin-bottom: 12px;
+line-height: 1.2;
+}
+#meauxbility-animated .mbx-value-desc {
+color: var(--mbx-ink-2);
+line-height: 1.6;
+font-size: clamp(14px, 1.5vw, 16px);
+}
+/* ========== GAP SECTION ========== */
+#meauxbility-animated .mbx-gap {
+padding: var(--mbx-section-padding) 0;
+background: linear-gradient(180deg,
+rgba(255,255,255,1) 0%,
+rgba(252,253,253,1) 50%,
+rgba(250,251,251,1) 100%
+);
+}
+#meauxbility-animated .mbx-gap-chips {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: clamp(20px, 2.5vw, 28px);
+margin-top: 48px;
+}
+#meauxbility-animated .mbx-chip {
+padding: clamp(24px, 3vw, 32px);
+border-radius: var(--mbx-radius);
+background: white;
+border: 1px solid rgba(12,45,49,0.06);
+box-shadow: var(--mbx-shadow-sm);
+transition: all 0.3s var(--mbx-ease);
+}
+#meauxbility-animated .mbx-chip:hover {
+transform: translateY(-4px);
+box-shadow: var(--mbx-shadow-md);
+border-color: var(--mbx-orange);
+}
+#meauxbility-animated .mbx-chip h4 {
+margin: 0 0 12px;
+font-size: clamp(18px, 1.8vw, 20px);
+color: var(--mbx-teal);
+font-weight: 800;
+}
+#meauxbility-animated .mbx-chip p {
+margin: 0;
+color: var(--mbx-ink-2);
+line-height: 1.6;
+font-size: clamp(14px, 1.4vw, 16px);
+}
+/* ========== CAMPAIGN SECTION ========== */
+#meauxbility-animated .mbx-campaign {
+padding: var(--mbx-section-padding) 0;
+background: white;
+}
+#meauxbility-animated .mbx-campaign-wrap {
+max-width: var(--mbx-max);
+margin: 0 auto;
+padding: 0 var(--mbx-px);
+display: grid;
+grid-template-columns: minmax(400px, 520px) minmax(320px, 1fr);
+gap: 60px;
+align-items: center;
+}
+#meauxbility-animated .mbx-campaign-image {
+width: 100%;
+border-radius: var(--mbx-radius);
+overflow: hidden;
+box-shadow: var(--mbx-shadow-md);
+}
+#meauxbility-animated .mbx-campaign-image img {
+display: block;
+width: 100%;
+height: auto;
+}
+#meauxbility-animated .mbx-campaign-kicker {
+font-weight: 700;
+font-size: clamp(1.5rem, 3vw, 2rem);
+color: var(--mbx-teal);
+margin-bottom: 0.75rem;
+}
+#meauxbility-animated .mbx-campaign-title {
+font-weight: 900;
+font-size: clamp(2rem, 4.5vw, 3rem);
+line-height: 1.1;
+margin: 0 0 1.5rem;
+color: var(--mbx-ink);
+}
+#meauxbility-animated .mbx-campaign-copy {
+font-weight: 500;
+font-size: clamp(1rem, 1.2vw, 1.125rem);
+line-height: 1.7;
+color: var(--mbx-ink-2);
+}
+#meauxbility-animated .mbx-campaign-copy p {
+margin: 0 0 1rem;
+}
+#meauxbility-animated .mbx-campaign-copy strong {
+color: var(--mbx-orange);
+font-weight: 700;
+}
+#meauxbility-animated .mbx-campaign-meter {
+margin-top: 2rem;
+width: 100%;
+height: 14px;
+background: rgba(51,153,153,0.15);
+border-radius: 999px;
+overflow: hidden;
+position: relative;
+}
+#meauxbility-animated .mbx-campaign-meter-fill {
+display: block;
+height: 100%;
+width: 0%;
+min-width: 80px;
+background: linear-gradient(90deg, var(--mbx-teal), #4aabb8);
+transition: width 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+border-radius: 999px;
+}
+#meauxbility-animated .mbx-campaign-meta {
+font-weight: 700;
+font-size: 0.95rem;
+color: var(--mbx-ink-2);
+margin-top: 12px;
+}
+#meauxbility-animated .mbx-campaign-btnrow {
+display: flex;
+flex-wrap: wrap;
+gap: 12px;
+margin-top: 2rem;
+}
+/* ========== COMMUNITY SECTION ========== */
+#meauxbility-animated .mbx-community {
+padding: var(--mbx-section-padding) 0;
+position: relative;
+background: linear-gradient(180deg,
+rgba(255,255,255,1) 0%,
+rgba(248,252,252,0.5) 30%,
+rgba(243,249,249,0.7) 60%,
+rgba(238,246,246,1) 100%
+);
+}
+#meauxbility-animated .mbx-model-background {
+position: absolute;
+right: -5%;
+top: 50%;
+transform: translateY(-50%);
+width: 500px;
+height: 500px;
+opacity: 0.15;
+z-index: 0;
+pointer-events: none;
+}
+#meauxbility-animated .mbx-model-background model-viewer {
+width: 100%;
+height: 100%;
+background: transparent;
+}
+#meauxbility-animated .mbx-model-background model-viewer::part(default-progress-bar) {
+display: none;
+}
+#meauxbility-animated .mbx-community-wrap {
+max-width: var(--mbx-max);
+margin: 0 auto;
+padding: 0 var(--mbx-px);
+display: grid;
+grid-template-columns: minmax(400px, 520px) minmax(380px, 1fr);
+gap: 60px;
+align-items: center;
+position: relative;
+z-index: 1;
+}
+#meauxbility-animated .mbx-community-image {
+width: 100%;
+border-radius: var(--mbx-radius);
+overflow: hidden;
+box-shadow: var(--mbx-shadow-lg);
+}
+#meauxbility-animated .mbx-community-image img {
+display: block;
+width: 100%;
+height: auto;
+object-fit: cover;
+}
+#meauxbility-animated .mbx-community-content h2 {
+font-size: clamp(32px, 4vw, 48px);
+margin-bottom: 1.5rem;
+}
+#meauxbility-animated .mbx-community-content p {
+font-size: clamp(16px, 1.6vw, 20px);
+line-height: 1.7;
+color: var(--mbx-ink-2);
+margin-bottom: 1.5rem;
+}
+#meauxbility-animated .mbx-community-content strong {
+color: var(--mbx-ink);
+}
+/* ========== PARTNERS SECTION ========== */
+#mbx-partners {
+--mbx-partners-teal: #339999;
+--mbx-partners-purple: #7B4BE6;
+--mbx-partners-green: #10B981;
+--mbx-partners-orange: #FF7A00;
+--partners-blend-start: 38%;
+--partners-wave-lift: 28px;
+--gap: clamp(24px, 4vw, 48px);
+--row-gap: clamp(28px, 5vw, 64px);
+--logo-w: clamp(152px, 21vw, 264px);
+--logo-h: clamp(50px, 7.2vw, 82px);
+--lift: 4px;
+position: relative;
+overflow: hidden;
+background: linear-gradient(
+180deg,
+rgba(255,255,255,0) 0%,
+rgba(51,153,153,0.03) calc(var(--partners-blend-start) - 20%),
+rgba(51,153,153,0.08) calc(var(--partners-blend-start) - 10%),
+rgba(51,153,153,0.15) var(--partners-blend-start),
+rgba(51,153,153,0.25) calc(var(--partners-blend-start) + 8%),
+rgba(51,153,153,0.40) calc(var(--partners-blend-start) + 18%),
+rgba(51,153,153,0.60) calc(var(--partners-blend-start) + 28%),
+rgba(51,153,153,0.85) calc(var(--partners-blend-start) + 38%),
+#339999 100%
+);
+padding: clamp(48px, 6vw, 96px) var(--gap) clamp(60px, 7vw, 120px);
+margin-bottom: -2px;
+}
+#mbx-partners::before {
+content: "";
+position: absolute;
+inset: 0;
+background:
+radial-gradient(circle at 20% 50%, rgba(16,185,129,0.08) 0%, transparent 50%),
+radial-gradient(circle at 80% 60%, rgba(123,75,230,0.06) 0%, transparent 50%),
+radial-gradient(circle at 50% 100%, rgba(51,153,153,0.1) 0%, transparent 70%);
+animation: mbxMeshFloat 20s ease-in-out infinite;
+pointer-events: none;
+}
+@keyframes mbxMeshFloat {
+0%, 100% { transform: translate(0, 0) scale(1); }
+33% { transform: translate(-20px, -10px) scale(1.05); }
+66% { transform: translate(20px, 10px) scale(0.95); }
+}
+#mbx-partners::after {
+content: "";
+position: absolute;
+bottom: 0;
+left: 0;
+right: 0;
+height: calc(120px + var(--partners-wave-lift));
+background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1440 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,40 C480,100 960,100 1440,40 L1440,120 L0,120 Z' fill='%23339999' opacity='0.5'/%3E%3C/svg%3E") no-repeat bottom;
+background-size: 100% calc(120px + var(--partners-wave-lift));
+pointer-events: none;
+}
+#mbx-partners .mbx-pwrap {
+max-width: 1200px;
+margin: 0 auto;
+text-align: center;
+position: relative;
+z-index: 2;
+}
+#mbx-partners h3 {
+font-weight: 800;
+font-size: clamp(26px, 3.6vw, 36px);
+line-height: 1.25;
+margin: 0 0 1.5rem;
+color: #0C2D31;
+font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+position: relative;
+display: inline-block;
+text-shadow: 0 2px 4px rgba(255,255,255,0.5);
+}
+#mbx-partners h3::after {
+content: "";
+position: absolute;
+left: 50%;
+bottom: -8px;
+height: 3px;
+width: 0;
+background: linear-gradient(90deg, var(--mbx-partners-purple) 0%, var(--mbx-partners-green) 100%);
+transform: translateX(-50%);
+transition: width 0.6s ease;
+border-radius: 2px;
+}
+#mbx-partners h3.mbx-pvisible::after {
+width: 100%;
+}
+#mbx-partners .mbx-pgrid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: var(--row-gap) var(--gap);
+align-items: center;
+justify-items: center;
+margin: clamp(24px, 3vw, 36px) 0;
+position: relative;
+}
+#mbx-partners .mbx-plogo {
+position: relative;
+width: var(--logo-w);
+height: var(--logo-h);
+display: inline-block;
+transform: translateY(0);
+transition: transform 0.2s ease, opacity 0.2s ease;
+}
+#mbx-partners .mbx-plogo:hover {
+transform: translateY(calc(var(--lift) * -1));
+}
+#mbx-partners .mbx-plogo > * {
+position: absolute;
+inset: 0;
+display: grid;
+place-items: center;
+opacity: 0.95;
+transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.3, 0.7, 0.2, 1);
+}
+#mbx-partners .mbx-pmask {
+width: 100%;
+height: 100%;
+background: transparent;
+background-image: var(--src);
+background-position: center;
+background-repeat: no-repeat;
+background-size: contain;
+filter: drop-shadow(0 2px 6px rgba(255,255,255,0.8)) drop-shadow(0 1px 3px rgba(0,0,0,0.2));
+}
+#mbx-partners .mbx-pimg-fallback {
+display: none !important;
+}
+#mbx-partners .mbx-plogo.mbx-swap-a .mbx-pa,
+#mbx-partners .mbx-plogo.mbx-swap-b .mbx-pb {
+opacity: 0;
+transform: scaleX(0.82);
+filter: blur(3px);
+}
+#mbx-partners .mbx-plogo .mbx-pb {
+opacity: 0;
+pointer-events: none;
+}
+#mbx-partners .mbx-plogo[data-mbx-state="b"] .mbx-pa {
+opacity: 0;
+pointer-events: none;
+}
+#mbx-partners .mbx-plogo[data-mbx-state="b"] .mbx-pb {
+opacity: 0.95;
+pointer-events: auto;
+}
+#mbx-partners .mbx-pcta {
+display: inline-flex;
+gap: 0.6rem;
+align-items: center;
+font: 600 clamp(16px, 1.6vw, 19px)/1.35 Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+text-decoration: none;
+margin-top: 8px;
+color: #0C2D31;
+background: rgba(255,255,255,0.4);
+backdrop-filter: blur(8px);
+padding: 8px 16px;
+border-radius: 999px;
+transition: all 0.3s ease;
+}
+#mbx-partners .mbx-pcta .mbx-punderline {
+height: 2px;
+width: 120px;
+background: linear-gradient(90deg, var(--mbx-partners-purple) 0%, var(--mbx-partners-green) 100%);
+margin-top: 0.55rem;
+border-radius: 1px;
+}
+#mbx-partners .mbx-pcta svg {
+width: 20px;
+height: 20px;
+stroke: var(--mbx-partners-orange);
+}
+#mbx-partners .mbx-pcta:hover {
+color: #2C8B8B;
+background: rgba(255,255,255,0.7);
+transform: translateY(-2px);
+box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+/* Particles */
+@keyframes mbxFloatUp {
+0% { transform: translateY(100vh) translateX(0) scale(0); opacity: 0; }
+10%, 90% { opacity: 0.4; }
+100% { transform: translateY(-100vh) translateX(100px) scale(1); opacity: 0; }
+}
+.mbx-particle {
+position: absolute;
+width: 8px;
+height: 8px;
+background: radial-gradient(circle, rgba(51,153,153,0.6) 0%, transparent 70%);
+border-radius: 50%;
+animation: mbxFloatUp 15s infinite;
+pointer-events: none;
+}
+.mbx-particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 13s; }
+.mbx-particle:nth-child(2) { left: 25%; animation-delay: 2s; animation-duration: 16s; }
+.mbx-particle:nth-child(3) { left: 40%; animation-delay: 4s; animation-duration: 14s; }
+.mbx-particle:nth-child(4) { left: 60%; animation-delay: 1s; animation-duration: 18s; }
+.mbx-particle:nth-child(5) { left: 75%; animation-delay: 3s; animation-duration: 15s; }
+.mbx-particle:nth-child(6) { left: 90%; animation-delay: 5s; animation-duration: 12s; }
+/* Mobile responsive */
+@media (max-width: 900px) {
+#meauxbility-animated .mbx-values-grid {
+grid-template-columns: 1fr;
+gap: 50px;
+}
+#meauxbility-animated .mbx-gap-chips {
+grid-template-columns: 1fr;
+}
+#meauxbility-animated .mbx-campaign-wrap,
+#meauxbility-animated .mbx-community-wrap {
+grid-template-columns: 1fr;
+gap: 40px;
+}
+#meauxbility-animated .mbx-campaign-image {
+order: -1;
+}
+#meauxbility-animated .mbx-model-background {
+width: 400px;
+height: 400px;
+right: -20%;
+opacity: 0.08;
+}
+#mbx-partners .mbx-pgrid {
+grid-template-columns: repeat(2, 1fr);
+gap: 28px 24px;
+}
+}
+@media (max-width: 520px) {
+#mbx-partners .mbx-pgrid {
+grid-template-columns: 1fr;
+gap: 24px;
+}
+#mbx-partners {
+--logo-w: clamp(170px, 60vw, 250px);
+--logo-h: clamp(52px, 13vw, 80px);
+padding-bottom: clamp(80px, 10vw, 140px);
+}
+}
+@media (prefers-reduced-motion: reduce) {
+#meauxbility-animated *,
+#meauxbility-animated *::before,
+#meauxbility-animated *::after {
+animation-duration: 0.01ms !important;
+animation-iteration-count: 1 !important;
+transition-duration: 0.01ms !important;
+}
+.mbx-particle {
+display: none;
+}
+}
+/* ========== PREMIUM MODAL SYSTEM ========== */
+.mbx-modal-overlay {
+position: fixed;
+inset: 0;
+background: rgba(0,0,0,0.6);
+backdrop-filter: blur(40px);
+-webkit-backdrop-filter: blur(40px);
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 9999;
+opacity: 0;
+visibility: hidden;
+transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.mbx-modal-overlay.active {
+opacity: 1;
+visibility: visible;
+}
+.mbx-modal-container {
+position: relative;
+width: min(420px, 92vw);
+max-height: 90vh;
+overflow-y: auto;
+}
+.mbx-modal {
+background: var(--mbx-surface);
+border-radius: var(--mbx-radius);
+box-shadow: var(--mbx-shadow-lg);
+overflow: hidden;
+transform: scale(0.9) translateY(20px);
+transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.mbx-modal-overlay.active .mbx-modal {
+transform: scale(1) translateY(0);
+}
+.mbx-modal-close {
+position: absolute;
+top: 16px;
+right: 16px;
+width: 32px;
+height: 32px;
+border: none;
+background: rgba(255,255,255,0.9);
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+font-size: 18px;
+color: var(--mbx-ink);
+z-index: 10;
+transition: all 0.2s ease;
+}
+.mbx-modal-close:hover {
+background: white;
+transform: scale(1.1);
+}
+.mbx-modal-header {
+padding: 24px 24px 16px;
+text-align: center;
+border-bottom: 1px solid rgba(12,45,49,0.08);
+}
+.mbx-modal-title {
+font-size: 24px;
+font-weight: 900;
+color: var(--mbx-ink);
+margin: 0;
+}
+.mbx-modal-body {
+padding: 24px;
+}
+.mbx-modal-description {
+color: var(--mbx-ink-2);
+margin-bottom: 24px;
+text-align: center;
+}
+.mbx-form-row {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+margin-bottom: 16px;
+}
+.mbx-form-group {
+margin-bottom: 16px;
+}
+.mbx-form-group label {
+display: block;
+font-weight: 600;
+color: var(--mbx-ink);
+margin-bottom: 6px;
+font-size: 14px;
+}
+.mbx-form-group input,
+.mbx-form-group select,
+.mbx-form-group textarea {
+width: 100%;
+padding: 12px 16px;
+border: 1px solid rgba(12,45,49,0.12);
+border-radius: 8px;
+font-size: 16px;
+background: var(--mbx-surface);
+color: var(--mbx-ink);
+transition: border-color 0.2s ease;
+}
+.mbx-form-group input:focus,
+.mbx-form-group select:focus,
+.mbx-form-group textarea:focus {
+outline: none;
+border-color: var(--mbx-teal);
+box-shadow: 0 0 0 3px rgba(51,153,153,0.1);
+}
+.mbx-modal-submit {
+width: 100%;
+padding: 16px;
+background: linear-gradient(135deg, var(--mbx-orange), var(--mbx-orange-hover));
+color: white;
+border: none;
+border-radius: 8px;
+font-weight: 700;
+font-size: 16px;
+cursor: pointer;
+transition: all 0.2s ease;
+}
+.mbx-modal-submit:hover {
+transform: translateY(-2px);
+box-shadow: 0 8px 24px rgba(255,107,0,0.3);
+}
+.mbx-modal-submit:disabled {
+opacity: 0.7;
+cursor: not-allowed;
+transform: none;
+}
+</style>
+<!-- Announcement Ribbon -->
+<div class="mbx-ribbon" role="region" aria-label="Tagline">
+<div class="mbx-wrap">
+<div class="mbx-ribbon-track" aria-hidden="true">
+<span>More Options <span class="mbx-ribbon-tag">•</span> More Access <span class="mbx-ribbon-tag">•</span> More Life</span>
+<span>More Options <span class="mbx-ribbon-tag">•</span> More Access <span class="mbx-ribbon-tag">•</span> More Life</span>
+<span>More Options <span class="mbx-ribbon-tag">•</span> More Access <span class="mbx-ribbon-tag">•</span> More Life</span>
+<span>More Options <span class="mbx-ribbon-tag">•</span> More Access <span class="mbx-ribbon-tag">•</span> More Life</span>
+</div>
+</div>
+</div>
+<main>
+<!-- Hero Section with Animated Image -->
+<section class="mbx-hero mbx-fade-in">
+<div class="mbx-hero-wrap">
+<div class="mbx-hero-card">
+<div class="mbx-hero-media">
+<img id="mbx-hero-img" class="mbx-hero-img"
+src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/sam-smile-pikes-peak.jpg?v=1754025762" 
+alt="Sam Primeaux at Pikes Peak—smiling, in the mountains." 
+loading="eager">
+</div>
+</div>
+<div class="mbx-hero-content">
+<h1 class="mbx-hero-title">Built by a survivor for survivors.</h1>
+<p class="mbx-hero-sub">
+We connect people with <span class="mbx-hl">spinal cord injuries</span> to the
+<span class="mbx-hl">treatments</span>, <span class="mbx-hl">technology</span>, and
+<span class="mbx-hl">community</span> that change outcomes.
+</p>
+<div class="mbx-hero-ctas">
+<button class="mbx-btn mbx-btn-primary" onclick="openSupportModal()">Get Support</button>
+<button class="mbx-btn mbx-btn-ghost" onclick="openDonateModal()">Our First Campaign</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Values Section -->
+<section class="mbx-values">
+<div class="mbx-wrap">
+<h2 style="text-align: center;">Why Meauxbility</h2>
+<div class="mbx-values-grid">
+<div class="mbx-value-item mbx-fade-in">
+<img class="mbx-value-icon" 
+src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/5.png?v=1753332352" 
+alt="Mission icon">
+<div class="mbx-value-content">
+<span class="mbx-value-title">Our Mission</span>
+<h3 class="mbx-value-heading">Built by Experience</h3>
+<p class="mbx-value-desc">Founded by Sam Primeaux after his 2017 paralysis. We turn lived experience into a roadmap others can follow to recovery.</p>
+</div>
+</div>
+<div class="mbx-value-item mbx-fade-in">
+<img class="mbx-value-icon" 
+src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/6.png?v=1753332353" 
+alt="Empowerment icon">
+<div class="mbx-value-content">
+<span class="mbx-value-title">Empowerment</span>
+<h3 class="mbx-value-heading">Obstacles into Opportunity</h3>
+<p class="mbx-value-desc">We combine funding, mentorship, and a practical recovery playbook so people with mobility challenges can accelerate their progress.</p>
+</div>
+</div>
+<div class="mbx-value-item mbx-fade-in">
+<img class="mbx-value-icon" 
+src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/3_c666d932-e895-4620-928e-20762c2be381.png?v=1753332353" 
+alt="Community icon">
+<div class="mbx-value-content">
+<span class="mbx-value-title">Community</span>
+<h3 class="mbx-value-heading">Movement Not Moment</h3>
+<p class="mbx-value-desc">What began as one story is now a growing network creating more access—and more life—together. Join the movement.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Gap Section -->
+<section class="mbx-gap">
+<div class="mbx-wrap">
+<h2>The Gap We're Closing</h2>
+<p class="mbx-lead">Three barriers stand between injury and independence. We're removing them.</p>
+<div class="mbx-gap-chips">
+<article class="mbx-chip mbx-fade-in">
+<h4>COST</h4>
+<p>First-year SCI costs reach $1.4M. Lifetime up to $6.3M. We connect survivors to funding and resources.</p>
+</article>
+<article class="mbx-chip mbx-fade-in">
+<h4>KNOWLEDGE</h4>
+<p>18,400 new SCIs yearly. Families waste precious time searching. We provide instant vetted guidance.</p>
+</article>
+<article class="mbx-chip mbx-fade-in">
+<h4>ACCESS</h4>
+<p>Equipment exists but remains unreachable. We bridge the gap between innovation and those who need it.</p>
+</article>
+</div>
+</div>
+</section>
+<!-- Campaign Section -->
+<section class="mbx-campaign mbx-fade-in" id="mbx-campaign">
+<div class="mbx-campaign-wrap">
+<figure class="mbx-campaign-image">
+<img src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/img-5722.jpg?v=1754010593" 
+alt="DonMichael - Our first campaign" 
+loading="lazy">
+</figure>
+<div class="mbx-campaign-text">
+<div class="mbx-campaign-kicker">01</div>
+<h2 class="mbx-campaign-title">Help Fund DonMichael's New Beginning</h2>
+<div class="mbx-campaign-copy">
+<p>Mobility challenges touch every part of life—freedom, opportunity, and dignity. Our first initiative is raising <strong>$10,000</strong> to provide DonMichael, living with Friedreich's ataxia, a custom wheelchair that truly fits his needs.</p>
+<p>This isn't just equipment—it's independence, access, and the confidence to pursue life on his terms.</p>
+<div class="mbx-campaign-meter" aria-label="Fundraising progress">
+<span class="mbx-campaign-meter-fill" id="progressFill" style="width: 0%;" aria-hidden="true"></span>
+</div>
+<div class="mbx-campaign-meta" id="progressText">$0 raised of $10,000 goal • Campaign launching soon</div>
+<div class="mbx-campaign-btnrow">
+<button class="mbx-btn mbx-btn-primary" onclick="openDonateModal()">Be DonMichael's First Hero →</button>
+<a class="mbx-btn mbx-btn-ghost" href="https://meauxbility.org/pages/donmichael-our-first-campaign">Learn More</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Community Section -->
+<section class="mbx-community mbx-fade-in">
+<div class="mbx-model-background" aria-hidden="true">
+<model-viewer
+src="https://cdn.shopify.com/3d/models/2f72b763d930043c/Helping_Hand_0820204901_texture.glb"
+alt="Helping hand 3D model"
+auto-rotate
+rotation-per-second="6deg"
+camera-orbit="45deg 75deg 8m"
+field-of-view="25deg"
+disable-zoom
+disable-pan
+disable-tap
+interaction-prompt="none"
+shadow-intensity="0"
+exposure="1.2"
+tone-mapping="neutral"
+style="--poster-color: transparent;">
+</model-viewer>
+</div>
+<div class="mbx-community-wrap">
+<figure class="mbx-community-image">
+<img src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/img-6190.jpg?v=1754567058" 
+alt="Community of supporters celebrating a milestone" 
+loading="lazy">
+</figure>
+<div class="mbx-community-content">
+<h2>The Meauxbility Movement</h2>
+<p>What began as one story is now a growing network of people and partners creating more access—and more life—together.</p>
+<p><strong>Join us.</strong> No one should face the hardest days alone.</p>
+<a class="mbx-btn mbx-btn-primary" href="https://meauxbility.org/pages/community">Join Our Community</a>
+</div>
+</div>
+</section>
+<!-- Partners Section -->
+<section id="mbx-partners" aria-labelledby="mbx-partners-h">
+<!-- Floating particles -->
+<div class="mbx-particle"></div>
+<div class="mbx-particle"></div>
+<div class="mbx-particle"></div>
+<div class="mbx-particle"></div>
+<div class="mbx-particle"></div>
+<div class="mbx-particle"></div>
+<div class="mbx-pwrap">
+<h3 id="mbx-partners-h">Partners &amp; Supporters</h3>
+<div class="mbx-pgrid" id="mbxPartnersGrid">
+<!-- Partner 1 -->
+<a class="mbx-plogo" href="#" aria-label="Partner 1" data-mbx-state="a" data-mbx-delay="0">
+<div class="mbx-pa">
+<span class="mbx-pmask" style="--src:url('https://cdn.shopify.com/s/files/1/0685/1654/4672/files/rise.png?v=1754533232')"></span>
+<img class="mbx-pimg-fallback" alt="Rise" src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/rise.png?v=1754533232">
+</div>
+<div class="mbx-pb">
+<span class="mbx-pmask" style="--src:url('https://cdn.shopify.com/s/files/1/0685/1654/4672/files/deano.png?v=1754533232')"></span>
+<img class="mbx-pimg-fallback" alt="Deano" src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/deano.png?v=1754533232">
+</div>
+</a>
+<!-- Partner 2 -->
+<a class="mbx-plogo" href="#" aria-label="Partner 2" data-mbx-state="a" data-mbx-delay="2500">
+<div class="mbx-pa">
+<span class="mbx-pmask" style="--src:url('https://cdn.shopify.com/s/files/1/0685/1654/4672/files/pablito.png?v=1754533232')"></span>
+<img class="mbx-pimg-fallback" alt="Pablito" src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/pablito.png?v=1754533232">
+</div>
+<div class="mbx-pb">
+<span class="mbx-pmask" style="--src:url('https://cdn.shopify.com/s/files/1/0685/1654/4672/files/gff-update.png?v=1754533232')"></span>
+<img class="mbx-pimg-fallback" alt="GFF" src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/gff-update.png?v=1754533232">
+</div>
+</a>
+<!-- Partner 3 -->
+<a class="mbx-plogo" href="#" aria-label="Partner 3" data-mbx-state="a" data-mbx-delay="5000">
+<div class="mbx-pa">
+<span class="mbx-pmask" style="--src:url('https://cdn.shopify.com/s/files/1/0685/1654/4672/files/w4w.png?v=1754533232')"></span>
+<img class="mbx-pimg-fallback" alt="W4W" src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/w4w.png?v=1754533232">
+</div>
+<div class="mbx-pb">
+<span class="mbx-pmask" style="--src:url('https://cdn.shopify.com/s/files/1/0685/1654/4672/files/tc.png?v=1754533232')"></span>
+<img class="mbx-pimg-fallback" alt="TC" src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/tc.png?v=1754533232">
+</div>
+</a>
+<!-- Partner 4 -->
+<a class="mbx-plogo" href="#" aria-label="Partner 4" data-mbx-state="a" data-mbx-delay="7500">
+<div class="mbx-pa">
+<span class="mbx-pmask" style="--src:url('https://cdn.shopify.com/s/files/1/0685/1654/4672/files/neuroelite-white.png?v=1754533232')"></span>
+<img class="mbx-pimg-fallback" alt="NeuroElite" src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/neuroelite-white.png?v=1754533232">
+</div>
+<div class="mbx-pb">
+<span class="mbx-pmask" style="--src:url('https://cdn.shopify.com/s/files/1/0685/1654/4672/files/tu.png?v=1754533232')"></span>
+<img class="mbx-pimg-fallback" alt="TU" src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/tu.png?v=1754533232">
+</div>
+</a>
+<!-- Partner 5 -->
+<a class="mbx-plogo" href="#" aria-label="Partner 5" data-mbx-state="a" data-mbx-delay="10000">
+<div class="mbx-pa">
+<span class="mbx-pmask" style="--src:url('https://cdn.shopify.com/s/files/1/0685/1654/4672/files/ab-white.png?v=1754533232')"></span>
+<img class="mbx-pimg-fallback" alt="AB" src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/ab-white.png?v=1754533232">
+</div>
+<div class="mbx-pb">
+<span class="mbx-pmask" style="--src:url('https://cdn.shopify.com/s/files/1/0685/1654/4672/files/apex.png?v=1754533232')"></span>
+<img class="mbx-pimg-fallback" alt="Apex" src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/apex.png?v=1754533232">
+</div>
+</a>
+<!-- Partner 6 -->
+<a class="mbx-plogo" href="#" aria-label="Partner 6" data-mbx-state="a" data-mbx-delay="12500">
+<div class="mbx-pa">
+<span class="mbx-pmask" style="--src:url('https://cdn.shopify.com/s/files/1/0685/1654/4672/files/barr.png?v=1753371101')"></span>
+<img class="mbx-pimg-fallback" alt="Barr" src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/barr.png?v=1753371101">
+</div>
+<div class="mbx-pb">
+<span class="mbx-pmask" style="--src:url('https://cdn.shopify.com/s/files/1/0685/1654/4672/files/atf_logo.png?v=1753212782')"></span>
+<img class="mbx-pimg-fallback" alt="ATF" src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/atf_logo.png?v=1753212782">
+</div>
+</a>
+</div>
+<a class="mbx-pcta" href="https://meauxbility.org/pages/accessibility-partners">
+<div class="mbx-punderline"></div>
+<span>View all partners</span>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<path d="M5 12h14M13 5l7 7-7 7"/>
+</svg>
+</a>
+</div>
+</section>
+</main>
+<!-- Support Application Modal -->
+<div class="mbx-modal-overlay" id="supportModal">
+<div class="mbx-modal-container">
+<button class="mbx-modal-close" onclick="closeSupportModal()">×</button>
+<div class="mbx-modal">
+<div class="mbx-modal-header">
+<h2 class="mbx-modal-title">Apply for Support</h2>
+</div>
+<div class="mbx-modal-body">
+<p class="mbx-modal-description">Tell us about your needs and how we can help you access the resources and support you deserve.</p>
+<form id="supportForm">
+<div class="mbx-form-row">
+<div class="mbx-form-group">
+<label for="supportName">Full Name *</label>
+<input type="text" id="supportName" name="name" required>
+</div>
+<div class="mbx-form-group">
+<label for="supportEmail">Email *</label>
+<input type="email" id="supportEmail" name="email" required>
+</div>
+</div>
+<div class="mbx-form-group">
+<label for="supportPhone">Phone Number</label>
+<input type="tel" id="supportPhone" name="phone">
+</div>
+<div class="mbx-form-group">
+<label for="supportType">Type of Support Needed *</label>
+<select id="supportType" name="supportType" required>
+<option value="">Select support type</option>
+<option value="equipment">Adaptive Equipment</option>
+<option value="therapy">Physical Therapy</option>
+<option value="training">Training & Coaching</option>
+<option value="transportation">Transportation</option>
+<option value="other">Other</option>
+</select>
+</div>
+<div class="mbx-form-group">
+<label for="supportMessage">Tell us your story *</label>
+<textarea id="supportMessage" name="message" rows="4" placeholder="Share your journey and how we can help..." required></textarea>
+</div>
+<button type="submit" class="mbx-modal-submit">Submit Application</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+<!-- Donation Modal -->
+<div class="mbx-modal-overlay" id="donateModal">
+<div class="mbx-modal-container">
+<button class="mbx-modal-close" onclick="closeDonateModal()">×</button>
+<div class="mbx-modal">
+<div class="mbx-modal-header">
+<h2 class="mbx-modal-title">Support DonMichael</h2>
+</div>
+<div class="mbx-modal-body">
+<p class="mbx-modal-description">Help fund DonMichael's custom wheelchair. Every contribution makes a difference.</p>
+<form id="donateForm">
+<div class="mbx-form-row">
+<div class="mbx-form-group">
+<label for="donorName">Full Name *</label>
+<input type="text" id="donorName" name="name" required>
+</div>
+<div class="mbx-form-group">
+<label for="donorEmail">Email *</label>
+<input type="email" id="donorEmail" name="email" required>
+</div>
+</div>
+<div class="mbx-form-group">
+<label for="donationAmount">Donation Amount *</label>
+<select id="donationAmount" name="amount" required>
+<option value="">Select amount</option>
+<option value="25">$25</option>
+<option value="50">$50</option>
+<option value="100">$100</option>
+<option value="250">$250</option>
+<option value="500">$500</option>
+<option value="custom">Custom Amount</option>
+</select>
+</div>
+<div class="mbx-form-group" id="customAmountGroup" style="display: none;">
+<label for="customAmount">Custom Amount ($)</label>
+<input type="number" id="customAmount" name="customAmount" min="1" step="1">
+</div>
+<div class="mbx-form-group">
+<label for="donationMessage">Message (Optional)</label>
+<textarea id="donationMessage" name="message" rows="3" placeholder="Leave a message of support for DonMichael..."></textarea>
+</div>
+<button type="submit" class="mbx-modal-submit">Complete Donation</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+<script>
+(function() {
+"use strict";
+const container = document.getElementById("meauxbility-animated");
+if (!container) return;
+// ===========================
+// HERO IMAGE SCROLL ANIMATION
+// ===========================
+const heroImage = container.querySelector("#mbx-hero-img");
+let scrollProgress = 0;
+let animationFrame = null;
+function updateHeroImage() {
+const scrollY = window.scrollY || window.pageYOffset;
+const windowHeight = window.innerHeight;
+// Calculate scroll progress (0 to 1) based on first viewport
+scrollProgress = Math.min(Math.max(scrollY / windowHeight, 0), 1);
+// Ease the animation (ease-in-out-quad)
+const easedProgress = scrollProgress < 0.5 
+? 2 * scrollProgress * scrollProgress 
+: -1 + (4 - 2 * scrollProgress) * scrollProgress;
+// Scale from 1.15 to 1 (zoom out)
+const scale = 1.15 - (easedProgress * 0.15);
+// Translate from 30px to 0 (move up)
+const translateY = 30 - (easedProgress * 30);
+// Apply transform with high performance
+if (heroImage) {
+heroImage.style.transform = "scale(" + scale + ") translateY(" + translateY + "px)";
+}
+}
+// Optimized scroll handler with RAF
+function handleScroll() {
+if (!animationFrame) {
+animationFrame = requestAnimationFrame(function() {
+updateHeroImage();
+animationFrame = null;
+});
+}
+}
+// ===========================
+// FADE-IN OBSERVER
+// ===========================
+const observerOptions = {
+threshold: 0.15,
+rootMargin: "0px 0px -80px 0px"
+};
+const fadeObserver = new IntersectionObserver(function(entries) {
+entries.forEach(function(entry) {
+if (entry.isIntersecting) {
+entry.target.classList.add("mbx-visible");
+fadeObserver.unobserve(entry.target);
+}
+});
+}, observerOptions);
+container.querySelectorAll(".mbx-fade-in").forEach(function(el) {
+fadeObserver.observe(el);
+});
+// ===========================
+// PARTNERS LOGO SWAPPER
+// ===========================
+const INTERVAL = 15000;
+const grid = document.getElementById("mbxPartnersGrid");
+if (grid) {
+const slots = Array.from(grid.querySelectorAll(".mbx-plogo"));
+const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function swap(slot) {
+const nowB = slot.getAttribute("data-mbx-state") !== "b";
+slot.classList.remove("mbx-swap-a", "mbx-swap-b");
+slot.classList.add(nowB ? "mbx-swap-a" : "mbx-swap-b");
+requestAnimationFrame(function() {
+slot.setAttribute("data-mbx-state", nowB ? "b" : "a");
+});
+}
+let onScreen = true;
+if ("IntersectionObserver" in window) {
+const partnersObserver = new IntersectionObserver(function(entries) {
+onScreen = entries[0] && entries[0].isIntersecting;
+}, { threshold: 0.1 });
+const partnersSection = document.getElementById("mbx-partners");
+if (partnersSection) {
+partnersObserver.observe(partnersSection);
+}
+}
+if (!reduceMotion) {
+slots.forEach(function(slot) {
+const delay = parseInt(slot.getAttribute("data-mbx-delay") || "0", 10);
+setTimeout(function() {
+swap(slot);
+setInterval(function() {
+if (onScreen) swap(slot);
+}, INTERVAL);
+}, delay);
+});
+}
+}
+// Partners title underline animation
+const h3 = document.getElementById("mbx-partners-h");
+if (h3) {
+const titleObserver = new IntersectionObserver(function(entries) {
+entries.forEach(function(entry) {
+if (entry.isIntersecting) {
+h3.classList.add("mbx-pvisible");
+titleObserver.unobserve(h3);
+}
+});
+}, { threshold: 0.6 });
+titleObserver.observe(h3);
+}
+// ===========================
+// MODAL FUNCTIONS
+// ===========================
+function openSupportModal() {
+const modal = document.getElementById("supportModal");
+modal.classList.add("active");
+document.body.style.overflow = "hidden";
+document.getElementById("supportName").focus();
+}
+function closeSupportModal() {
+const modal = document.getElementById("supportModal");
+modal.classList.remove("active");
+document.body.style.overflow = "";
+}
+function openDonateModal() {
+const modal = document.getElementById("donateModal");
+modal.classList.add("active");
+document.body.style.overflow = "hidden";
+document.getElementById("donorName").focus();
+}
+function closeDonateModal() {
+const modal = document.getElementById("donateModal");
+modal.classList.remove("active");
+document.body.style.overflow = "";
+}
+// Make functions global
+window.openSupportModal = openSupportModal;
+window.closeSupportModal = closeSupportModal;
+window.openDonateModal = openDonateModal;
+window.closeDonateModal = closeDonateModal;
+// ===========================
+// FORM HANDLERS
+// ===========================
+// Support Form
+document.getElementById("supportForm").addEventListener("submit", async (e) => {
+e.preventDefault();
+const formData = new FormData(e.target);
+const data = Object.fromEntries(formData);
+const submitBtn = e.target.querySelector(".mbx-modal-submit");
+const originalText = submitBtn.textContent;
+submitBtn.textContent = "Submitting...";
+submitBtn.disabled = true;
+try {
+// Simulate API call
+await new Promise(resolve => setTimeout(resolve, 2000));
+alert("Thank you for your application! We will review your request and get back to you within 48 hours.");
+// Reset form
+e.target.reset();
+closeSupportModal();
+} catch (error) {
+alert("There was an error submitting your application. Please try again.");
+} finally {
+submitBtn.textContent = originalText;
+submitBtn.disabled = false;
+}
+});
+// Donation Form
+document.getElementById("donateForm").addEventListener("submit", async (e) => {
+e.preventDefault();
+const formData = new FormData(e.target);
+const data = Object.fromEntries(formData);
+const submitBtn = e.target.querySelector(".mbx-modal-submit");
+const originalText = submitBtn.textContent;
+submitBtn.textContent = "Processing...";
+submitBtn.disabled = true;
+try {
+// Simulate API call
+await new Promise(resolve => setTimeout(resolve, 2000));
+alert("Thank you for your donation! Your support helps DonMichael get his custom wheelchair.");
+// Update progress bar
+updateProgressBar();
+// Reset form
+e.target.reset();
+closeDonateModal();
+} catch (error) {
+alert("There was an error processing your donation. Please try again.");
+} finally {
+submitBtn.textContent = originalText;
+submitBtn.disabled = false;
+}
+});
+// Custom amount toggle
+document.getElementById("donationAmount").addEventListener("change", function() {
+const customGroup = document.getElementById("customAmountGroup");
+if (this.value === "custom") {
+customGroup.style.display = "block";
+} else {
+customGroup.style.display = "none";
+}
+});
+// ===========================
+// PROGRESS BAR API INTEGRATION
+// ===========================
+async function updateProgressBar() {
+try {
+// Simulate API call to get real progress data
+const response = await fetch("/api/campaign-progress");
+const data = await response.json();
+const progressFill = document.getElementById("progressFill");
+const progressText = document.getElementById("progressText");
+if (progressFill && progressText) {
+const percentage = Math.min((data.raised / data.goal) * 100, 100);
+progressFill.style.width = percentage + "%";
+progressText.textContent = "$" + data.raised.toLocaleString() + " raised of $" + data.goal.toLocaleString() + " goal • " + data.donors + " donors";
+}
+} catch (error) {
+console.log("Using demo progress data");
+// Demo data for now
+const progressFill = document.getElementById("progressFill");
+if (progressFill) {
+progressFill.style.width = "15%";
+}
+}
+}
+// ===========================
+// EVENT LISTENERS
+// ===========================
+let scrollHandler = function() {
+handleScroll();
+};
+window.addEventListener("scroll", scrollHandler, { passive: true });
+window.addEventListener("load", function() {
+updateHeroImage();
+updateProgressBar();
+});
+// Click outside to close modals
+document.getElementById("supportModal").addEventListener("click", (e) => {
+if(e.target === e.currentTarget) closeSupportModal();
+});
+document.getElementById("donateModal").addEventListener("click", (e) => {
+if(e.target === e.currentTarget) closeDonateModal();
+});
+// Keyboard navigation
+document.addEventListener("keydown", (e) => {
+if(e.key === "Escape") {
+if (document.getElementById("supportModal").classList.contains("active")) {
+closeSupportModal();
+}
+if (document.getElementById("donateModal").classList.contains("active")) {
+closeDonateModal();
+}
+}
+});
+// Initial call
+updateHeroImage();
+// Cleanup function for potential removal
+container.mbxCleanup = function() {
+window.removeEventListener("scroll", scrollHandler);
+if (animationFrame) {
+cancelAnimationFrame(animationFrame);
+}
+};
+})();
+</script>
+</div>
+</body>
+</html>

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meauxbility Button Components - 2x5w8</title>
+  <style>
+    /* Meauxbility Button Components - Unique ID: 2x5w8 */
+    :root {
+      /* Brand Colors */
+      --meaux-primary: #00FF7F;
+      --meaux-primary-dark: #00C965;
+      --meaux-primary-light: #32FF9F;
+      --meaux-teal-deep: #0a1a1a;
+      --meaux-teal-mid: #0f2622;
+      --meaux-teal-light: #1a3530;
+      --meaux-purple-diamond: #8A2BE2;
+      --meaux-blue-electric: #00D4FF;
+      --meaux-red-energy: #FF3366;
+      --meaux-white: #FFFFFF;
+      --meaux-mid-gray: #A0A0A0;
+      --meaux-black: #000000;
+      
+      /* Typography */
+      --font-primary: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      
+      /* Spacing */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2rem;
+      
+      /* Border Radius */
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-pill: 50px;
+      
+      /* Shadows */
+      --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+      --shadow-glow: 0 0 20px rgba(0, 255, 127, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-primary);
+      line-height: 1.6;
+      color: var(--meaux-white);
+      background: linear-gradient(135deg, var(--meaux-teal-deep) 0%, var(--meaux-teal-mid) 50%, var(--meaux-teal-light) 100%);
+      min-height: 100vh;
+    }
+
+    .meaux-container-2x5w8 {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: var(--space-xl);
+    }
+
+    .meaux-header-2x5w8 {
+      text-align: center;
+      margin-bottom: var(--space-xl);
+    }
+
+    .meaux-title-2x5w8 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--meaux-primary);
+      margin-bottom: var(--space-md);
+    }
+
+    .meaux-subtitle-2x5w8 {
+      font-size: 1.1rem;
+      color: var(--meaux-mid-gray);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .meaux-button-grid-2x5w8 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    .meaux-button-card-2x5w8 {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .meaux-button-title-2x5w8 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: var(--space-md);
+      color: var(--meaux-primary);
+    }
+
+    .meaux-button-demo-2x5w8 {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+
+    /* Base Button Styles */
+    .meaux-btn-2x5w8 {
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      text-decoration: none;
+      display: inline-block;
+      font-family: var(--font-primary);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .meaux-btn-2x5w8:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 255, 127, 0.3);
+    }
+
+    .meaux-btn-2x5w8:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    /* Primary Button */
+    .meaux-btn-primary-2x5w8 {
+      background: var(--meaux-primary);
+      color: var(--meaux-black);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .meaux-btn-primary-2x5w8:hover:not(:disabled) {
+      background: var(--meaux-primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .meaux-btn-primary-2x5w8:active {
+      transform: translateY(0);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Secondary Button */
+    .meaux-btn-secondary-2x5w8 {
+      background: transparent;
+      border: 2px solid var(--meaux-primary);
+      color: var(--meaux-primary);
+    }
+
+    .meaux-btn-secondary-2x5w8:hover:not(:disabled) {
+      background: var(--meaux-primary);
+      color: var(--meaux-black);
+      transform: translateY(-2px);
+    }
+
+    /* Accent Button */
+    .meaux-btn-accent-2x5w8 {
+      background: var(--meaux-blue-electric);
+      color: var(--meaux-black);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .meaux-btn-accent-2x5w8:hover:not(:disabled) {
+      background: #00B8E6;
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+    }
+
+    /* Danger Button */
+    .meaux-btn-danger-2x5w8 {
+      background: var(--meaux-red-energy);
+      color: var(--meaux-white);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .meaux-btn-danger-2x5w8:hover:not(:disabled) {
+      background: #E62E4D;
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px rgba(255, 51, 102, 0.3);
+    }
+
+    /* Ghost Button */
+    .meaux-btn-ghost-2x5w8 {
+      background: transparent;
+      color: var(--meaux-white);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .meaux-btn-ghost-2x5w8:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--meaux-primary);
+      color: var(--meaux-primary);
+    }
+
+    /* Button Sizes */
+    .meaux-btn-sm-2x5w8 {
+      padding: var(--space-xs) var(--space-md);
+      font-size: 0.9rem;
+    }
+
+    .meaux-btn-lg-2x5w8 {
+      padding: var(--space-md) var(--space-xl);
+      font-size: 1.1rem;
+    }
+
+    .meaux-btn-xl-2x5w8 {
+      padding: var(--space-lg) var(--space-xl);
+      font-size: 1.2rem;
+    }
+
+    /* Pill Button */
+    .meaux-btn-pill-2x5w8 {
+      border-radius: var(--radius-pill);
+    }
+
+    /* Icon Buttons */
+    .meaux-btn-icon-2x5w8 {
+      width: 48px;
+      height: 48px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .meaux-btn-icon-2x5w8 svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Loading State */
+    .meaux-btn-loading-2x5w8 {
+      position: relative;
+      color: transparent;
+    }
+
+    .meaux-btn-loading-2x5w8::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20px;
+      height: 20px;
+      border: 2px solid transparent;
+      border-top: 2px solid currentColor;
+      border-radius: 50%;
+      animation: meauxSpin-2x5w8 1s linear infinite;
+    }
+
+    @keyframes meauxSpin-2x5w8 {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    /* Button Group */
+    .meaux-btn-group-2x5w8 {
+      display: flex;
+      gap: 0;
+    }
+
+    .meaux-btn-group-2x5w8 .meaux-btn-2x5w8 {
+      border-radius: 0;
+      border-right: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .meaux-btn-group-2x5w8 .meaux-btn-2x5w8:first-child {
+      border-radius: var(--radius-md) 0 0 var(--radius-md);
+    }
+
+    .meaux-btn-group-2x5w8 .meaux-btn-2x5w8:last-child {
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      border-right: none;
+    }
+
+    .meaux-interactive-demo-2x5w8 {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      margin: var(--space-xl) 0;
+      border: 2px solid var(--meaux-primary);
+    }
+
+    .meaux-demo-title-2x5w8 {
+      color: var(--meaux-primary);
+      margin-bottom: var(--space-md);
+      font-weight: 600;
+    }
+
+    .meaux-accessibility-2x5w8 {
+      background: rgba(0, 255, 127, 0.1);
+      border: 1px solid var(--meaux-primary);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      margin: var(--space-xl) 0;
+    }
+
+    .meaux-accessibility-2x5w8 h5 {
+      color: var(--meaux-primary);
+      margin-bottom: var(--space-sm);
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .meaux-button-grid-2x5w8 {
+        grid-template-columns: 1fr;
+      }
+      
+      .meaux-title-2x5w8 {
+        font-size: 2rem;
+      }
+      
+      .meaux-btn-group-2x5w8 {
+        flex-direction: column;
+      }
+      
+      .meaux-btn-group-2x5w8 .meaux-btn-2x5w8 {
+        border-radius: var(--radius-md);
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      
+      .meaux-btn-group-2x5w8 .meaux-btn-2x5w8:last-child {
+        border-bottom: none;
+      }
+    }
+
+    .meaux-fade-in-2x5w8 {
+      animation: meauxFadeIn-2x5w8 0.5s ease-in-out;
+    }
+
+    @keyframes meauxFadeIn-2x5w8 {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="meaux-container-2x5w8 meaux-fade-in-2x5w8">
+    <header class="meaux-header-2x5w8">
+      <h1 class="meaux-title-2x5w8">Meauxbility Button Components</h1>
+      <p class="meaux-subtitle-2x5w8">
+        Semi-glow, semi-rectangular CTA buttons designed for donation campaigns and accessibility-focused interactions.
+      </p>
+    </header>
+    
+    <div class="meaux-button-grid-2x5w8">
+      <div class="meaux-button-card-2x5w8">
+        <h3 class="meaux-button-title-2x5w8">Primary Actions</h3>
+        <div class="meaux-button-demo-2x5w8">
+          <button class="meaux-btn-2x5w8 meaux-btn-primary-2x5w8">Donate Now</button>
+          <button class="meaux-btn-2x5w8 meaux-btn-primary-2x5w8 meaux-btn-pill-2x5w8">Support Campaign</button>
+          <button class="meaux-btn-2x5w8 meaux-btn-primary-2x5w8 meaux-btn-lg-2x5w8">Get Started</button>
+        </div>
+        <p style="color: var(--meaux-mid-gray); font-size: 0.9rem;">
+          Main call-to-action buttons with semi-glow effect on hover. Use for primary donation actions.
+        </p>
+      </div>
+      
+      <div class="meaux-button-card-2x5w8">
+        <h3 class="meaux-button-title-2x5w8">Secondary Actions</h3>
+        <div class="meaux-button-demo-2x5w8">
+          <button class="meaux-btn-2x5w8 meaux-btn-secondary-2x5w8">Learn More</button>
+          <button class="meaux-btn-2x5w8 meaux-btn-secondary-2x5w8 meaux-btn-pill-2x5w8">Share Story</button>
+          <button class="meaux-btn-2x5w8 meaux-btn-secondary-2x5w8 meaux-btn-sm-2x5w8">Details</button>
+        </div>
+        <p style="color: var(--meaux-mid-gray); font-size: 0.9rem;">
+          Outline buttons for secondary actions. Maintains brand consistency with primary color border.
+        </p>
+      </div>
+      
+      <div class="meaux-button-card-2x5w8">
+        <h3 class="meaux-button-title-2x5w8">Accent Actions</h3>
+        <div class="meaux-button-demo-2x5w8">
+          <button class="meaux-btn-2x5w8 meaux-btn-accent-2x5w8">Share Campaign</button>
+          <button class="meaux-btn-2x5w8 meaux-btn-accent-2x5w8 meaux-btn-pill-2x5w8">Connect</button>
+          <button class="meaux-btn-2x5w8 meaux-btn-accent-2x5w8 meaux-btn-xl-2x5w8">Join Community</button>
+        </div>
+        <p style="color: var(--meaux-mid-gray); font-size: 0.9rem;">
+          Electric blue buttons for social sharing and community engagement actions.
+        </p>
+      </div>
+      
+      <div class="meaux-button-card-2x5w8">
+        <h3 class="meaux-button-title-2x5w8">Utility Actions</h3>
+        <div class="meaux-button-demo-2x5w8">
+          <button class="meaux-btn-2x5w8 meaux-btn-ghost-2x5w8">Cancel</button>
+          <button class="meaux-btn-2x5w8 meaux-btn-danger-2x5w8">Delete</button>
+          <button class="meaux-btn-2x5w8 meaux-btn-ghost-2x5w8 meaux-btn-pill-2x5w8">Close</button>
+        </div>
+        <p style="color: var(--meaux-mid-gray); font-size: 0.9rem;">
+          Ghost and danger buttons for utility actions like cancel, delete, or close operations.
+        </p>
+      </div>
+      
+      <div class="meaux-button-card-2x5w8">
+        <h3 class="meaux-button-title-2x5w8">Icon Buttons</h3>
+        <div class="meaux-button-demo-2x5w8">
+          <button class="meaux-btn-2x5w8 meaux-btn-primary-2x5w8 meaux-btn-icon-2x5w8" title="Share">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/>
+            </svg>
+          </button>
+          <button class="meaux-btn-2x5w8 meaux-btn-secondary-2x5w8 meaux-btn-icon-2x5w8" title="Heart">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          </button>
+          <button class="meaux-btn-2x5w8 meaux-btn-accent-2x5w8 meaux-btn-icon-2x5w8" title="External Link">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+            </svg>
+          </button>
+        </div>
+        <p style="color: var(--meaux-mid-gray); font-size: 0.9rem;">
+          Circular icon buttons for compact actions. Include proper ARIA labels for accessibility.
+        </p>
+      </div>
+      
+      <div class="meaux-button-card-2x5w8">
+        <h3 class="meaux-button-title-2x5w8">Button Groups</h3>
+        <div class="meaux-button-demo-2x5w8">
+          <div class="meaux-btn-group-2x5w8">
+            <button class="meaux-btn-2x5w8 meaux-btn-primary-2x5w8">$25</button>
+            <button class="meaux-btn-2x5w8 meaux-btn-primary-2x5w8">$50</button>
+            <button class="meaux-btn-2x5w8 meaux-btn-primary-2x5w8">$100</button>
+          </div>
+        </div>
+        <p style="color: var(--meaux-mid-gray); font-size: 0.9rem;">
+          Connected button groups for related actions like donation amounts or filter options.
+        </p>
+      </div>
+    </div>
+
+    <div class="meaux-interactive-demo-2x5w8">
+      <h4 class="meaux-demo-title-2x5w8">🎯 Interactive Demo</h4>
+      <p style="margin-bottom: var(--space-md); color: var(--meaux-white);">
+        Test button interactions and states:
+      </p>
+      <div class="meaux-button-demo-2x5w8">
+        <button class="meaux-btn-2x5w8 meaux-btn-primary-2x5w8" onclick="this.classList.toggle('meaux-btn-loading-2x5w8')">
+          Toggle Loading
+        </button>
+        <button class="meaux-btn-2x5w8 meaux-btn-secondary-2x5w8" onclick="this.disabled = !this.disabled">
+          Toggle Disabled
+        </button>
+        <button class="meaux-btn-2x5w8 meaux-btn-accent-2x5w8" onclick="alert('Button clicked!')">
+          Show Alert
+        </button>
+      </div>
+    </div>
+
+    <div class="meaux-accessibility-2x5w8">
+      <h5>♿ Accessibility Features</h5>
+      <p style="color: var(--meaux-white); line-height: 1.6;">
+        All buttons include proper focus states, ARIA labels, keyboard navigation support, and high contrast ratios. 
+        Loading states are announced to screen readers, and disabled states are clearly indicated. 
+        Minimum touch target size is 44px for mobile accessibility.
+      </p>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,955 @@
+/* ===== FULLSCREEN FLOATING MARQUEE CAROUSEL ===== */
+
+/* Enhanced Brand Colors */
+:root {
+    --meaux-bg: #333333;
+    --meaux-orange: #FF7619;
+    --meaux-green: #21c48c;
+    --meaux-white: #ffffff;
+    --meaux-light: #c0c0c0;
+    --meaux-dark: #1a1a1a;
+    --meaux-border: #404040;
+
+    /* Tier Colors */
+    --meaux-supporter: #4ade80;
+    --meaux-champion: #cd7f32;
+    --meaux-hero: #c0c0c0;
+    --meaux-legend: #E2AF1D;
+    --meaux-visionary: #1F97A9;
+    --meaux-founder: #8A2BE2;
+
+    /* Layout Variables */
+    --meaux-radius: 24px;
+    --meaux-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --meaux-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    --meaux-hover-shadow: 0 16px 64px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== FULLSCREEN SECTION ===== */
+.meaux-donation-section {
+    width: 100vw !important;
+    height: 100vh !important;
+    background: linear-gradient(135deg, 
+        #0a2d3a 0%, 
+        #1a4a5c 15%, 
+        #2d6b7e 30%, 
+        #4a8fa3 45%, 
+        #6bb3c7 60%, 
+        #89c5d4 75%, 
+        #a8d7e3 90%, 
+        #f8fafc 100%) !important;
+    padding: 0 !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+    color: var(--meaux-white) !important;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===== ENHANCED BACKGROUND LAYERS ===== */
+.meaux-bg-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.meaux-bg-layer-1 {
+    background: radial-gradient(circle at 20% 30%, rgba(45, 139, 158, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(226, 175, 29, 0.08) 0%, transparent 50%);
+    animation: float-bg-1 20s ease-in-out infinite;
+}
+
+.meaux-bg-layer-2 {
+    background: radial-gradient(circle at 60% 20%, rgba(74, 222, 128, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 40% 80%, rgba(138, 43, 226, 0.05) 0%, transparent 40%);
+    animation: float-bg-2 25s ease-in-out infinite reverse;
+}
+
+.meaux-bg-layer-3 {
+    background: radial-gradient(circle at 10% 60%, rgba(31, 151, 169, 0.04) 0%, transparent 30%),
+                radial-gradient(circle at 90% 40%, rgba(205, 127, 50, 0.03) 0%, transparent 30%);
+    animation: float-bg-3 30s ease-in-out infinite;
+}
+
+@keyframes float-bg-1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(20px, -15px) scale(1.05); }
+    66% { transform: translate(-10px, 10px) scale(0.95); }
+}
+
+@keyframes float-bg-2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-15px, 20px) scale(1.1); }
+}
+
+@keyframes float-bg-3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(10px, -20px) scale(0.9); }
+    75% { transform: translate(-20px, 15px) scale(1.05); }
+}
+
+/* ===== PARTICLE SYSTEM ===== */
+.meaux-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    background-image: 
+        radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.3), transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(45, 139, 158, 0.4), transparent),
+        radial-gradient(1px 1px at 90px 40px, rgba(226, 175, 29, 0.5), transparent),
+        radial-gradient(1px 1px at 130px 80px, rgba(74, 222, 128, 0.3), transparent),
+        radial-gradient(2px 2px at 160px 30px, rgba(138, 43, 226, 0.4), transparent);
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    animation: particle-float 15s linear infinite;
+}
+
+@keyframes particle-float {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-200px, -200px); }
+}
+
+/* ===== CONTAINER & HEADER ===== */
+.meaux-container {
+    max-width: 100vw !important;
+    margin: 0 !important;
+    width: 100% !important;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 2;
+}
+
+.meaux-section-header {
+    text-align: center;
+    padding: 40px 20px 20px;
+    position: relative;
+    z-index: 3;
+}
+
+.meaux-main-title {
+    font-size: clamp(3rem, 6vw, 5rem) !important;
+    font-weight: 900 !important;
+    line-height: 1.1 !important;
+    margin: 0 0 20px !important;
+    color: var(--meaux-white) !important;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    transition: var(--meaux-transition) !important;
+    letter-spacing: -0.02em !important;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.meaux-main-title::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 6px;
+    background: linear-gradient(135deg, #E2AF1D 0%, #f5c842 50%, #E2AF1D 100%) !important;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    border-radius: 3px;
+    box-shadow: 0 0 20px rgba(226, 175, 29, 0.8) !important;
+}
+
+.meaux-main-title:hover {
+    color: #E2AF1D !important;
+    text-shadow: 0 0 30px rgba(226, 175, 29, 0.6) !important;
+    transform: scale(1.02);
+}
+
+.meaux-main-title:hover::after {
+    width: 100% !important;
+}
+
+.meaux-subtitle {
+    font-size: 1.6rem !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500 !important;
+    margin: 0 auto !important;
+    max-width: 700px;
+    line-height: 1.6 !important;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== FULLSCREEN MARQUEE CONTAINER ===== */
+.meaux-marquee-container {
+    flex: 1;
+    width: 100%;
+    height: calc(100vh - 200px);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.meaux-floating-carousel {
+    display: flex;
+    gap: 40px;
+    animation: marquee-float 45s linear infinite;
+    will-change: transform;
+    padding: 20px 0;
+    align-items: center;
+}
+
+@keyframes marquee-float {
+    0% { transform: translateX(100vw); }
+    100% { transform: translateX(-100%); }
+}
+
+.meaux-floating-carousel.paused {
+    animation-play-state: paused;
+}
+
+.meaux-floating-carousel.slow {
+    animation-duration: 60s;
+}
+
+.meaux-floating-carousel.fast {
+    animation-duration: 30s;
+}
+
+.meaux-card-set {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+/* ===== ENHANCED IMPACT CARDS ===== */
+.meaux-impact-card {
+    min-width: 500px;
+    width: 500px;
+    height: 600px;
+    background: transparent;
+    border-radius: var(--meaux-radius);
+    overflow: hidden;
+    position: relative;
+    transition: var(--meaux-transition);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    transform: translateZ(0);
+    will-change: transform;
+    flex-shrink: 0;
+}
+
+.meaux-impact-card:hover {
+    transform: translateY(-20px) scale(1.02);
+    z-index: 10;
+}
+
+.meaux-impact-card:focus-visible {
+    outline: 4px solid #2d8b9e;
+    outline-offset: 6px;
+}
+
+.meaux-card-content {
+    background: #ffffff;
+    border: 2px solid rgba(45, 139, 158, 0.2);
+    border-radius: var(--meaux-radius);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+    transition: var(--meaux-transition);
+    box-shadow: var(--meaux-shadow);
+}
+
+/* ===== ENHANCED TIER HEADERS ===== */
+.meaux-tier-header {
+    text-align: center;
+    padding: 32px 28px 28px;
+    position: relative;
+    z-index: 2;
+    border-radius: var(--meaux-radius) var(--meaux-radius) 0 0;
+    background-size: 200% 200%;
+    animation: metallic-shine 4s ease-in-out infinite;
+}
+
+@keyframes metallic-shine {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.meaux-tier-badge {
+    font-size: 3rem !important;
+    font-weight: 900 !important;
+    margin-bottom: 16px !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: var(--meaux-transition);
+    line-height: 1.1;
+    position: relative;
+    display: inline-block;
+    color: #ffffff !important;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.meaux-tier-amount {
+    font-size: 1.8rem !important;
+    font-weight: 700 !important;
+    color: rgba(255, 255, 255, 0.95) !important;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.meaux-tier-impact {
+    font-size: 1.2rem !important;
+    font-weight: 600 !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-style: italic;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== ENHANCED CARD BODY ===== */
+.meaux-card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 2;
+    padding: 24px 24px 0;
+    text-align: center;
+}
+
+.meaux-description {
+    font-size: 1.4rem !important;
+    color: #374151 !important;
+    line-height: 1.6 !important;
+    margin-bottom: 24px !important;
+    text-align: center;
+    font-weight: 600;
+}
+
+.meaux-features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px 0;
+    flex: 1;
+}
+
+.meaux-features-list li {
+    padding: 8px 0;
+    color: #4b5563 !important;
+    position: relative;
+    padding-left: 32px;
+    font-size: 1.1rem !important;
+    line-height: 1.5;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.meaux-features-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--meaux-green) !important;
+    font-weight: 800;
+    font-size: 1.3rem;
+    top: 6px;
+}
+
+.meaux-impact-card:hover .meaux-features-list li {
+    color: #1f2937 !important;
+}
+
+.meaux-impact-story {
+    background: #f8fafc;
+    border: 2px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 20px;
+    margin: 0 0 20px 0;
+    position: relative;
+    z-index: 2;
+}
+
+.meaux-impact-story p {
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+    color: #6b7280 !important;
+    margin: 0 !important;
+    font-style: italic;
+    font-weight: 500;
+}
+
+/* ===== ENHANCED CTA BUTTONS ===== */
+.meaux-cta-button {
+    margin: 24px auto 20px auto;
+    padding: 18px 40px;
+    border: 4px solid;
+    border-radius: 16px;
+    font-family: inherit !important;
+    font-weight: 800 !important;
+    font-size: 1.2rem !important;
+    cursor: pointer;
+    transition: var(--meaux-transition);
+    background: transparent;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 2;
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(45, 139, 158, 0.3);
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+.meaux-cta-button:focus-visible {
+    outline: 4px solid #2d8b9e;
+    outline-offset: 3px;
+}
+
+.meaux-cta-button:hover {
+    transform: translateY(-6px) scale(1.05);
+    box-shadow: 0 16px 40px rgba(45, 139, 158, 0.5);
+}
+
+/* ===== TIER-SPECIFIC STYLING ===== */
+/* Supporter - Green Metallic */
+.meaux-supporter-header {
+    background: linear-gradient(135deg, 
+        #1e3a2e 0%, 
+        #2d5a45 15%, 
+        #4ade80 30%, 
+        #6ee599 45%, 
+        #4ade80 60%, 
+        #2d5a45 85%, 
+        #1e3a2e 100%) !important;
+    box-shadow: 0 6px 24px rgba(74, 222, 128, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.3);
+}
+
+.meaux-supporter-btn {
+    border-color: var(--meaux-supporter) !important;
+    color: var(--meaux-supporter) !important;
+}
+.meaux-supporter-btn:hover {
+    background: var(--meaux-supporter) !important;
+    color: var(--meaux-dark) !important;
+    box-shadow: 0 8px 32px rgba(74, 222, 128, 0.5) !important;
+}
+
+/* Champion - Bronze Metallic */
+.meaux-champion-header {
+    background: linear-gradient(135deg, 
+        #4a2f1f 0%, 
+        #8b5a2b 15%, 
+        #cd7f32 30%, 
+        #e6954a 45%, 
+        #cd7f32 60%, 
+        #8b5a2b 85%, 
+        #4a2f1f 100%) !important;
+    box-shadow: 0 6px 24px rgba(205, 127, 50, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.3);
+}
+
+.meaux-champion-btn {
+    border-color: var(--meaux-champion) !important;
+    color: var(--meaux-champion) !important;
+}
+.meaux-champion-btn:hover {
+    background: var(--meaux-champion) !important;
+    color: var(--meaux-white) !important;
+    box-shadow: 0 8px 32px rgba(205, 127, 50, 0.5) !important;
+}
+
+/* Hero - Silver Metallic */
+.meaux-hero-header {
+    background: linear-gradient(135deg, 
+        #4a4a4a 0%, 
+        #888888 15%, 
+        #c0c0c0 30%, 
+        #e8e8e8 45%, 
+        #c0c0c0 60%, 
+        #888888 85%, 
+        #4a4a4a 100%) !important;
+    box-shadow: 0 6px 24px rgba(192, 192, 192, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.4);
+}
+
+.meaux-hero-btn {
+    border-color: var(--meaux-hero) !important;
+    color: var(--meaux-hero) !important;
+}
+.meaux-hero-btn:hover {
+    background: var(--meaux-hero) !important;
+    color: var(--meaux-dark) !important;
+    box-shadow: 0 8px 32px rgba(192, 192, 192, 0.5) !important;
+}
+
+/* Legend - Gold Metallic */
+.meaux-legend-header {
+    background: linear-gradient(135deg, 
+        #4a3d0f 0%, 
+        #8b7518 15%, 
+        #E2AF1D 30%, 
+        #f5c842 45%, 
+        #E2AF1D 60%, 
+        #8b7518 85%, 
+        #4a3d0f 100%) !important;
+    box-shadow: 0 6px 24px rgba(226, 175, 29, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.3);
+}
+
+.meaux-legend-btn {
+    border-color: var(--meaux-legend) !important;
+    color: var(--meaux-legend) !important;
+}
+.meaux-legend-btn:hover {
+    background: var(--meaux-legend) !important;
+    color: var(--meaux-dark) !important;
+    box-shadow: 0 8px 32px rgba(226, 175, 29, 0.6) !important;
+}
+
+/* Visionary - Teal Metallic */
+.meaux-visionary-header {
+    background: linear-gradient(135deg, 
+        #0f2d33 0%, 
+        #1a5863 15%, 
+        #1F97A9 30%, 
+        #3bb3c3 45%, 
+        #1F97A9 60%, 
+        #1a5863 85%, 
+        #0f2d33 100%) !important;
+    box-shadow: 0 6px 24px rgba(31, 151, 169, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.3);
+}
+
+.meaux-visionary-btn {
+    border-color: var(--meaux-visionary) !important;
+    color: var(--meaux-visionary) !important;
+}
+.meaux-visionary-btn:hover {
+    background: var(--meaux-visionary) !important;
+    color: var(--meaux-white) !important;
+    box-shadow: 0 8px 32px rgba(31, 151, 169, 0.5) !important;
+}
+
+/* Founder - Purple Metallic */
+.meaux-founder-header {
+    background: linear-gradient(135deg, 
+        #2d0f4a 0%, 
+        #5a1f8b 15%, 
+        #8A2BE2 30%, 
+        #a855f7 45%, 
+        #8A2BE2 60%, 
+        #5a1f8b 85%, 
+        #2d0f4a 100%) !important;
+    box-shadow: 0 6px 24px rgba(138, 43, 226, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.3);
+}
+
+.meaux-founder-btn {
+    border-color: var(--meaux-founder) !important;
+    color: var(--meaux-founder) !important;
+}
+.meaux-founder-btn:hover {
+    background: var(--meaux-founder) !important;
+    color: var(--meaux-white) !important;
+    box-shadow: 0 8px 32px rgba(138, 43, 226, 0.6) !important;
+}
+
+/* ===== FEATURED CARD STYLING ===== */
+.meaux-featured-badge {
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #2d8b9e 0%, #1a6b7a 100%);
+    color: var(--meaux-white);
+    padding: 12px 24px;
+    border-radius: 24px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    z-index: 4;
+    box-shadow: 0 6px 20px rgba(45, 139, 158, 0.5);
+}
+
+.meaux-featured-card {
+    transform: scale(1.08);
+}
+
+.meaux-featured-card:hover {
+    transform: translateY(-20px) scale(1.08);
+}
+
+/* ===== ENHANCED GLISTEN OVERLAYS ===== */
+.meaux-glisten-overlay {
+    position: absolute;
+    top: -50%;
+    left: -100%;
+    width: 50%;
+    height: 200%;
+    transform: rotate(25deg);
+    transition: left 1s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    will-change: left, opacity;
+}
+
+.meaux-impact-card:hover .meaux-glisten-overlay {
+    left: 100%;
+    opacity: 1;
+}
+
+.meaux-impact-card:hover .meaux-card-content {
+    transform: translateY(-4px);
+    box-shadow: var(--meaux-hover-shadow);
+    border-color: rgba(45, 139, 158, 0.5);
+}
+
+/* ===== CONTROLS ===== */
+.meaux-controls {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    padding: 16px 24px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.meaux-control-btn {
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(45, 139, 158, 0.8);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(45, 139, 158, 0.3);
+}
+
+.meaux-control-btn:hover {
+    background: rgba(45, 139, 158, 1);
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(45, 139, 158, 0.5);
+}
+
+.meaux-speed-control {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+    font-weight: 600;
+}
+
+.meaux-speed-control input[type="range"] {
+    width: 100px;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.2);
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.meaux-speed-control input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #2d8b9e;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(45, 139, 158, 0.4);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 1200px) {
+    .meaux-impact-card {
+        min-width: 450px;
+        width: 450px;
+        height: 550px;
+    }
+    
+    .meaux-floating-carousel {
+        gap: 30px;
+    }
+    
+    .meaux-card-set {
+        gap: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .meaux-donation-section {
+        height: auto;
+        min-height: 100vh;
+    }
+    
+    .meaux-marquee-container {
+        height: 60vh;
+        margin: 10px 0;
+    }
+    
+    .meaux-impact-card {
+        min-width: 380px;
+        width: 380px;
+        height: 480px;
+    }
+    
+    .meaux-floating-carousel {
+        gap: 25px;
+    }
+    
+    .meaux-card-set {
+        gap: 25px;
+    }
+    
+    .meaux-tier-badge {
+        font-size: 2.5rem !important;
+    }
+    
+    .meaux-tier-amount {
+        font-size: 1.6rem !important;
+    }
+    
+    .meaux-description {
+        font-size: 1.2rem !important;
+    }
+    
+    .meaux-features-list li {
+        font-size: 1rem !important;
+    }
+    
+    .meaux-cta-button {
+        font-size: 1.1rem !important;
+        padding: 16px 32px;
+    }
+    
+    .meaux-controls {
+        bottom: 20px;
+        right: 20px;
+        padding: 12px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .meaux-section-header {
+        padding: 30px 15px 15px;
+    }
+    
+    .meaux-marquee-container {
+        height: 50vh;
+    }
+    
+    .meaux-impact-card {
+        min-width: 340px;
+        width: 340px;
+        height: 420px;
+    }
+    
+    .meaux-floating-carousel {
+        gap: 20px;
+    }
+    
+    .meaux-card-set {
+        gap: 20px;
+    }
+    
+    .meaux-tier-badge {
+        font-size: 2.2rem !important;
+    }
+    
+    .meaux-tier-amount {
+        font-size: 1.4rem !important;
+    }
+    
+    .meaux-tier-impact {
+        font-size: 1.1rem !important;
+    }
+    
+    .meaux-description {
+        font-size: 1.1rem !important;
+    }
+    
+    .meaux-features-list li {
+        font-size: 0.95rem !important;
+        padding: 6px 0;
+        padding-left: 28px;
+    }
+    
+    .meaux-cta-button {
+        padding: 14px 28px;
+        font-size: 1rem !important;
+    }
+    
+    .meaux-controls {
+        bottom: 15px;
+        right: 15px;
+        padding: 10px 16px;
+        gap: 15px;
+    }
+    
+    .meaux-speed-control {
+        display: none;
+    }
+}
+
+/* ===== ACCESSIBILITY & PERFORMANCE ===== */
+@media (prefers-reduced-motion: reduce) {
+    .meaux-floating-carousel,
+    .meaux-bg-layer,
+    .meaux-particles {
+        animation: none !important;
+    }
+    
+    .meaux-impact-card {
+        transition: none !important;
+    }
+    
+    .meaux-glisten-overlay {
+        display: none;
+    }
+}
+
+@media (prefers-contrast: high) {
+    .meaux-impact-card {
+        border: 3px solid var(--meaux-white);
+    }
+    
+    .meaux-cta-button {
+        border-width: 5px;
+    }
+}
+
+/* Performance optimizations */
+.meaux-impact-card {
+    contain: layout style paint;
+}
+
+.meaux-floating-carousel {
+    contain: layout style;
+}
+
+/* ===== PAYMENT MODAL STYLES ===== */
+.meaux-payment-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.meaux-modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+.meaux-modal-content {
+    position: relative;
+    background: white;
+    border-radius: 24px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.meaux-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 24px 0;
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 24px;
+}
+
+.meaux-modal-header h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0;
+}
+
+.meaux-modal-close {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #6b7280;
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.meaux-modal-close:hover {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+.meaux-modal-body {
+    padding: 0 24px 24px;
+}
+
+#modalTierInfo {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+#modalTierInfo h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0 0 8px 0;
+}
+
+#modalTierInfo p {
+    font-size: 1rem;
+    color: #6b7280;
+    margin: 0;
+}

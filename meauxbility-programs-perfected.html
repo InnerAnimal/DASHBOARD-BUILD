@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meauxbility Programs — What We Do</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* ─── WWDPP SYSTEM VARIABLES ─── */
+    :root {
+      --wwdpp-orange:#FF6B00;
+      --wwdpp-orange-hover:#FF8A33;
+      --wwdpp-teal:#339999;
+      --wwdpp-teal-hover:#4AB3B3;
+      --wwdpp-deep:#051b1e;
+      --wwdpp-dark:#0a2427;
+      --wwdpp-teal-steel:#1a4a52;
+      --wwdpp-metallic:#2a6b75;
+      --wwdpp-light-teal:#4aabb8;
+      --wwdpp-surface:#ffffff;
+      --wwdpp-surface-2:#f8fafb;
+      --wwdpp-ink:#0C2D31;
+      --wwdpp-ink-light:#173E45;
+      --wwdpp-success:#21c48c;
+      --wwdpp-border:rgba(255,255,255,.18);
+      --wwdpp-glass:rgba(255,255,255,.08);
+      --wwdpp-glass-light:rgba(255,255,255,.16);
+      --wwdpp-radius:16px;
+      --wwdpp-ease:cubic-bezier(.2,.8,.2,1);
+      --wwdpp-trans:all .3s var(--wwdpp-ease);
+      --wwdpp-hero-grad:linear-gradient(135deg, var(--wwdpp-deep) 0%, var(--wwdpp-teal-steel) 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--wwdpp-hero-grad);
+      color: var(--wwdpp-surface);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    /* ─── HERO SECTION ─── */
+    .wwdpp_hero {
+      width: 100%;
+      min-height: 60vh;
+      padding: 80px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background:
+        radial-gradient(60rem 60rem at 20% 80%, rgba(31,151,169,.12) 0%, transparent 60%),
+        radial-gradient(40rem 40rem at 80% 20%, rgba(255,107,0,.12) 0%, transparent 55%);
+    }
+
+    .wwdpp_hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 900;
+      line-height: 1.2;
+      margin: 0 auto 20px;
+      color: var(--wwdpp-surface);
+      letter-spacing: -0.02em;
+      text-shadow: 0 10px 28px rgba(0,0,0,.25);
+    }
+
+    .wwdpp_hero p {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--wwdpp-surface);
+      opacity: 0.9;
+      max-width: 760px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .wwdpp_cta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .wwdpp_btn {
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      min-height: 44px;
+      padding: 12px 18px;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      transition: var(--wwdpp-trans);
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      backdrop-filter: blur(18px);
+    }
+
+    .wwdpp_btn_primary {
+      color: #fff;
+      background: rgba(255,107,0,0.2);
+      border: 1px solid rgba(255,107,0,0.4);
+    }
+
+    .wwdpp_btn_primary:hover {
+      background: rgba(255,107,0,0.3);
+      border-color: rgba(255,107,0,0.6);
+      transform: translateY(2px);
+    }
+
+    .wwdpp_btn_secondary {
+      color: #fff;
+      background: rgba(51,153,153,0.2);
+      border: 1px solid rgba(51,153,153,0.4);
+    }
+
+    .wwdpp_btn_secondary:hover {
+      background: rgba(51,153,153,0.3);
+      border-color: rgba(51,153,153,0.6);
+      transform: translateY(2px);
+    }
+
+    .wwdpp_btn_ghost {
+      background: var(--wwdpp-glass);
+      color: #fff;
+      border: 1px solid var(--wwdpp-border);
+    }
+
+    .wwdpp_btn_ghost:hover {
+      background: var(--wwdpp-glass-light);
+    }
+
+    /* ─── PROGRAMS SECTION ─── */
+    .wwdpp_section {
+      width: 100%;
+      padding: 80px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .wwdpp_section h2 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      margin-bottom: 10px;
+      text-align: center;
+      color: var(--wwdpp-surface);
+    }
+
+    .wwdpp_section p {
+      color: var(--wwdpp-surface);
+      opacity: 0.9;
+      max-width: 820px;
+      margin: 0 auto 40px;
+      text-align: center;
+      font-size: clamp(1rem, 2vw, 1.1rem);
+    }
+
+    .wwdpp_grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 24px;
+      margin: 0 auto;
+    }
+
+    .wwdpp_card {
+      background: var(--wwdpp-glass);
+      border: 1px solid var(--wwdpp-border);
+      border-radius: var(--wwdpp-radius);
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(18px);
+      transition: var(--wwdpp-trans);
+      cursor: pointer;
+    }
+
+    .wwdpp_card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 48px rgba(0,0,0,.18);
+    }
+
+    .wwdpp_card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.08), transparent);
+      transform: translateX(-100%) translateY(-100%) rotate(45deg);
+      transition: transform 0.8s var(--wwdpp-ease);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .wwdpp_card:hover::before {
+      transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+
+    .wwdpp_badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      font-size: 0.8rem;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--wwdpp-teal), var(--wwdpp-teal-hover));
+      border: 1px solid var(--wwdpp-border);
+      z-index: 3;
+    }
+
+    .wwdpp_card h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--wwdpp-surface);
+      position: relative;
+      z-index: 2;
+    }
+
+    .wwdpp_meta {
+      color: var(--wwdpp-surface);
+      opacity: 0.8;
+      font-weight: 600;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .wwdpp_card p {
+      color: var(--wwdpp-surface);
+      opacity: 0.9;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 2;
+      text-align: left;
+    }
+
+    .wwdpp_card_actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ─── STEPS SECTION ─── */
+    .wwdpp_steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 40px 0;
+    }
+
+    .wwdpp_step {
+      background: var(--wwdpp-glass);
+      border: 1px solid var(--wwdpp-border);
+      border-radius: 14px;
+      padding: 20px;
+      backdrop-filter: blur(18px);
+    }
+
+    .wwdpp_step strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--wwdpp-surface);
+      font-weight: 800;
+    }
+
+    .wwdpp_step span {
+      color: var(--wwdpp-surface);
+      opacity: 0.8;
+    }
+
+    /* ─── CHECKLIST ─── */
+    .wwdpp_checklist {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .wwdpp_checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      color: var(--wwdpp-surface);
+      opacity: 0.9;
+    }
+
+    .wwdpp_dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: inline-grid;
+      place-items: center;
+      background: var(--wwdpp-surface);
+      color: var(--wwdpp-teal);
+      font-weight: 900;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+    }
+
+    /* ─── FAQ SECTION ─── */
+    .wwdpp_faq {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .wwdpp_faq_item {
+      border: 1px solid var(--wwdpp-border);
+      background: var(--wwdpp-glass);
+      border-radius: 14px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      backdrop-filter: blur(18px);
+    }
+
+    .wwdpp_faq_q {
+      width: 100%;
+      text-align: left;
+      color: var(--wwdpp-surface);
+      font-weight: 700;
+      padding: 16px 20px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s var(--wwdpp-ease);
+    }
+
+    .wwdpp_faq_q:hover {
+      background: var(--wwdpp-glass-light);
+    }
+
+    .wwdpp_faq_a {
+      padding: 0 20px 16px;
+      color: var(--wwdpp-surface);
+      opacity: 0.9;
+      display: none;
+    }
+
+    .wwdpp_faq_item[open] .wwdpp_faq_a {
+      display: block;
+    }
+
+    /* ─── MODAL SYSTEM ─── */
+    .wwdpp_modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      padding: 20px;
+    }
+
+    .wwdpp_modal_active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .wwdpp_modal_card {
+      max-width: 600px;
+      width: 100%;
+      max-height: 85vh;
+      background: var(--wwdpp-glass);
+      border: 1px solid var(--wwdpp-border);
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      position: relative;
+      transform: scale(0.9) translateY(20px);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      backdrop-filter: blur(18px);
+    }
+
+    .wwdpp_modal_active .wwdpp_modal_card {
+      transform: scale(1) translateY(0);
+    }
+
+    .wwdpp_modal_close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      padding: 8px;
+      border-radius: 8px;
+      transition: background 0.3s ease;
+    }
+
+    .wwdpp_modal_close:hover {
+      background: var(--wwdpp-glass-light);
+    }
+
+    .wwdpp_modal_close span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--wwdpp-surface);
+      margin: 4px 0;
+      transition: all 0.3s ease;
+    }
+    
+    .wwdpp_modal_close.is-open span {
+      background: var(--wwdpp-surface);
+    }
+    
+    .wwdpp_modal_close.is-open span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .wwdpp_modal_close.is-open span:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .wwdpp_modal_close.is-open span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    .wwdpp_modal_title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--wwdpp-surface);
+      margin-bottom: 8px;
+      padding: 30px 30px 0;
+    }
+
+    .wwdpp_modal_body {
+      padding: 20px 30px 30px;
+      color: var(--wwdpp-surface);
+      opacity: 0.9;
+      line-height: 1.6;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+
+    /* ─── APPLICATION FORM STYLES ─── */
+    .wwdpp_form_group {
+      margin-bottom: 20px;
+    }
+
+    .wwdpp_form_label {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--wwdpp-surface);
+      margin-bottom: 8px;
+    }
+
+    .wwdpp_form_input,
+    .wwdpp_form_textarea,
+    .wwdpp_form_select {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid var(--wwdpp-border);
+      border-radius: 10px;
+      color: var(--wwdpp-surface);
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      backdrop-filter: blur(10px);
+    }
+
+    .wwdpp_form_input:focus,
+    .wwdpp_form_textarea:focus,
+    .wwdpp_form_select:focus {
+      outline: none;
+      border-color: var(--wwdpp-teal);
+      box-shadow: 0 0 0 3px rgba(51,153,153,0.1);
+    }
+
+    .wwdpp_form_textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .wwdpp_form_submit {
+      background: var(--wwdpp-orange);
+      color: white;
+      border: none;
+      padding: 16px 32px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      width: 100%;
+      margin-top: 30px;
+      box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3);
+    }
+
+    .wwdpp_form_submit:hover {
+      background: var(--wwdpp-orange-hover);
+      transform: translateY(-2px);
+    }
+
+    .wwdpp_form_submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* ─── RESPONSIVE DESIGN ─── */
+    @media (max-width: 768px) {
+      .wwdpp_hero {
+        padding: 60px 20px;
+      }
+
+      .wwdpp_grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .wwdpp_steps {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .wwdpp_cta {
+        gap: 8px;
+      }
+
+      .wwdpp_btn {
+        flex: 1;
+        min-width: 140px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .wwdpp_hero h1 {
+        font-size: 2rem;
+      }
+
+      .wwdpp_card {
+        padding: 20px;
+      }
+
+      .wwdpp_btn {
+        min-height: 48px;
+        padding: 14px 20px;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HERO SECTION -->
+  <section class="wwdpp_hero">
+    <h1>Programs — What We Do</h1>
+    <p>From recovery grants to equipment funds, Meauxbility turns access into outcomes — built on your Teal-Steel brand system and component patterns.</p>
+    <div class="wwdpp_cta">
+      <button class="wwdpp_btn wwdpp_btn_primary" onclick="wwdpp_openApplication()">Apply for Support</button>
+      <button class="wwdpp_btn wwdpp_btn_secondary" onclick="wwdpp_openOverview()">Explore Programs</button>
+    </div>
+  </section>
+
+  <!-- PROGRAMS SECTION -->
+  <section class="wwdpp_section" id="wwdpp_programs">
+    <h2>Our Programs</h2>
+    <p>Two focused programs designed to provide comprehensive support for SCI survivors.</p>
+    
+    <div class="wwdpp_grid">
+      <!-- InnerAnimal Fund -->
+      <div class="wwdpp_card">
+        <span class="wwdpp_badge">Open</span>
+        <h3>InnerAnimal Fund</h3>
+        <div class="wwdpp_meta">Recovery Grant Program — Covers therapies, travel, and critical recovery costs</div>
+        <p>Financial support for SCI survivors to access proven treatments and rehabilitation services. Includes guidance on documentation and timelines.</p>
+        <div class="wwdpp_card_actions">
+          <button class="wwdpp_btn wwdpp_btn_primary" onclick="wwdpp_openModal('inneranimal')">Details</button>
+          <button class="wwdpp_btn wwdpp_btn_secondary" onclick="wwdpp_openApplication('inneranimal')">Apply Now</button>
+        </div>
+      </div>
+
+      <!-- Meaux Life Fund -->
+      <div class="wwdpp_card">
+        <span class="wwdpp_badge">Active</span>
+        <h3>Meaux Life Fund</h3>
+        <div class="wwdpp_meta">Equipment & Technology — Custom wheelchairs, assistive tech, home adaptations</div>
+        <p>Allocations for essential equipment and adaptive technology that immediately improve independence and safety for daily living.</p>
+        <div class="wwdpp_card_actions">
+          <button class="wwdpp_btn wwdpp_btn_primary" onclick="wwdpp_openModal('meauxlife')">Details</button>
+          <button class="wwdpp_btn wwdpp_btn_secondary" onclick="wwdpp_openApplication('meauxlife')">Request Support</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPLICATION SECTION -->
+  <section class="wwdpp_section" id="wwdpp_apply">
+    <h2>How to Apply</h2>
+    <p>Clear, transparent steps. Expect honest timelines and real support.</p>
+
+    <div class="wwdpp_steps">
+      <div class="wwdpp_step">
+        <strong>1) Check Eligibility</strong>
+        <span>SCI verification, residency, and program fit</span>
+      </div>
+      <div class="wwdpp_step">
+        <strong>2) Prepare Documents</strong>
+        <span>Medical note, invoices/quotes, income snapshot</span>
+      </div>
+      <div class="wwdpp_step">
+        <strong>3) Submit Application</strong>
+        <span>Online form with details and preferences</span>
+      </div>
+      <div class="wwdpp_step">
+        <strong>4) Review & Follow-ups</strong>
+        <span>We may request clarifications or updates</span>
+      </div>
+      <div class="wwdpp_step">
+        <strong>5) Decision</strong>
+        <span>Notification with next steps and timeline</span>
+      </div>
+      <div class="wwdpp_step">
+        <strong>6) Disbursement & Support</strong>
+        <span>Funds/equipment + community onboarding</span>
+      </div>
+    </div>
+
+    <div class="wwdpp_grid">
+      <div class="wwdpp_card">
+        <h3>Eligibility Checklist</h3>
+        <ul class="wwdpp_checklist">
+          <li><span class="wwdpp_dot">✓</span><span>Documented SCI (or qualifying diagnosis)</span></li>
+          <li><span class="wwdpp_dot">✓</span><span>Defined need (therapy, equipment, sponsorship)</span></li>
+          <li><span class="wwdpp_dot">✓</span><span>Quote/estimate or care plan attached</span></li>
+          <li><span class="wwdpp_dot">✓</span><span>Willing to share impact updates</span></li>
+        </ul>
+      </div>
+      <div class="wwdpp_card">
+        <h3>Required Documents</h3>
+        <ul class="wwdpp_checklist">
+          <li><span class="wwdpp_dot">✓</span><span>Physician/therapist letter (as applicable)</span></li>
+          <li><span class="wwdpp_dot">✓</span><span>Invoice/quote for services or equipment</span></li>
+          <li><span class="wwdpp_dot">✓</span><span>Income statement (confidential)</span></li>
+          <li><span class="wwdpp_dot">✓</span><span>Short personal statement (goals & timeline)</span></li>
+        </ul>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="wwdpp_section">
+    <h2>Programs FAQ</h2>
+    <div class="wwdpp_faq">
+      <details class="wwdpp_faq_item">
+        <summary class="wwdpp_faq_q">How long does review take?</summary>
+        <div class="wwdpp_faq_a">Typical window is 2–4 weeks depending on volume and documentation completeness.</div>
+      </details>
+
+      <details class="wwdpp_faq_item">
+        <summary class="wwdpp_faq_q">Can I apply to multiple programs?</summary>
+        <div class="wwdpp_faq_a">Yes. Indicate priorities in your application — we'll route to the best fit.</div>
+      </details>
+
+      <details class="wwdpp_faq_item">
+        <summary class="wwdpp_faq_q">Are funds paid to me or the provider?</summary>
+        <div class="wwdpp_faq_a">Usually directly to providers/equipment vendors. Exceptions are explained on award.</div>
+      </details>
+
+      <details class="wwdpp_faq_item">
+        <summary class="wwdpp_faq_q">Do you support outside the U.S.?</summary>
+        <div class="wwdpp_faq_a">We're building global capacity; some programs are already accessible internationally.</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- MODAL -->
+  <div class="wwdpp_modal" id="wwdpp_modal">
+    <div class="wwdpp_modal_card">
+      <button class="wwdpp_modal_close" onclick="wwdpp_closeModal()">×</button>
+      <h3 class="wwdpp_modal_title" id="wwdpp_modal_title">Title</h3>
+      <div class="wwdpp_modal_body" id="wwdpp_modal_body"></div>
+    </div>
+  </div>
+
+  <script>
+    // Modal data
+    const wwdpp_modalData = {
+      inneranimal: {
+        title: "InnerAnimal Fund - Recovery Grant Program",
+        body: `
+          <strong>What grants cover</strong><br>
+          Therapy sessions, travel support, adaptive needs, and rehabilitation services.<br><br>
+          <strong>Eligibility</strong><br>
+          SCI verification, income information, treatment plan documentation.<br><br>
+          <strong>Process</strong><br>
+          Apply → Review → Decision → Disbursement (typically 2-4 weeks).
+        `
+      },
+      meauxlife: {
+        title: "Meaux Life Fund - Equipment & Technology",
+        body: `
+          <strong>Covered equipment</strong><br>
+          Wheelchairs, seating systems, smart assists, safety modifications, home adaptations.<br><br>
+          <strong>Evaluation criteria</strong><br>
+          Fit quality, usage potential, functional independence improvements.<br><br>
+          <strong>Support process</strong><br>
+          Assessment → Quote review → Approval → Equipment delivery.
+        `
+      },
+      overview: {
+        title: "Programs Overview",
+        body: `
+          <strong>Two focused programs:</strong> InnerAnimal Fund (Recovery Grants) and Meaux Life Fund (Equipment & Technology).<br><br>
+          Built on transparent eligibility, clear timelines, and measurable outcomes — "proof, not theory."
+        `
+      },
+      application: {
+        title: "Application Form",
+        subtitle: "Please fill out the form below to apply for support.",
+        fields: [
+          { name: "fullName", label: "Full Name", type: "text", required: true },
+          { name: "email", label: "Email Address", type: "email", required: true },
+          { name: "phone", label: "Phone Number", type: "tel", required: true },
+          { name: "program", label: "Program Interest", type: "select", options: ["InnerAnimal Fund", "Meaux Life Fund", "Both Programs"], required: true },
+          { name: "situation", label: "Describe your current situation", type: "textarea", required: true },
+          { name: "supportType", label: "What specific support are you requesting?", type: "textarea", required: true }
+        ]
+      }
+    };
+
+    // Modal functions
+    function wwdpp_openModal(type) {
+      const modal = document.getElementById('wwdpp_modal');
+      const title = document.getElementById('wwdpp_modal_title');
+      const body = document.getElementById('wwdpp_modal_body');
+      
+      const data = wwdpp_modalData[type];
+      if (!data) return;
+      
+      title.textContent = data.title;
+      body.innerHTML = data.body;
+      
+      modal.classList.add('wwdpp_modal_active');
+    }
+
+    function wwdpp_openApplication(programType = null) {
+      const modal = document.getElementById('wwdpp_modal');
+      const title = document.getElementById('wwdpp_modal_title');
+      const body = document.getElementById('wwdpp_modal_body');
+      
+      const data = wwdpp_modalData.application;
+      title.textContent = data.title;
+      
+      // Generate form HTML
+      let formHTML = `<p style="margin-bottom: 20px; opacity: 0.8;">${data.subtitle}</p>`;
+      formHTML += '<form id="wwdpp_application_form" onsubmit="wwdpp_handleSubmit(event)">';
+      
+      data.fields.forEach(field => {
+        formHTML += `<div class="wwdpp_form_group">`;
+        formHTML += `<label class="wwdpp_form_label" for="${field.name}">${field.label}</label>`;
+        
+        if (field.type === 'textarea') {
+          formHTML += `<textarea class="wwdpp_form_textarea" id="${field.name}" name="${field.name}" ${field.required ? 'required' : ''}></textarea>`;
+        } else if (field.type === 'select') {
+          formHTML += `<select class="wwdpp_form_select" id="${field.name}" name="${field.name}" ${field.required ? 'required' : ''}>`;
+          formHTML += `<option value="">Select ${field.label}</option>`;
+          field.options.forEach(option => {
+            formHTML += `<option value="${option}">${option}</option>`;
+          });
+          formHTML += `</select>`;
+        } else {
+          formHTML += `<input class="wwdpp_form_input" type="${field.type}" id="${field.name}" name="${field.name}" ${field.required ? 'required' : ''}>`;
+        }
+        
+        formHTML += `</div>`;
+      });
+      
+      formHTML += '<button type="submit" class="wwdpp_form_submit">Submit Application</button>';
+      formHTML += '</form>';
+      
+      body.innerHTML = formHTML;
+      
+      // Pre-select program if specified
+      if (programType) {
+        setTimeout(() => {
+          const programSelect = document.getElementById('program');
+          if (programSelect) {
+            if (programType === 'inneranimal') {
+              programSelect.value = 'InnerAnimal Fund';
+            } else if (programType === 'meauxlife') {
+              programSelect.value = 'Meaux Life Fund';
+            }
+          }
+        }, 100);
+      }
+      
+      modal.classList.add('wwdpp_modal_active');
+    }
+
+    function wwdpp_closeModal() {
+      const modal = document.getElementById('wwdpp_modal');
+      modal.classList.remove('wwdpp_modal_active');
+    }
+
+    function wwdpp_openOverview() {
+      wwdpp_openModal('overview');
+    }
+
+    async function wwdpp_handleSubmit(event) {
+      event.preventDefault();
+      const form = event.target;
+      const formData = new FormData(form);
+      
+      // Get submit button
+      const submitBtn = form.querySelector('.wwdpp_form_submit');
+      const originalText = submitBtn.textContent;
+      
+      // Show loading state
+      submitBtn.textContent = 'Submitting...';
+      submitBtn.disabled = true;
+      
+      try {
+        // Convert FormData to object
+        const data = {};
+        for (let [key, value] of formData.entries()) {
+          data[key] = value;
+        }
+        
+        // Add timestamp and source
+        data.timestamp = new Date().toISOString();
+        data.source = 'WWDPP Programs Page';
+        
+        // API endpoint (replace with your actual endpoint)
+        const API_ENDPOINT = 'https://ajhltmrehtytpzbdhepa.supabase.co/functions/v1/submit-application';
+        
+        // Submit to API
+        const response = await fetch(API_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+        
+        if (response.ok) {
+          // Success
+          alert('Application submitted successfully! We\'ll review your application and get back to you within 48 hours.');
+          wwdpp_closeModal();
+          form.reset();
+        } else {
+          throw new Error('Submission failed');
+        }
+        
+      } catch (error) {
+        console.error('Error submitting application:', error);
+        alert('There was an error submitting your application. Please try again or contact us directly at hey@meauxbility.com');
+      } finally {
+        // Reset button state
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }
+    }
+
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Keyboard events
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        wwdpp_closeModal();
+      }
+    });
+
+    // Close modal when clicking outside
+    document.getElementById('wwdpp_modal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        wwdpp_closeModal();
+      }
+    });
+  </script>
+</body>
+</html>

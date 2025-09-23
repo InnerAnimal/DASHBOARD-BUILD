@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Core Compass — Enhanced Gradient Background</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* =========================================
+   Core Compass • Enhanced Gradient Version
+   Matching sponsor display background
+   ========================================= */
+.mxccw-section{
+  /* Brand */
+  --teal:#1F97A9; --teal-2:#3AAFBF;
+  --teal-mid:#339999;
+  --teal-dark:#2C8B8B;
+  --orange:#FF7619; --green:#21c48c; --gold:#E2AF1D;
+  --meaux-purple:#7B4BE6;
+  --meaux-teal:#10B981;
+
+  /* Updated text colors for gradient background */
+  --ink:#0C2D31;           /* darker for contrast */
+  --body:#1f2937;          /* body copy */
+  --muted:#334155;         /* subtle */
+
+  /* Updated card styles for gradient background */
+  --card-bg:rgba(255,255,255,0.85);       /* semi-transparent white */
+  --card-bd:rgba(255,255,255,0.4);        /* lighter border */
+  --card-glow:0 8px 24px rgba(2, 8, 20, .12);
+
+  /* Sizing */
+  --radius:14px; --radius-lg:18px;
+  --maxw:1200px;
+
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  color:var(--ink);
+  width:100%; min-height:48vh;
+  padding:28px 0 20px;
+  position:relative; 
+  overflow:hidden;
+  
+  /* Enhanced gradient background matching sponsor display */
+  background: linear-gradient(
+    180deg, 
+    rgba(255,255,255,0) 0%,
+    rgba(51,153,153,0.03) 15%,
+    rgba(51,153,153,0.08) 30%,
+    rgba(51,153,153,0.15) 45%,
+    rgba(51,153,153,0.25) 60%,
+    rgba(51,153,153,0.4) 75%,
+    rgba(51,153,153,0.6) 85%,
+    rgba(51,153,153,0.85) 95%,
+    #339999 100%
+  );
+  margin-bottom: -2px; /* Eliminate gap with next section */
+}
+
+/* Subtle animated mesh gradient overlay */
+.mxccw-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(16,185,129,0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 60%, rgba(123,75,230,0.06) 0%, transparent 50%),
+    radial-gradient(circle at 50% 100%, rgba(51,153,153,0.1) 0%, transparent 70%);
+  animation: meshFloat 20s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes meshFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-20px, -10px) scale(1.05); }
+  66% { transform: translate(20px, 10px) scale(0.95); }
+}
+
+/* Decorative wave transition at bottom */
+.mxccw-section::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1440 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,40 C480,100 960,100 1440,40 L1440,120 L0,120 Z' fill='%23339999' opacity='0.5'/%3E%3C/svg%3E") no-repeat bottom;
+  background-size: 100% 120px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.mxccw-section *{ box-sizing:border-box }
+
+/* Enhanced floating particles for depth */
+@keyframes floatUp {
+  0% { 
+    transform: translateY(100vh) translateX(0) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.4;
+  }
+  90% {
+    opacity: 0.4;
+  }
+  100% { 
+    transform: translateY(-100vh) translateX(100px) scale(1);
+    opacity: 0;
+  }
+}
+
+.particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle, rgba(51,153,153,0.6) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: floatUp 15s infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+.particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 13s; }
+.particle:nth-child(2) { left: 25%; animation-delay: 2s; animation-duration: 16s; }
+.particle:nth-child(3) { left: 40%; animation-delay: 4s; animation-duration: 14s; }
+.particle:nth-child(4) { left: 60%; animation-delay: 1s; animation-duration: 18s; }
+.particle:nth-child(5) { left: 75%; animation-delay: 3s; animation-duration: 15s; }
+.particle:nth-child(6) { left: 90%; animation-delay: 5s; animation-duration: 12s; }
+
+/* Header - enhanced for gradient background */
+.mxccw-head{ 
+  text-align:center; 
+  margin:0 auto 18px; 
+  max-width:var(--maxw); 
+  padding:0 5vw; 
+  position: relative;
+  z-index: 2;
+}
+.mxccw-title{
+  margin:0 0 6px; 
+  line-height:1.08; 
+  letter-spacing:.12em; 
+  text-transform:uppercase;
+  font-weight:900; 
+  /* Increased size for mobile */
+  font-size:clamp(2.4rem,6vw,3.5rem);
+  background:linear-gradient(135deg, var(--teal-2) 0%, var(--teal) 100%);
+  -webkit-background-clip:text; 
+  background-clip:text; 
+  -webkit-text-fill-color:transparent;
+  /* Subtle text shadow for readability */
+  filter: drop-shadow(0 2px 4px rgba(255,255,255,0.5));
+}
+.mxccw-sub{
+  margin:0; 
+  font-weight:700; 
+  letter-spacing:.05em;
+  color:var(--orange); 
+  font-size:clamp(0.95rem,2.2vw,1.15rem);
+  text-shadow: 0 1px 3px rgba(255,255,255,0.4);
+}
+
+/* Carousel shell */
+.mxccw-carousel{ 
+  width:100%; 
+  display:flex; 
+  justify-content:center; 
+  position: relative;
+  z-index: 2;
+}
+.mxccw-viewport{
+  width:100%; 
+  max-width:var(--maxw); 
+  padding:0 5vw;
+  height:260px;
+  display:flex; 
+  align-items:center; 
+  overflow:hidden;
+  mask:linear-gradient(90deg, transparent 0%, black 4%, black 96%, transparent 100%);
+}
+.mxccw-track{
+  display:flex; 
+  gap:26px; 
+  padding:12px 0 22px;
+  animation:mxccwScroll 32s linear infinite; 
+  will-change:transform;
+}
+.mxccw-track:hover{ animation-play-state:paused }
+@keyframes mxccwScroll{ 0%{ transform:translateX(0) } 100%{ transform:translateX(calc(-50% - 13px)) } }
+
+/* Cards - enhanced with backdrop blur for gradient background */
+.mxccw-card{
+  flex:0 0 240px; 
+  height:200px;
+  background:var(--card-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border:1.5px solid var(--card-bd);
+  border-radius:var(--radius-lg); 
+  position:relative; 
+  overflow:hidden;
+  display:flex; 
+  align-items:center; 
+  justify-content:center; 
+  flex-direction:column;
+  box-shadow:var(--card-glow); 
+  transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease, background .35s ease;
+  cursor:pointer;
+}
+.mxccw-card:hover{ 
+  transform:translateY(-6px) scale(1.03); 
+  border-color:rgba(255,255,255,0.6); 
+  background:rgba(255,255,255,0.95);
+  box-shadow:0 12px 30px rgba(2,8,20,.15);
+}
+
+/* Icon with enhanced visibility */
+.mxccw-iconwrap{ 
+  position:relative; 
+  z-index:1; 
+  transition:transform .35s ease, opacity .35s ease; 
+}
+.mxccw-icon{
+  width:96px; 
+  height:96px; 
+  object-fit:contain; 
+  display:block;
+  filter:drop-shadow(0 6px 16px rgba(2,8,20,.10)) drop-shadow(0 2px 4px rgba(255,255,255,0.6));
+}
+.mxccw-content{
+  position:absolute; 
+  inset:0; 
+  display:flex; 
+  align-items:center; 
+  justify-content:center; 
+  flex-direction:column;
+  padding:16px; 
+  text-align:center; 
+  opacity:0; 
+  visibility:hidden; 
+  transition:opacity .35s ease, visibility .35s ease;
+}
+.mxccw-card:hover .mxccw-iconwrap{ opacity:0; transform:scale(.82) }
+.mxccw-card:hover .mxccw-content{ opacity:1; visibility:visible }
+
+/* Labels + descriptions */
+.mxccw-label{
+  font-weight:900; 
+  text-transform:uppercase; 
+  letter-spacing:.09em; 
+  margin:0 0 8px;
+  background:linear-gradient(135deg, var(--teal-2) 0%, var(--teal) 100%);
+  -webkit-background-clip:text; 
+  background-clip:text; 
+  -webkit-text-fill-color:transparent;
+  font-size:clamp(1.05rem,2.8vw,1.25rem);
+}
+.mxccw-desc{
+  color:var(--body);
+  font-weight:600;
+  line-height:1.85;
+  font-size:clamp(1.15rem,2.6vw,1.35rem);
+  letter-spacing:.01em;
+  max-width:32ch; 
+  margin:0;
+}
+
+/* Per-card hover tint on label */
+.mxccw-card:nth-child(5n+1):hover .mxccw-label{ background:linear-gradient(135deg,#ffb07a 0%, var(--orange) 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent }
+.mxccw-card:nth-child(5n+2):hover .mxccw-label{ background:linear-gradient(135deg,#80efc3 0%, var(--green) 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent }
+.mxccw-card:nth-child(5n+3):hover .mxccw-label{ background:linear-gradient(135deg, var(--teal-2) 0%, var(--teal) 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent }
+.mxccw-card:nth-child(5n+4):hover .mxccw-label{ background:linear-gradient(135deg,#ffe17d 0%, var(--gold) 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent }
+
+/* CTA - Updated with rectangular style and functional popup */
+.mxccw-cta{ 
+  display:flex; 
+  flex-direction:column; 
+  align-items:center; 
+  gap:12px; 
+  margin:14px 0 0;
+  position: relative;
+  z-index: 2;
+}
+.mxccw-btn{
+  display:inline-flex; 
+  align-items:center; 
+  justify-content:center;
+  padding:14px 28px; 
+  /* Rectangular style instead of rounded */
+  border-radius:8px; 
+  text-decoration:none; 
+  font-weight:800; 
+  letter-spacing:.06em;
+  /* Semi-transparent glass style matching other buttons */
+  background:rgba(255,118,25,0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border:1.5px solid rgba(255,118,25,0.4); 
+  color:white;
+  transition:all .3s ease;
+  cursor:pointer;
+  font-size:clamp(0.95rem,2.2vw,1.05rem);
+}
+.mxccw-btn:hover{ 
+  transform:translateY(-2px); 
+  border-color:rgba(255,118,25,0.6); 
+  background:rgba(255,118,25,0.3); 
+  box-shadow:0 4px 12px rgba(255,118,25,0.2);
+}
+.mxccw-cta .mxccw-sub{ 
+  color:var(--ink); 
+  font-weight:600; 
+  /* Increased size */
+  font-size:clamp(1.05rem,2.4vw,1.15rem); 
+  margin:0;
+  text-shadow: 0 1px 2px rgba(255,255,255,0.4);
+  /* Remove weird white line below text */
+  line-height:1.2;
+  /* Remove any text decoration or underline */
+  text-decoration: none;
+  border-bottom: none;
+}
+
+/* Progress - kept subtle */
+.mxccw-progress{ 
+  position:absolute; 
+  bottom:12px; 
+  left:50%; 
+  transform:translateX(-50%); 
+  width:160px; 
+  height:4px; 
+  background:rgba(255,255,255,0.3); 
+  border-radius:3px; 
+  overflow:hidden;
+  z-index: 2;
+}
+.mxccw-fill{ 
+  height:100%; 
+  background:linear-gradient(90deg, var(--teal), var(--orange), var(--green)); 
+  animation:mxccwProg 32s linear infinite;
+}
+@keyframes mxccwProg{ 0%{width:0%} 100%{width:100%} }
+
+/* Modal System for Newsletter Signup - NO SCROLL INTERFERENCE */
+.mxccw-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  padding: 20px;
+  /* Completely non-interfering - page scrolls normally */
+  pointer-events: none;
+  /* Allow page to scroll behind modal */
+  overflow: visible;
+}
+
+.mxccw-modal.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* NO SCROLL LOCK - Let page scroll normally */
+
+.mxccw-modal-content {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  border-radius: 16px;
+  padding: 40px;
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+  transform: scale(0.9) translateY(20px);
+  transition: all 0.3s ease;
+  /* Ensure modal content doesn't interfere with page */
+  pointer-events: auto;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.mxccw-modal.active .mxccw-modal-content {
+  transform: scale(1) translateY(0);
+}
+
+.mxccw-modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--ink);
+  line-height: 1;
+  text-align: center;
+}
+
+.mxccw-modal-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.mxccw-modal-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.mxccw-modal-subtitle {
+  font-size: 1rem;
+  color: var(--muted);
+  margin-bottom: 24px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.mxccw-form-group {
+  margin-bottom: 20px;
+}
+
+.mxccw-form-label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.mxccw-form-input {
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 8px;
+  color: var(--ink);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.mxccw-form-input:focus {
+  outline: none;
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(255, 118, 25, 0.1);
+}
+
+.mxccw-form-submit {
+  background: rgba(255, 118, 25, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(255, 118, 25, 0.4);
+  color: white;
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(255, 118, 25, 0.2);
+}
+
+.mxccw-form-submit:hover {
+  background: rgba(255, 118, 25, 0.3);
+  border-color: rgba(255, 118, 25, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 118, 25, 0.3);
+}
+
+.mxccw-form-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.mxccw-success-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--green);
+  color: white;
+  padding: 30px 40px;
+  border-radius: 16px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease;
+}
+
+.mxccw-success-message.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Responsive tweaks */
+@media (max-width:900px){
+  .mxccw-viewport{ height:236px }
+  .mxccw-card{ flex-basis:220px; height:190px }
+  .mxccw-icon{ width:88px; height:88px }
+}
+@media (max-width:680px){
+  .mxccw-section{ min-height:44vh }
+  .mxccw-viewport{ height:220px }
+  .mxccw-card{ flex-basis:200px; height:180px }
+  .mxccw-icon{ width:96px; height:96px }
+  .mxccw-desc{ font-size:clamp(1.05rem,3.2vw,1.2rem) }
+  .mxccw-modal-content {
+    padding: 30px 20px;
+    margin: 10px;
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  .mxccw-track,.particle,.mxccw-fill,.mxccw-section::before{ animation:none !important }
+}
+</style>
+</head>
+<body>
+
+<section class="mxccw-section" aria-label="Core Compass">
+  <!-- Floating particles for depth -->
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+
+  <!-- Header -->
+  <header class="mxccw-head">
+    <h2 class="mxccw-title">CORE COMPASS</h2>
+    <p class="mxccw-sub">Our core beliefs in action</p>
+  </header>
+
+  <!-- Carousel -->
+  <div class="mxccw-carousel">
+    <div class="mxccw-viewport">
+      <div class="mxccw-track">
+        <!-- AMBITION -->
+        <article class="mxccw-card" tabindex="0" aria-label="Ambition">
+          <div class="mxccw-iconwrap">
+            <img class="mxccw-icon" src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/5.png?v=1753332352" alt="">
+          </div>
+          <div class="mxccw-content">
+            <h3 class="mxccw-label">AMBITION</h3>
+            <p class="mxccw-desc">We aim higher for recovery—setting bold goals and building plans that turn <em>possible</em> into <em>progress</em>.</p>
+          </div>
+        </article>
+
+        <!-- ADAPTABILITY -->
+        <article class="mxccw-card" tabindex="0" aria-label="Adaptability">
+          <div class="mxccw-iconwrap">
+            <img class="mxccw-icon" src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/3_c666d932-e895-4620-928e-20762c2be381.png?v=1753332353" alt="">
+          </div>
+          <div class="mxccw-content">
+            <h3 class="mxccw-label">ADAPTABILITY</h3>
+            <p class="mxccw-desc">When plans change, we pivot—pairing people with the right therapy, tools, and timing to keep momentum.</p>
+          </div>
+        </article>
+
+        <!-- EMPOWERMENT -->
+        <article class="mxccw-card" tabindex="0" aria-label="Empowerment">
+          <div class="mxccw-iconwrap">
+            <img class="mxccw-icon" src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/6.png?v=1753332353" alt="">
+          </div>
+          <div class="mxccw-content">
+            <h3 class="mxccw-label">EMPOWERMENT</h3>
+            <p class="mxccw-desc">We remove friction and fund access so people can train, travel, and try what moves them forward.</p>
+          </div>
+        </article>
+
+        <!-- INTEGRITY -->
+        <article class="mxccw-card" tabindex="0" aria-label="Integrity">
+          <div class="mxccw-iconwrap">
+            <img class="mxccw-icon" src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/4.png?v=1753332353" alt="">
+          </div>
+          <div class="mxccw-content">
+            <h3 class="mxccw-label">INTEGRITY</h3>
+            <p class="mxccw-desc">Transparent support, direct payments, real results—families and sponsors always know where dollars go.</p>
+          </div>
+        </article>
+
+        <!-- COURAGE -->
+        <article class="mxccw-card" tabindex="0" aria-label="Courage">
+          <div class="mxccw-iconwrap">
+            <img class="mxccw-icon" src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/2_a09bc551-dc4d-4cf9-9d3b-a2ba81c2ba0c.png?v=1753332353" alt="">
+          </div>
+          <div class="mxccw-content">
+            <h3 class="mxccw-label">COURAGE</h3>
+            <p class="mxccw-desc">We face hard days together—choosing action, showing up, and celebrating every measurable gain.</p>
+          </div>
+        </article>
+
+        <!-- Duplicate set for seamless loop -->
+        <article class="mxccw-card" tabindex="0" aria-label="Ambition (duplicate)">
+          <div class="mxccw-iconwrap"><img class="mxccw-icon" src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/5.png?v=1753332352" alt=""></div>
+          <div class="mxccw-content"><h3 class="mxccw-label">AMBITION</h3><p class="mxccw-desc">We aim higher for recovery—setting bold goals and building plans that turn <em>possible</em> into <em>progress</em>.</p></div>
+        </article>
+        <article class="mxccw-card" tabindex="0" aria-label="Adaptability (duplicate)">
+          <div class="mxccw-iconwrap"><img class="mxccw-icon" src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/3_c666d932-e895-4620-928e-20762c2be381.png?v=1753332353" alt=""></div>
+          <div class="mxccw-content"><h3 class="mxccw-label">ADAPTABILITY</h3><p class="mxccw-desc">When plans change, we pivot—pairing people with the right therapy, tools, and timing to keep momentum.</p></div>
+        </article>
+        <article class="mxccw-card" tabindex="0" aria-label="Empowerment (duplicate)">
+          <div class="mxccw-iconwrap"><img class="mxccw-icon" src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/6.png?v=1753332353" alt=""></div>
+          <div class="mxccw-content"><h3 class="mxccw-label">EMPOWERMENT</h3><p class="mxccw-desc">We remove friction and fund access so people can train, travel, and try what moves them forward.</p></div>
+        </article>
+        <article class="mxccw-card" tabindex="0" aria-label="Integrity (duplicate)">
+          <div class="mxccw-iconwrap"><img class="mxccw-icon" src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/4.png?v=1753332353" alt=""></div>
+          <div class="mxccw-content"><h3 class="mxccw-label">INTEGRITY</h3><p class="mxccw-desc">Transparent support, direct payments, real results—families and sponsors always know where dollars go.</p></div>
+        </article>
+        <article class="mxccw-card" tabindex="0" aria-label="Courage (duplicate)">
+          <div class="mxccw-iconwrap"><img class="mxccw-icon" src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/2_a09bc551-dc4d-4cf9-9d3b-a2ba81c2ba0c.png?v=1753332353" alt=""></div>
+          <div class="mxccw-content"><h3 class="mxccw-label">COURAGE</h3><p class="mxccw-desc">We face hard days together—choosing action, showing up, and celebrating every measurable gain.</p></div>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- Updated CTA with functional popup -->
+  <div class="mxccw-cta">
+    <button class="mxccw-btn" onclick="mxccw_openNewsletterModal()">Stay Inspired</button>
+    <p class="mxccw-sub">Subscribe for impact updates and motivational reminders.</p>
+  </div>
+
+  <!-- Progress -->
+  <div class="mxccw-progress" aria-hidden="true"><div class="mxccw-fill"></div></div>
+</section>
+
+<!-- Newsletter Signup Modal -->
+<div class="mxccw-modal" id="mxccw-newsletter-modal">
+  <div class="mxccw-modal-content">
+    <button class="mxccw-modal-close" onclick="mxccw_closeNewsletterModal()" aria-label="Close modal">
+      ×
+    </button>
+    
+    <h3 class="mxccw-modal-title">Stay Inspired</h3>
+    <p class="mxccw-modal-subtitle">Get weekly updates on our impact, success stories, and motivational content.</p>
+    
+    <form id="mxccw-newsletter-form" onsubmit="mxccw_handleNewsletterSubmit(event)">
+      <div class="mxccw-form-group">
+        <label class="mxccw-form-label" for="mxccw-email">Email Address</label>
+        <input 
+          type="email" 
+          id="mxccw-email" 
+          name="email" 
+          class="mxccw-form-input" 
+          placeholder="Enter your email address"
+          required
+        >
+      </div>
+      
+      <div class="mxccw-form-group">
+        <label class="mxccw-form-label" for="mxccw-name">Full Name</label>
+        <input 
+          type="text" 
+          id="mxccw-name" 
+          name="name" 
+          class="mxccw-form-input" 
+          placeholder="Your name"
+          required
+        >
+      </div>
+      
+      <button type="submit" class="mxccw-form-submit">
+        Subscribe Now
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- Success Message -->
+<div class="mxccw-success-message" id="mxccw-success-msg">
+  <div>✅ Successfully Subscribed!</div>
+  <div style="font-size: 0.95rem; margin-top: 10px; opacity: 0.95;">Thank you for joining our community. Check your email for confirmation.</div>
+</div>
+
+<script>
+/* Scope interactions to this section only */
+(function(){
+  const root = document.currentScript.previousElementSibling;
+  if(!root) return;
+  const track = root.querySelector('.mxccw-track');
+  const cards = root.querySelectorAll('.mxccw-card');
+
+  // Pause scroll on hover/focus to improve readability
+  const pause = () => { if(track) track.style.animationPlayState = 'paused'; };
+  const play  = () => { if(track) track.style.animationPlayState = 'running'; };
+
+  cards.forEach(c => {
+    c.addEventListener('mouseenter', pause);
+    c.addEventListener('mouseleave', play);
+    c.addEventListener('focusin', pause);
+    c.addEventListener('focusout', play);
+    // Space/Enter activates reveal briefly on keyboard
+    c.addEventListener('keydown', e => {
+      if(e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); c.classList.add('mxccw-kb'); setTimeout(()=>c.classList.remove('mxccw-kb'), 2500); }
+    });
+  });
+})();
+
+// Newsletter Modal Functions - NO SCROLL LOCK
+function mxccw_openNewsletterModal() {
+  const modal = document.getElementById('mxccw-newsletter-modal');
+  
+  modal.classList.add('active');
+  // NO scroll manipulation - let page scroll normally
+  
+  // Focus first input
+  setTimeout(() => {
+    const firstInput = document.getElementById('mxccw-email');
+    if (firstInput) firstInput.focus();
+  }, 100);
+}
+
+function mxccw_closeNewsletterModal() {
+  const modal = document.getElementById('mxccw-newsletter-modal');
+  
+  modal.classList.remove('active');
+  // NO scroll manipulation - page scrolls normally
+}
+
+// Click outside modal to close
+document.addEventListener('click', function(event) {
+  const modal = document.getElementById('mxccw-newsletter-modal');
+  const modalContent = document.querySelector('.mxccw-modal-content');
+  
+  if (modal && modal.classList.contains('active') && 
+      event.target === modal && event.target !== modalContent) {
+    mxccw_closeNewsletterModal();
+  }
+});
+
+async function mxccw_handleNewsletterSubmit(event) {
+  event.preventDefault();
+  const form = event.target;
+  const formData = new FormData(form);
+  
+  const submitBtn = document.querySelector('.mxccw-form-submit');
+  const originalText = submitBtn.textContent;
+  submitBtn.textContent = 'Subscribing...';
+  submitBtn.disabled = true;
+  
+  try {
+    // Validate required fields
+    const email = formData.get('email');
+    const name = formData.get('name');
+    
+    if (!email || !name) {
+      alert('Please fill in both email and name fields.');
+      return;
+    }
+    
+    // TODO: Replace with actual newsletter API endpoint
+    // Example: const response = await fetch('YOUR_NEWSLETTER_API_ENDPOINT', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({
+    //     email: email,
+    //     name: name,
+    //     source: 'core-compass'
+    //   })
+    // });
+    
+    // Simulate API call - replace with actual newsletter API
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    // Show success message
+    const successMsg = document.getElementById('mxccw-success-msg');
+    successMsg.classList.add('visible');
+    
+    // Reset form
+    form.reset();
+    
+    // Close modal after delay
+    setTimeout(() => {
+      successMsg.classList.remove('visible');
+      mxccw_closeNewsletterModal();
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
+    }, 2500);
+    
+  } catch (error) {
+    console.error('Error subscribing to newsletter:', error);
+    alert('There was an error subscribing. Please try again.');
+    submitBtn.textContent = originalText;
+    submitBtn.disabled = false;
+  }
+}
+
+// Keyboard event listener
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    mxccw_closeNewsletterModal();
+  }
+});
+</script>
+
+</body>
+</html>

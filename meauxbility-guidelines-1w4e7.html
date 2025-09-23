@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meauxbility Brand Guidelines - 1w4e7</title>
+  <style>
+    /* Meauxbility Brand Guidelines - Unique ID: 1w4e7 */
+    :root {
+      /* Brand Colors */
+      --meaux-primary: #00FF7F;
+      --meaux-primary-dark: #00C965;
+      --meaux-primary-light: #32FF9F;
+      --meaux-teal-deep: #0a1a1a;
+      --meaux-teal-mid: #0f2622;
+      --meaux-teal-light: #1a3530;
+      --meaux-white: #FFFFFF;
+      --meaux-mid-gray: #A0A0A0;
+      --meaux-dark-gray: #333333;
+      --meaux-blue-electric: #00D4FF;
+      --meaux-red-energy: #FF3366;
+      
+      /* Typography */
+      --font-primary: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-secondary: 'Georgia', 'Times New Roman', serif;
+      
+      /* Spacing */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2rem;
+      --space-2xl: 3rem;
+      
+      /* Border Radius */
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      
+      /* Shadows */
+      --shadow-glow: 0 0 20px rgba(0, 255, 127, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-primary);
+      line-height: 1.6;
+      color: var(--meaux-white);
+      background: linear-gradient(135deg, var(--meaux-teal-deep) 0%, var(--meaux-teal-mid) 50%, var(--meaux-teal-light) 100%);
+      min-height: 100vh;
+    }
+
+    .meaux-container-1w4e7 {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: var(--space-xl);
+    }
+
+    .meaux-header-1w4e7 {
+      text-align: center;
+      margin-bottom: var(--space-xl);
+    }
+
+    .meaux-title-1w4e7 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--meaux-primary);
+      margin-bottom: var(--space-md);
+    }
+
+    .meaux-subtitle-1w4e7 {
+      font-size: 1.1rem;
+      color: var(--meaux-mid-gray);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .meaux-guidelines-grid-1w4e7 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    .meaux-guideline-card-1w4e7 {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .meaux-guideline-card-1w4e7:hover {
+      transform: translateY(-5px);
+    }
+
+    .meaux-guideline-title-1w4e7 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: var(--space-md);
+      color: var(--meaux-primary);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .meaux-guideline-content-1w4e7 {
+      color: var(--meaux-white);
+      line-height: 1.6;
+    }
+
+    .meaux-guideline-content-1w4e7 ul {
+      list-style: none;
+      padding-left: 0;
+      margin: var(--space-md) 0;
+    }
+
+    .meaux-guideline-content-1w4e7 li {
+      margin-bottom: var(--space-sm);
+      padding-left: var(--space-lg);
+      position: relative;
+    }
+
+    .meaux-guideline-content-1w4e7 li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--meaux-primary);
+      font-weight: 600;
+    }
+
+    .meaux-guideline-content-1w4e7 strong {
+      color: var(--meaux-primary);
+      font-weight: 600;
+    }
+
+    /* Mission Statement */
+    .meaux-mission-1w4e7 {
+      background: rgba(0, 255, 127, 0.1);
+      border: 2px solid var(--meaux-primary);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      margin: var(--space-xl) 0;
+      text-align: center;
+    }
+
+    .meaux-mission-title-1w4e7 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--meaux-primary);
+      margin-bottom: var(--space-md);
+    }
+
+    .meaux-mission-text-1w4e7 {
+      font-size: 1.1rem;
+      color: var(--meaux-white);
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Values Section */
+    .meaux-values-1w4e7 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--space-lg);
+      margin: var(--space-xl) 0;
+    }
+
+    .meaux-value-card-1w4e7 {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .meaux-value-icon-1w4e7 {
+      font-size: 2rem;
+      margin-bottom: var(--space-md);
+    }
+
+    .meaux-value-title-1w4e7 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--meaux-primary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .meaux-value-description-1w4e7 {
+      color: var(--meaux-mid-gray);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    /* Voice & Tone */
+    .meaux-voice-examples-1w4e7 {
+      display: grid;
+      gap: var(--space-md);
+      margin: var(--space-lg) 0;
+    }
+
+    .meaux-voice-example-1w4e7 {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      border-left: 4px solid var(--meaux-primary);
+    }
+
+    .meaux-voice-label-1w4e7 {
+      font-size: 0.8rem;
+      color: var(--meaux-primary);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: var(--space-xs);
+    }
+
+    .meaux-voice-text-1w4e7 {
+      color: var(--meaux-white);
+      font-style: italic;
+    }
+
+    /* Usage Guidelines */
+    .meaux-usage-section-1w4e7 {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      margin: var(--space-xl) 0;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .meaux-usage-title-1w4e7 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--meaux-primary);
+      margin-bottom: var(--space-lg);
+      text-align: center;
+    }
+
+    .meaux-usage-grid-1w4e7 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-lg);
+    }
+
+    .meaux-usage-item-1w4e7 {
+      padding: var(--space-md);
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: var(--radius-md);
+    }
+
+    .meaux-usage-item-title-1w4e7 {
+      font-weight: 600;
+      color: var(--meaux-white);
+      margin-bottom: var(--space-sm);
+    }
+
+    .meaux-usage-item-text-1w4e7 {
+      color: var(--meaux-mid-gray);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    /* Implementation Ready */
+    .meaux-implementation-1w4e7 {
+      background: rgba(0, 255, 127, 0.1);
+      border: 2px solid var(--meaux-primary);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      margin: var(--space-xl) 0;
+      text-align: center;
+    }
+
+    .meaux-implementation-title-1w4e7 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--meaux-primary);
+      margin-bottom: var(--space-md);
+    }
+
+    .meaux-implementation-text-1w4e7 {
+      color: var(--meaux-white);
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .meaux-guidelines-grid-1w4e7,
+      .meaux-values-1w4e7,
+      .meaux-usage-grid-1w4e7 {
+        grid-template-columns: 1fr;
+      }
+      
+      .meaux-title-1w4e7 {
+        font-size: 2rem;
+      }
+    }
+
+    .meaux-fade-in-1w4e7 {
+      animation: meauxFadeIn-1w4e7 0.5s ease-in-out;
+    }
+
+    @keyframes meauxFadeIn-1w4e7 {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="meaux-container-1w4e7 meaux-fade-in-1w4e7">
+    <header class="meaux-header-1w4e7">
+      <h1 class="meaux-title-1w4e7">Meauxbility Brand Guidelines</h1>
+      <p class="meaux-subtitle-1w4e7">
+        Core principles that guide every touchpoint, ensuring consistent and meaningful brand experiences.
+      </p>
+    </header>
+    
+    <div class="meaux-mission-1w4e7">
+      <h2 class="meaux-mission-title-1w4e7">🎯 Brand Mission</h2>
+      <p class="meaux-mission-text-1w4e7">
+        Empowering individuals with mobility challenges through community-funded solutions, innovative accessibility tools, and unwavering support for independence. We believe that mobility limitations should never define possibilities, and through the power of community, hard work, willpower, inspiration, and faith, we can build bridges to independence for everyone.
+      </p>
+    </div>
+
+    <div class="meaux-values-1w4e7">
+      <div class="meaux-value-card-1w4e7">
+        <div class="meaux-value-icon-1w4e7">♿</div>
+        <h3 class="meaux-value-title-1w4e7">Accessibility First</h3>
+        <p class="meaux-value-description-1w4e7">
+          Universal design principles guide every decision, ensuring our platform and campaigns are accessible to all users regardless of ability.
+        </p>
+      </div>
+      
+      <div class="meaux-value-card-1w4e7">
+        <div class="meaux-value-icon-1w4e7">🤝</div>
+        <h3 class="meaux-value-title-1w4e7">Community Power</h3>
+        <p class="meaux-value-description-1w4e7">
+          We believe in the collective impact of community support, where every contribution creates meaningful change in someone's life.
+        </p>
+      </div>
+      
+      <div class="meaux-value-card-1w4e7">
+        <div class="meaux-value-icon-1w4e7">🔍</div>
+        <h3 class="meaux-value-title-1w4e7">Transparent Process</h3>
+        <p class="meaux-value-description-1w4e7">
+          Open and honest communication about funding journeys, progress updates, and how donations are used to build trust.
+        </p>
+      </div>
+      
+      <div class="meaux-value-card-1w4e7">
+        <div class="meaux-value-icon-1w4e7">💚</div>
+        <h3 class="meaux-value-title-1w4e7">Dignity & Independence</h3>
+        <p class="meaux-value-description-1w4e7">
+          Respectful support that preserves dignity while empowering individuals to achieve their mobility and independence goals.
+        </p>
+      </div>
+    </div>
+
+    <div class="meaux-guidelines-grid-1w4e7">
+      <div class="meaux-guideline-card-1w4e7">
+        <h3 class="meaux-guideline-title-1w4e7">🗣️ Voice & Tone</h3>
+        <div class="meaux-guideline-content-1w4e7">
+          <p><strong>Empowering:</strong> Confident, forward-looking language that inspires action and hope.</p>
+          <p><strong>Inclusive:</strong> Person-first, respectful terminology that honors individual dignity.</p>
+          <p><strong>Transparent:</strong> Clear, honest communication about processes and progress.</p>
+          <p><strong>Supportive:</strong> Encouraging, community-focused messaging that builds connections.</p>
+        </div>
+      </div>
+      
+      <div class="meaux-guideline-card-1w4e7">
+        <h3 class="meaux-guideline-title-1w4e7">📱 Usage Guidelines</h3>
+        <div class="meaux-guideline-content-1w4e7">
+          <ul>
+            <li>Maintain 4.5:1 contrast ratios minimum</li>
+            <li>Use person-first language consistently</li>
+            <li>Include alt text for all visual content</li>
+            <li>Test with screen readers and assistive tech</li>
+            <li>Provide multiple contact methods</li>
+            <li>Ensure mobile-first responsive design</li>
+            <li>Use clear, actionable call-to-action buttons</li>
+            <li>Include progress indicators for campaigns</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="meaux-guideline-card-1w4e7">
+        <h3 class="meaux-guideline-title-1w4e7">🎨 Visual Identity</h3>
+        <div class="meaux-guideline-content-1w4e7">
+          <ul>
+            <li>Primary green represents growth and possibility</li>
+            <li>Deep teals provide grounding and professionalism</li>
+            <li>Glassmorphic design elements for modern feel</li>
+            <li>Semi-glow effects for interactive elements</li>
+            <li>Clean, accessible typography hierarchy</li>
+            <li>Consistent spacing and border radius</li>
+            <li>High contrast for accessibility compliance</li>
+            <li>Scalable vector graphics for all devices</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="meaux-guideline-card-1w4e7">
+        <h3 class="meaux-guideline-title-1w4e7">💬 Content Strategy</h3>
+        <div class="meaux-guideline-content-1w4e7">
+          <ul>
+            <li>Focus on individual stories and journeys</li>
+            <li>Highlight community impact and support</li>
+            <li>Share progress updates regularly</li>
+            <li>Use testimonials and success stories</li>
+            <li>Provide educational content about accessibility</li>
+            <li>Celebrate milestones and achievements</li>
+            <li>Maintain hopeful, encouraging tone</li>
+            <li>Include clear calls-to-action</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="meaux-voice-examples-1w4e7">
+      <div class="meaux-voice-example-1w4e7">
+        <div class="meaux-voice-label-1w4e7">Empowering</div>
+        <div class="meaux-voice-text-1w4e7">
+          "Together, we're breaking down barriers and building bridges to independence. Your support makes the impossible possible."
+        </div>
+      </div>
+      
+      <div class="meaux-voice-example-1w4e7">
+        <div class="meaux-voice-label-1w4e7">Inclusive</div>
+        <div class="meaux-voice-text-1w4e7">
+          "DonMichael is working toward his mobility goals with determination and community support. Every contribution brings us closer to his independence."
+        </div>
+      </div>
+      
+      <div class="meaux-voice-example-1w4e7">
+        <div class="meaux-voice-label-1w4e7">Transparent</div>
+        <div class="meaux-voice-text-1w4e7">
+          "We've raised $6,500 of our $10,000 goal. Here's exactly how your donations will be used: $8,000 for equipment, $2,000 for installation and training."
+        </div>
+      </div>
+      
+      <div class="meaux-voice-example-1w4e7">
+        <div class="meaux-voice-label-1w4e7">Supportive</div>
+        <div class="meaux-voice-text-1w4e7">
+          "You're not just donating money – you're investing in someone's independence, dignity, and future. Thank you for being part of this journey."
+        </div>
+      </div>
+    </div>
+
+    <div class="meaux-usage-section-1w4e7">
+      <h2 class="meaux-usage-title-1w4e7">Implementation Guidelines</h2>
+      <div class="meaux-usage-grid-1w4e7">
+        <div class="meaux-usage-item-1w4e7">
+          <h4 class="meaux-usage-item-title-1w4e7">Color Usage</h4>
+          <p class="meaux-usage-item-text-1w4e7">
+            Use primary green for CTAs and highlights, deep teals for backgrounds, and maintain high contrast ratios for accessibility.
+          </p>
+        </div>
+        
+        <div class="meaux-usage-item-1w4e7">
+          <h4 class="meaux-usage-item-title-1w4e7">Typography</h4>
+          <p class="meaux-usage-item-text-1w4e7">
+            Use system fonts for optimal performance, maintain clear hierarchy, and ensure minimum 16px body text for readability.
+          </p>
+        </div>
+        
+        <div class="meaux-usage-item-1w4e7">
+          <h4 class="meaux-usage-item-title-1w4e7">Interactive Elements</h4>
+          <p class="meaux-usage-item-text-1w4e7">
+            Semi-glow buttons for primary actions, clear focus states, and proper ARIA labels for all interactive components.
+          </p>
+        </div>
+        
+        <div class="meaux-usage-item-1w4e7">
+          <h4 class="meaux-usage-item-title-1w4e7">Content Structure</h4>
+          <p class="meaux-usage-item-text-1w4e7">
+            Clear headings, progress indicators, testimonial sections, and prominent donation CTAs throughout the experience.
+          </p>
+        </div>
+        
+        <div class="meaux-usage-item-1w4e7">
+          <h4 class="meaux-usage-item-title-1w4e7">Accessibility</h4>
+          <p class="meaux-usage-item-text-1w4e7">
+            Screen reader compatibility, keyboard navigation, high contrast mode support, and alternative text for all images.
+          </p>
+        </div>
+        
+        <div class="meaux-usage-item-1w4e7">
+          <h4 class="meaux-usage-item-title-1w4e7">Performance</h4>
+          <p class="meaux-usage-item-text-1w4e7">
+            Optimized images, minimal external dependencies, fast loading times, and mobile-first responsive design.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="meaux-implementation-1w4e7">
+      <h2 class="meaux-implementation-title-1w4e7">🚀 Implementation Ready</h2>
+      <p class="meaux-implementation-text-1w4e7">
+        This brand system is designed for immediate implementation across donation campaigns, web platforms, and community outreach. 
+        All components are accessibility-tested, performance-optimized, and built with Shopify Dawn 15.4.0 compatibility in mind. 
+        Each section is self-contained with unique naming to prevent conflicts and can be used independently or combined for complete brand experiences.
+      </p>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meauxbility Navigation System - 9k6m3</title>
+  <style>
+    /* Meauxbility Navigation System - Unique ID: 9k6m3 */
+    :root {
+      /* Brand Colors */
+      --meaux-primary: #00FF7F;
+      --meaux-primary-dark: #00C965;
+      --meaux-primary-light: #32FF9F;
+      --meaux-teal-deep: #0a1a1a;
+      --meaux-teal-mid: #0f2622;
+      --meaux-teal-light: #1a3530;
+      --meaux-white: #FFFFFF;
+      --meaux-mid-gray: #A0A0A0;
+      --meaux-dark-gray: #333333;
+      --meaux-black: #000000;
+      
+      /* Typography */
+      --font-primary: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      
+      /* Spacing */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2rem;
+      
+      /* Border Radius */
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-pill: 50px;
+      
+      /* Shadows */
+      --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+      --shadow-glow: 0 0 20px rgba(0, 255, 127, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-primary);
+      line-height: 1.6;
+      color: var(--meaux-white);
+      background: linear-gradient(135deg, var(--meaux-teal-deep) 0%, var(--meaux-teal-mid) 50%, var(--meaux-teal-light) 100%);
+      min-height: 100vh;
+    }
+
+    .meaux-container-9k6m3 {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: var(--space-xl);
+    }
+
+    .meaux-header-9k6m3 {
+      text-align: center;
+      margin-bottom: var(--space-xl);
+    }
+
+    .meaux-title-9k6m3 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--meaux-primary);
+      margin-bottom: var(--space-md);
+    }
+
+    .meaux-subtitle-9k6m3 {
+      font-size: 1.1rem;
+      color: var(--meaux-mid-gray);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .meaux-nav-grid-9k6m3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    .meaux-nav-card-9k6m3 {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .meaux-nav-title-9k6m3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: var(--space-md);
+      color: var(--meaux-primary);
+    }
+
+    /* Header Styles */
+    .meaux-header-demo-9k6m3 {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius-lg);
+      padding: var(--space-md);
+      margin-bottom: var(--space-md);
+    }
+
+    .meaux-header-content-9k6m3 {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .meaux-logo-9k6m3 {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--meaux-primary);
+      text-decoration: none;
+    }
+
+    /* Navigation Styles */
+    .meaux-nav-9k6m3 {
+      display: flex;
+      gap: var(--space-lg);
+      align-items: center;
+    }
+
+    .meaux-nav-item-9k6m3 {
+      color: var(--meaux-white);
+      text-decoration: none;
+      font-weight: 500;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--radius-md);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .meaux-nav-item-9k6m3:hover {
+      background: rgba(0, 255, 127, 0.1);
+      color: var(--meaux-primary);
+    }
+
+    .meaux-nav-item-9k6m3.active {
+      background: var(--meaux-primary);
+      color: var(--meaux-black);
+    }
+
+    /* Button Styles */
+    .meaux-nav-btn-9k6m3 {
+      padding: var(--space-sm) var(--space-lg);
+      background: var(--meaux-primary);
+      color: var(--meaux-black);
+      border: none;
+      border-radius: var(--radius-pill);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .meaux-nav-btn-9k6m3:hover {
+      background: var(--meaux-primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .meaux-nav-btn-secondary-9k6m3 {
+      background: transparent;
+      border: 2px solid var(--meaux-primary);
+      color: var(--meaux-primary);
+    }
+
+    .meaux-nav-btn-secondary-9k6m3:hover {
+      background: var(--meaux-primary);
+      color: var(--meaux-black);
+    }
+
+    /* Mobile Navigation */
+    .meaux-mobile-nav-9k6m3 {
+      display: none;
+      flex-direction: column;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+      padding-top: var(--space-md);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .meaux-mobile-nav-9k6m3.active {
+      display: flex;
+    }
+
+    .meaux-mobile-toggle-9k6m3 {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--meaux-white);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: var(--space-sm);
+    }
+
+    /* Sticky Navigation */
+    .meaux-sticky-nav-9k6m3 {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Breadcrumb Navigation */
+    .meaux-breadcrumb-9k6m3 {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-md) 0;
+      font-size: 0.9rem;
+    }
+
+    .meaux-breadcrumb-item-9k6m3 {
+      color: var(--meaux-mid-gray);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .meaux-breadcrumb-item-9k6m3:hover {
+      color: var(--meaux-primary);
+    }
+
+    .meaux-breadcrumb-item-9k6m3.active {
+      color: var(--meaux-white);
+      font-weight: 600;
+    }
+
+    .meaux-breadcrumb-separator-9k6m3 {
+      color: var(--meaux-mid-gray);
+    }
+
+    /* Footer Navigation */
+    .meaux-footer-nav-9k6m3 {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      margin-top: var(--space-lg);
+    }
+
+    .meaux-footer-content-9k6m3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-lg);
+    }
+
+    .meaux-footer-section-9k6m3 h4 {
+      color: var(--meaux-primary);
+      font-weight: 600;
+      margin-bottom: var(--space-md);
+    }
+
+    .meaux-footer-links-9k6m3 {
+      list-style: none;
+      padding: 0;
+    }
+
+    .meaux-footer-links-9k6m3 li {
+      margin-bottom: var(--space-sm);
+    }
+
+    .meaux-footer-links-9k6m3 a {
+      color: var(--meaux-mid-gray);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .meaux-footer-links-9k6m3 a:hover {
+      color: var(--meaux-primary);
+    }
+
+    .meaux-footer-bottom-9k6m3 {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: var(--space-lg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+    }
+
+    .meaux-footer-logo-9k6m3 {
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--meaux-primary);
+    }
+
+    .meaux-footer-copyright-9k6m3 {
+      color: var(--meaux-mid-gray);
+      font-size: 0.9rem;
+    }
+
+    /* Pagination */
+    .meaux-pagination-9k6m3 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-sm);
+      margin: var(--space-lg) 0;
+    }
+
+    .meaux-pagination-item-9k6m3 {
+      padding: var(--space-sm) var(--space-md);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-md);
+      color: var(--meaux-white);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .meaux-pagination-item-9k6m3:hover {
+      background: rgba(0, 255, 127, 0.1);
+      border-color: var(--meaux-primary);
+      color: var(--meaux-primary);
+    }
+
+    .meaux-pagination-item-9k6m3.active {
+      background: var(--meaux-primary);
+      border-color: var(--meaux-primary);
+      color: var(--meaux-black);
+    }
+
+    .meaux-pagination-item-9k6m3.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Tab Navigation */
+    .meaux-tabs-9k6m3 {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: var(--space-lg);
+    }
+
+    .meaux-tab-list-9k6m3 {
+      display: flex;
+      gap: var(--space-lg);
+    }
+
+    .meaux-tab-item-9k6m3 {
+      padding: var(--space-md) 0;
+      color: var(--meaux-mid-gray);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .meaux-tab-item-9k6m3:hover {
+      color: var(--meaux-white);
+    }
+
+    .meaux-tab-item-9k6m3.active {
+      color: var(--meaux-primary);
+      border-bottom-color: var(--meaux-primary);
+    }
+
+    @media (max-width: 768px) {
+      .meaux-nav-grid-9k6m3 {
+        grid-template-columns: 1fr;
+      }
+      
+      .meaux-title-9k6m3 {
+        font-size: 2rem;
+      }
+      
+      .meaux-header-content-9k6m3 {
+        flex-wrap: wrap;
+      }
+      
+      .meaux-nav-9k6m3 {
+        display: none;
+      }
+      
+      .meaux-mobile-toggle-9k6m3 {
+        display: block;
+      }
+      
+      .meaux-footer-content-9k6m3 {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      
+      .meaux-footer-bottom-9k6m3 {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .meaux-tab-list-9k6m3 {
+        flex-wrap: wrap;
+        gap: var(--space-md);
+      }
+    }
+
+    .meaux-fade-in-9k6m3 {
+      animation: meauxFadeIn-9k6m3 0.5s ease-in-out;
+    }
+
+    @keyframes meauxFadeIn-9k6m3 {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="meaux-container-9k6m3 meaux-fade-in-9k6m3">
+    <header class="meaux-header-9k6m3">
+      <h1 class="meaux-title-9k6m3">Meauxbility Navigation System</h1>
+      <p class="meaux-subtitle-9k6m3">
+        Navigation components and header systems for seamless user experience across all devices.
+      </p>
+    </header>
+    
+    <div class="meaux-nav-grid-9k6m3">
+      <div class="meaux-nav-card-9k6m3">
+        <h3 class="meaux-nav-title-9k6m3">Main Header Navigation</h3>
+        <div class="meaux-header-demo-9k6m3">
+          <div class="meaux-header-content-9k6m3">
+            <a href="#" class="meaux-logo-9k6m3">Meauxbility</a>
+            <nav class="meaux-nav-9k6m3">
+              <a href="#" class="meaux-nav-item-9k6m3">Campaigns</a>
+              <a href="#" class="meaux-nav-item-9k6m3 active">About</a>
+              <a href="#" class="meaux-nav-item-9k6m3">Support</a>
+              <a href="#" class="meaux-nav-item-9k6m3">Contact</a>
+            </nav>
+            <a href="#" class="meaux-nav-btn-9k6m3">Donate Now</a>
+            <button class="meaux-mobile-toggle-9k6m3">☰</button>
+          </div>
+          <div class="meaux-mobile-nav-9k6m3">
+            <a href="#" class="meaux-nav-item-9k6m3">Campaigns</a>
+            <a href="#" class="meaux-nav-item-9k6m3 active">About</a>
+            <a href="#" class="meaux-nav-item-9k6m3">Support</a>
+            <a href="#" class="meaux-nav-item-9k6m3">Contact</a>
+            <a href="#" class="meaux-nav-btn-9k6m3">Donate Now</a>
+          </div>
+        </div>
+        <p style="color: var(--meaux-mid-gray); font-size: 0.9rem;">
+          Main site navigation with logo, menu items, and primary CTA button.
+        </p>
+      </div>
+      
+      <div class="meaux-nav-card-9k6m3">
+        <h3 class="meaux-nav-title-9k6m3">Sticky Navigation</h3>
+        <div class="meaux-sticky-nav-9k6m3">
+          <div class="meaux-header-content-9k6m3">
+            <a href="#" class="meaux-logo-9k6m3">Meauxbility</a>
+            <nav class="meaux-nav-9k6m3">
+              <a href="#" class="meaux-nav-item-9k6m3">Campaigns</a>
+              <a href="#" class="meaux-nav-item-9k6m3">About</a>
+              <a href="#" class="meaux-nav-item-9k6m3">Support</a>
+            </nav>
+            <a href="#" class="meaux-nav-btn-9k6m3 meaux-nav-btn-secondary-9k6m3">Get Started</a>
+          </div>
+        </div>
+        <p style="color: var(--meaux-mid-gray); font-size: 0.9rem;">
+          Sticky navigation that remains visible while scrolling.
+        </p>
+      </div>
+      
+      <div class="meaux-nav-card-9k6m3">
+        <h3 class="meaux-nav-title-9k6m3">Breadcrumb Navigation</h3>
+        <div class="meaux-breadcrumb-9k6m3">
+          <a href="#" class="meaux-breadcrumb-item-9k6m3">Home</a>
+          <span class="meaux-breadcrumb-separator-9k6m3">/</span>
+          <a href="#" class="meaux-breadcrumb-item-9k6m3">Campaigns</a>
+          <span class="meaux-breadcrumb-separator-9k6m3">/</span>
+          <span class="meaux-breadcrumb-item-9k6m3 active">DonMichael's Journey</span>
+        </div>
+        <p style="color: var(--meaux-mid-gray); font-size: 0.9rem;">
+          Breadcrumb navigation for showing current page location.
+        </p>
+      </div>
+      
+      <div class="meaux-nav-card-9k6m3">
+        <h3 class="meaux-nav-title-9k6m3">Tab Navigation</h3>
+        <div class="meaux-tabs-9k6m3">
+          <div class="meaux-tab-list-9k6m3">
+            <a href="#" class="meaux-tab-item-9k6m3 active">Campaign Details</a>
+            <a href="#" class="meaux-tab-item-9k6m3">Updates</a>
+            <a href="#" class="meaux-tab-item-9k6m3">Supporters</a>
+            <a href="#" class="meaux-tab-item-9k6m3">Comments</a>
+          </div>
+        </div>
+        <p style="color: var(--meaux-mid-gray); font-size: 0.9rem;">
+          Tab navigation for organizing related content sections.
+        </p>
+      </div>
+      
+      <div class="meaux-nav-card-9k6m3">
+        <h3 class="meaux-nav-title-9k6m3">Pagination</h3>
+        <div class="meaux-pagination-9k6m3">
+          <a href="#" class="meaux-pagination-item-9k6m3 disabled">← Previous</a>
+          <a href="#" class="meaux-pagination-item-9k6m3">1</a>
+          <a href="#" class="meaux-pagination-item-9k6m3 active">2</a>
+          <a href="#" class="meaux-pagination-item-9k6m3">3</a>
+          <a href="#" class="meaux-pagination-item-9k6m3">4</a>
+          <a href="#" class="meaux-pagination-item-9k6m3">5</a>
+          <a href="#" class="meaux-pagination-item-9k6m3">Next →</a>
+        </div>
+        <p style="color: var(--meaux-mid-gray); font-size: 0.9rem;">
+          Pagination controls for navigating through multiple pages of content.
+        </p>
+      </div>
+      
+      <div class="meaux-nav-card-9k6m3">
+        <h3 class="meaux-nav-title-9k6m3">Footer Navigation</h3>
+        <div class="meaux-footer-nav-9k6m3">
+          <div class="meaux-footer-content-9k6m3">
+            <div class="meaux-footer-section-9k6m3">
+              <h4>Campaigns</h4>
+              <ul class="meaux-footer-links-9k6m3">
+                <li><a href="#">Active Campaigns</a></li>
+                <li><a href="#">Completed Campaigns</a></li>
+                <li><a href="#">Start a Campaign</a></li>
+              </ul>
+            </div>
+            <div class="meaux-footer-section-9k6m3">
+              <h4>Support</h4>
+              <ul class="meaux-footer-links-9k6m3">
+                <li><a href="#">Help Center</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">FAQ</a></li>
+              </ul>
+            </div>
+            <div class="meaux-footer-section-9k6m3">
+              <h4>About</h4>
+              <ul class="meaux-footer-links-9k6m3">
+                <li><a href="#">Our Mission</a></li>
+                <li><a href="#">Team</a></li>
+                <li><a href="#">Press</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="meaux-footer-bottom-9k6m3">
+            <div class="meaux-footer-logo-9k6m3">Meauxbility</div>
+            <div class="meaux-footer-copyright-9k6m3">
+              © 2024 Meauxbility. Empowering mobility through community support.
+            </div>
+          </div>
+        </div>
+        <p style="color: var(--meaux-mid-gray); font-size: 0.9rem;">
+          Comprehensive footer navigation with organized links and branding.
+        </p>
+      </div>
+    </div>
+
+    <div style="background: rgba(0, 255, 127, 0.1); border: 1px solid var(--meaux-primary); border-radius: var(--radius-md); padding: var(--space-lg); margin: var(--space-xl) 0;">
+      <h5 style="color: var(--meaux-primary); margin-bottom: var(--space-sm); font-weight: 600;">♿ Accessibility Features</h5>
+      <p style="color: var(--meaux-white); line-height: 1.6;">
+        All navigation components include proper ARIA labels, keyboard navigation support, focus management, and screen reader compatibility. 
+        Mobile navigation is touch-friendly with appropriate spacing, and all interactive elements have clear focus states for accessibility compliance.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // Mobile navigation toggle
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileToggles = document.querySelectorAll('.meaux-mobile-toggle-9k6m3');
+      const mobileNavs = document.querySelectorAll('.meaux-mobile-nav-9k6m3');
+      
+      mobileToggles.forEach((toggle, index) => {
+        toggle.addEventListener('click', function() {
+          const mobileNav = mobileNavs[index];
+          mobileNav.classList.toggle('active');
+        });
+      });
+    });
+  </script>
+</body>
+</html>

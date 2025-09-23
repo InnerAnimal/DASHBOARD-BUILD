@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meauxbility Card Components - 3p7q9</title>
+  <style>
+    /* Meauxbility Card Components - Unique ID: 3p7q9 */
+    :root {
+      /* Brand Colors */
+      --meaux-primary: #00FF7F;
+      --meaux-primary-dark: #00C965;
+      --meaux-primary-light: #32FF9F;
+      --meaux-teal-deep: #0a1a1a;
+      --meaux-teal-mid: #0f2622;
+      --meaux-teal-light: #1a3530;
+      --meaux-white: #FFFFFF;
+      --meaux-mid-gray: #A0A0A0;
+      --meaux-dark-gray: #333333;
+      --meaux-blue-electric: #00D4FF;
+      --meaux-red-energy: #FF3366;
+      
+      /* Typography */
+      --font-primary: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'SF Mono', 'Monaco', 'Courier New', monospace;
+      
+      /* Spacing */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2rem;
+      --space-2xl: 3rem;
+      
+      /* Border Radius */
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+      
+      /* Shadows */
+      --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+      --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.2);
+      --shadow-glow: 0 0 20px rgba(0, 255, 127, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-primary);
+      line-height: 1.6;
+      color: var(--meaux-white);
+      background: linear-gradient(135deg, var(--meaux-teal-deep) 0%, var(--meaux-teal-mid) 50%, var(--meaux-teal-light) 100%);
+      min-height: 100vh;
+    }
+
+    .meaux-container-3p7q9 {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: var(--space-xl);
+    }
+
+    .meaux-header-3p7q9 {
+      text-align: center;
+      margin-bottom: var(--space-xl);
+    }
+
+    .meaux-title-3p7q9 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--meaux-primary);
+      margin-bottom: var(--space-md);
+    }
+
+    .meaux-subtitle-3p7q9 {
+      font-size: 1.1rem;
+      color: var(--meaux-mid-gray);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .meaux-card-grid-3p7q9 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    /* Base Card Styles */
+    .meaux-card-3p7q9 {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .meaux-card-3p7q9:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(0, 255, 127, 0.3);
+    }
+
+    .meaux-card-3p7q9::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--meaux-primary) 0%, var(--meaux-primary-light) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .meaux-card-3p7q9:hover::before {
+      opacity: 1;
+    }
+
+    /* Card Header */
+    .meaux-card-header-3p7q9 {
+      margin-bottom: var(--space-md);
+    }
+
+    .meaux-card-title-3p7q9 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: var(--space-sm);
+      color: var(--meaux-white);
+    }
+
+    .meaux-card-subtitle-3p7q9 {
+      font-size: 0.9rem;
+      color: var(--meaux-mid-gray);
+      font-weight: 500;
+    }
+
+    /* Card Body */
+    .meaux-card-body-3p7q9 {
+      margin-bottom: var(--space-md);
+    }
+
+    .meaux-card-text-3p7q9 {
+      color: var(--meaux-mid-gray);
+      line-height: 1.6;
+      margin-bottom: var(--space-md);
+    }
+
+    /* Card Footer */
+    .meaux-card-footer-3p7q9 {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: var(--space-md);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Card Variants */
+    .meaux-card-featured-3p7q9 {
+      background: rgba(0, 255, 127, 0.1);
+      border: 2px solid var(--meaux-primary);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .meaux-card-featured-3p7q9::before {
+      opacity: 1;
+    }
+
+    .meaux-card-featured-3p7q9 .meaux-card-title-3p7q9 {
+      color: var(--meaux-primary);
+    }
+
+    .meaux-card-outline-3p7q9 {
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .meaux-card-outline-3p7q9:hover {
+      border-color: var(--meaux-primary);
+      background: rgba(0, 255, 127, 0.05);
+    }
+
+    .meaux-card-flat-3p7q9 {
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      box-shadow: none;
+    }
+
+    .meaux-card-flat-3p7q9:hover {
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Card Sizes */
+    .meaux-card-sm-3p7q9 {
+      padding: var(--space-md);
+    }
+
+    .meaux-card-sm-3p7q9 .meaux-card-title-3p7q9 {
+      font-size: 1.1rem;
+    }
+
+    .meaux-card-lg-3p7q9 {
+      padding: var(--space-xl);
+    }
+
+    .meaux-card-lg-3p7q9 .meaux-card-title-3p7q9 {
+      font-size: 1.5rem;
+    }
+
+    /* Card with Image */
+    .meaux-card-image-3p7q9 {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .meaux-card-image-3p7q9 .meaux-card-img-3p7q9 {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, var(--meaux-teal-light) 0%, var(--meaux-teal-mid) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--meaux-white);
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .meaux-card-image-3p7q9 .meaux-card-body-3p7q9 {
+      padding: var(--space-lg);
+    }
+
+    /* Stats Card */
+    .meaux-card-stats-3p7q9 {
+      text-align: center;
+    }
+
+    .meaux-stat-number-3p7q9 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--meaux-primary);
+      margin-bottom: var(--space-xs);
+      font-family: var(--font-mono);
+    }
+
+    .meaux-stat-label-3p7q9 {
+      font-size: 0.9rem;
+      color: var(--meaux-mid-gray);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+
+    /* Testimonial Card */
+    .meaux-card-testimonial-3p7q9 {
+      position: relative;
+    }
+
+    .meaux-card-testimonial-3p7q9::before {
+      content: '"';
+      position: absolute;
+      top: var(--space-sm);
+      left: var(--space-md);
+      font-size: 4rem;
+      color: var(--meaux-primary);
+      opacity: 0.3;
+      font-family: serif;
+    }
+
+    .meaux-card-testimonial-3p7q9 .meaux-card-body-3p7q9 {
+      padding-left: var(--space-2xl);
+      font-style: italic;
+    }
+
+    .meaux-testimonial-author-3p7q9 {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .meaux-author-avatar-3p7q9 {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--meaux-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--meaux-black);
+      font-weight: 700;
+    }
+
+    .meaux-author-info-3p7q9 {
+      flex: 1;
+    }
+
+    .meaux-author-name-3p7q9 {
+      font-weight: 600;
+      color: var(--meaux-white);
+      font-size: 0.9rem;
+    }
+
+    .meaux-author-role-3p7q9 {
+      font-size: 0.8rem;
+      color: var(--meaux-mid-gray);
+    }
+
+    /* Interactive Demo */
+    .meaux-demo-section-3p7q9 {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      margin: var(--space-xl) 0;
+      border: 2px solid var(--meaux-primary);
+    }
+
+    .meaux-demo-title-3p7q9 {
+      color: var(--meaux-primary);
+      margin-bottom: var(--space-md);
+      font-weight: 600;
+    }
+
+    .meaux-demo-controls-3p7q9 {
+      display: flex;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    .meaux-demo-btn-3p7q9 {
+      padding: var(--space-sm) var(--space-md);
+      background: var(--meaux-primary);
+      color: var(--meaux-black);
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .meaux-demo-btn-3p7q9:hover {
+      background: var(--meaux-primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .meaux-accessibility-3p7q9 {
+      background: rgba(0, 255, 127, 0.1);
+      border: 1px solid var(--meaux-primary);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      margin: var(--space-xl) 0;
+    }
+
+    .meaux-accessibility-3p7q9 h5 {
+      color: var(--meaux-primary);
+      margin-bottom: var(--space-sm);
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .meaux-card-grid-3p7q9 {
+        grid-template-columns: 1fr;
+      }
+      
+      .meaux-title-3p7q9 {
+        font-size: 2rem;
+      }
+      
+      .meaux-card-footer-3p7q9 {
+        flex-direction: column;
+        gap: var(--space-sm);
+        align-items: stretch;
+      }
+    }
+
+    .meaux-fade-in-3p7q9 {
+      animation: meauxFadeIn-3p7q9 0.5s ease-in-out;
+    }
+
+    @keyframes meauxFadeIn-3p7q9 {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="meaux-container-3p7q9 meaux-fade-in-3p7q9">
+    <header class="meaux-header-3p7q9">
+      <h1 class="meaux-title-3p7q9">Meauxbility Card Components</h1>
+      <p class="meaux-subtitle-3p7q9">
+        Glassmorphic card components for displaying campaign information, testimonials, and interactive content.
+      </p>
+    </header>
+    
+    <div class="meaux-card-grid-3p7q9">
+      <div class="meaux-card-3p7q9">
+        <div class="meaux-card-header-3p7q9">
+          <h3 class="meaux-card-title-3p7q9">Campaign Update</h3>
+          <p class="meaux-card-subtitle-3p7q9">Posted 2 hours ago</p>
+        </div>
+        <div class="meaux-card-body-3p7q9">
+          <p class="meaux-card-text-3p7q9">
+            DonMichael is getting closer to his mobility goal! Thanks to your support, we're 65% funded and making real progress toward independence.
+          </p>
+        </div>
+        <div class="meaux-card-footer-3p7q9">
+          <span style="color: var(--meaux-mid-gray); font-size: 0.9rem;">127 supporters</span>
+          <button style="background: var(--meaux-primary); color: var(--meaux-black); border: none; padding: var(--space-sm) var(--space-md); border-radius: var(--radius-md); font-weight: 600; cursor: pointer;">
+            Read More
+          </button>
+        </div>
+      </div>
+      
+      <div class="meaux-card-3p7q9 meaux-card-featured-3p7q9">
+        <div class="meaux-card-header-3p7q9">
+          <h3 class="meaux-card-title-3p7q9">Featured Campaign</h3>
+          <p class="meaux-card-subtitle-3p7q9">DonMichael's Mobility Journey</p>
+        </div>
+        <div class="meaux-card-body-3p7q9">
+          <p class="meaux-card-text-3p7q9">
+            Help DonMichael achieve his goal of independent mobility. Every contribution brings us closer to making this dream a reality.
+          </p>
+        </div>
+        <div class="meaux-card-footer-3p7q9">
+          <span style="color: var(--meaux-mid-gray); font-size: 0.9rem;">$6,500 raised</span>
+          <button style="background: var(--meaux-white); color: var(--meaux-black); border: none; padding: var(--space-sm) var(--space-md); border-radius: var(--radius-md); font-weight: 600; cursor: pointer;">
+            Donate Now
+          </button>
+        </div>
+      </div>
+      
+      <div class="meaux-card-3p7q9 meaux-card-outline-3p7q9">
+        <div class="meaux-card-header-3p7q9">
+          <h3 class="meaux-card-title-3p7q9">Community Impact</h3>
+          <p class="meaux-card-subtitle-3p7q9">Making a difference together</p>
+        </div>
+        <div class="meaux-card-body-3p7q9">
+          <p class="meaux-card-text-3p7q9">
+            Join our community of supporters who believe in the power of accessibility and independence for all.
+          </p>
+        </div>
+        <div class="meaux-card-footer-3p7q9">
+          <span style="color: var(--meaux-mid-gray); font-size: 0.9rem;">Join 500+ supporters</span>
+          <button style="background: transparent; color: var(--meaux-primary); border: 2px solid var(--meaux-primary); padding: var(--space-sm) var(--space-md); border-radius: var(--radius-md); font-weight: 600; cursor: pointer;">
+            Join Community
+          </button>
+        </div>
+      </div>
+      
+      <div class="meaux-card-3p7q9 meaux-card-stats-3p7q9">
+        <div class="meaux-card-body-3p7q9">
+          <div class="meaux-stat-number-3p7q9">127</div>
+          <div class="meaux-stat-label-3p7q9">Active Supporters</div>
+        </div>
+      </div>
+      
+      <div class="meaux-card-3p7q9 meaux-card-stats-3p7q9">
+        <div class="meaux-card-body-3p7q9">
+          <div class="meaux-stat-number-3p7q9">$6,500</div>
+          <div class="meaux-stat-label-3p7q9">Total Raised</div>
+        </div>
+      </div>
+      
+      <div class="meaux-card-3p7q9 meaux-card-stats-3p7q9">
+        <div class="meaux-card-body-3p7q9">
+          <div class="meaux-stat-number-3p7q9">65%</div>
+          <div class="meaux-stat-label-3p7q9">Goal Progress</div>
+        </div>
+      </div>
+      
+      <div class="meaux-card-3p7q9 meaux-card-image-3p7q9">
+        <div class="meaux-card-img-3p7q9">
+          📸 Campaign Photo
+        </div>
+        <div class="meaux-card-body-3p7q9">
+          <h3 class="meaux-card-title-3p7q9">Visual Story</h3>
+          <p class="meaux-card-text-3p7q9">
+            See the impact of your support through photos and updates from DonMichael's journey.
+          </p>
+        </div>
+      </div>
+      
+      <div class="meaux-card-3p7q9 meaux-card-testimonial-3p7q9">
+        <div class="meaux-card-body-3p7q9">
+          <p class="meaux-card-text-3p7q9">
+            The support from Meauxbility has been incredible. This community truly understands what it means to help someone achieve their goals.
+          </p>
+        </div>
+        <div class="meaux-card-footer-3p7q9">
+          <div class="meaux-testimonial-author-3p7q9">
+            <div class="meaux-author-avatar-3p7q9">SM</div>
+            <div class="meaux-author-info-3p7q9">
+              <div class="meaux-author-name-3p7q9">Sarah Mitchell</div>
+              <div class="meaux-author-role-3p7q9">Previous Campaign Recipient</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="meaux-card-3p7q9 meaux-card-flat-3p7q9 meaux-card-sm-3p7q9">
+        <div class="meaux-card-header-3p7q9">
+          <h3 class="meaux-card-title-3p7q9">Quick Update</h3>
+        </div>
+        <div class="meaux-card-body-3p7q9">
+          <p class="meaux-card-text-3p7q9">
+            New milestone reached! We're now 70% funded.
+          </p>
+        </div>
+      </div>
+      
+      <div class="meaux-card-3p7q9 meaux-card-lg-3p7q9">
+        <div class="meaux-card-header-3p7q9">
+          <h3 class="meaux-card-title-3p7q9">Detailed Campaign Information</h3>
+          <p class="meaux-card-subtitle-3p7q9">Everything you need to know</p>
+        </div>
+        <div class="meaux-card-body-3p7q9">
+          <p class="meaux-card-text-3p7q9">
+            This comprehensive campaign details DonMichael's journey toward mobility independence. The funds raised will go toward specialized equipment, installation, and training to ensure he can maintain his daily activities with confidence and dignity.
+          </p>
+          <p class="meaux-card-text-3p7q9">
+            Every contribution, no matter the size, makes a meaningful difference in someone's life. Join us in supporting this important cause.
+          </p>
+        </div>
+        <div class="meaux-card-footer-3p7q9">
+          <span style="color: var(--meaux-mid-gray); font-size: 0.9rem;">Updated daily</span>
+          <button style="background: var(--meaux-primary); color: var(--meaux-black); border: none; padding: var(--space-sm) var(--space-md); border-radius: var(--radius-md); font-weight: 600; cursor: pointer;">
+            Learn More
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="meaux-demo-section-3p7q9">
+      <h4 class="meaux-demo-title-3p7q9">🎯 Interactive Demo</h4>
+      <p style="margin-bottom: var(--space-md); color: var(--meaux-white);">
+        Test card interactions and animations:
+      </p>
+      <div class="meaux-demo-controls-3p7q9">
+        <button class="meaux-demo-btn-3p7q9" onclick="toggleCardStyle('featured')">Toggle Featured</button>
+        <button class="meaux-demo-btn-3p7q9" onclick="toggleCardStyle('outline')">Toggle Outline</button>
+        <button class="meaux-demo-btn-3p7q9" onclick="toggleCardStyle('flat')">Toggle Flat</button>
+      </div>
+      <div class="meaux-card-3p7q9" id="demo-card">
+        <div class="meaux-card-header-3p7q9">
+          <h3 class="meaux-card-title-3p7q9">Interactive Demo Card</h3>
+          <p class="meaux-card-subtitle-3p7q9">Click buttons above to change style</p>
+        </div>
+        <div class="meaux-card-body-3p7q9">
+          <p class="meaux-card-text-3p7q9">
+            This card demonstrates different styling options available in the Meauxbility design system.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="meaux-accessibility-3p7q9">
+      <h5>♿ Accessibility Features</h5>
+      <p style="color: var(--meaux-white); line-height: 1.6;">
+        All cards include proper semantic markup, ARIA labels, keyboard navigation support, and high contrast ratios. 
+        Card content is structured for screen readers with clear headings and descriptive text. 
+        Interactive elements have proper focus states and are announced to assistive technologies.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function toggleCardStyle(style) {
+      const card = document.getElementById('demo-card');
+      card.className = `meaux-card-3p7q9 meaux-card-${style}-3p7q9`;
+    }
+  </script>
+</body>
+</html>

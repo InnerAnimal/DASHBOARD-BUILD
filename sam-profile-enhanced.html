@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sam Primeaux - The Man Behind Meauxbility</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Clean Clay.global Image Section -->
+<section class="clay-section">
+  <div class="clay-container">
+    <div class="clay-image-wrapper">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/sam-smile-pikes-peak.jpg?v=1754025762"
+        alt="Sam Primeaux – The Man Behind Meauxbility"
+        loading="lazy"
+      />
+      <div class="clay-overlay"></div>
+      <div class="clay-text">
+        <h2 class="clay-title">
+          THE MAN BEHIND <span class="clay-brand">Meauxbility</span>
+        </h2>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Clean Clay.global - No Jank */
+  .clay-section {
+    width: 100%;
+    background: #ffffff;
+    padding: 80px 0;
+  }
+
+  .clay-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .clay-image-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    background: #f8f9fa;
+  }
+
+  .clay-image-wrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .clay-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.1) 0%,
+      rgba(0, 0, 0, 0.3) 50%,
+      rgba(0, 0, 0, 0.5) 100%
+    );
+  }
+
+  .clay-text {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    right: 40px;
+    z-index: 2;
+  }
+
+  .clay-title {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .clay-brand {
+    color: #FF6B00;
+    font-weight: 900;
+    display: block;
+    margin-top: 8px;
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .clay-section {
+      padding: 60px 0;
+    }
+    
+    .clay-container {
+      padding: 0 16px;
+    }
+    
+    .clay-image-wrapper {
+      border-radius: 16px;
+    }
+    
+    .clay-text {
+      bottom: 24px;
+      left: 24px;
+      right: 24px;
+    }
+    
+    .clay-title {
+      font-size: clamp(1.5rem, 6vw, 2.5rem);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .clay-section {
+      padding: 40px 0;
+    }
+    
+    .clay-container {
+      padding: 0 12px;
+    }
+    
+    .clay-image-wrapper {
+      border-radius: 12px;
+    }
+    
+    .clay-text {
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+    }
+    
+    .clay-title {
+      font-size: clamp(1.25rem, 7vw, 2rem);
+    }
+  }
+</style>
+
+</body>
+</html>

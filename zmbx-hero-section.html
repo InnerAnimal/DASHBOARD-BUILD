@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Meauxbility Hero Section - ZMBX System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="zmbx-hero-foundation" class="zmbx-section">
+<style>
+/* ========== ZMBX DESIGN TOKENS ========== */
+.zmbx-section {
+  --zmbx-primary: #FF6B00;
+  --zmbx-primary-dark: #E85D00;
+  --zmbx-secondary: #339999;
+  --zmbx-secondary-dark: #2C8B8B;
+  --zmbx-accent: #8b5cf6;
+  --zmbx-text-primary: #0C2D31;
+  --zmbx-text-secondary: #173E45;
+  --zmbx-surface: #FFFFFF;
+  --zmbx-surface-alt: #F7FAFB;
+  --zmbx-border: rgba(12,45,49,0.08);
+  
+  --zmbx-container: min(1200px, 100%);
+  --zmbx-spacing-xs: 0.5rem;
+  --zmbx-spacing-sm: 1rem;
+  --zmbx-spacing-md: 1.5rem;
+  --zmbx-spacing-lg: 2rem;
+  --zmbx-spacing-xl: 3rem;
+  --zmbx-spacing-2xl: clamp(4rem, 8vw, 6rem);
+  
+  --zmbx-radius-sm: 8px;
+  --zmbx-radius-md: 12px;
+  --zmbx-radius-lg: 20px;
+  
+  --zmbx-shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+  --zmbx-shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+  --zmbx-shadow-lg: 0 16px 48px rgba(0,0,0,0.12);
+  
+  --zmbx-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --zmbx-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--zmbx-text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ========== ZMBX LAYOUT SYSTEM ========== */
+.zmbx-container {
+  max-width: var(--zmbx-container);
+  margin: 0 auto;
+  padding: 0 var(--zmbx-spacing-md);
+}
+
+@media (min-width: 768px) {
+  .zmbx-container {
+    padding: 0 var(--zmbx-spacing-lg);
+  }
+}
+
+/* ========== ZMBX TYPOGRAPHY ========== */
+.zmbx-heading-xl {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.zmbx-heading-lg {
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.zmbx-heading-md {
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.zmbx-text-lead {
+  font-size: clamp(1.125rem, 2vw, 1.375rem);
+  line-height: 1.6;
+  color: var(--zmbx-text-secondary);
+}
+
+.zmbx-text-highlight {
+  color: var(--zmbx-primary);
+  font-weight: 700;
+}
+
+/* ========== ZMBX BUTTON SYSTEM ========== */
+.zmbx-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--zmbx-spacing-xs);
+  padding: 0.875rem 1.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  border: 2px solid transparent;
+  border-radius: var(--zmbx-radius-md);
+  cursor: pointer;
+  transition: all 0.2s var(--zmbx-ease);
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.zmbx-button:focus-visible {
+  outline: 2px solid var(--zmbx-primary);
+  outline-offset: 2px;
+}
+
+.zmbx-button--primary {
+  background: var(--zmbx-primary);
+  color: white;
+  box-shadow: var(--zmbx-shadow-sm);
+}
+
+.zmbx-button--primary:hover {
+  background: var(--zmbx-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--zmbx-shadow-md);
+}
+
+.zmbx-button--primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent, rgba(255,255,255,0.2));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.zmbx-button--primary:hover::after {
+  opacity: 1;
+}
+
+.zmbx-button--secondary {
+  background: var(--zmbx-surface);
+  color: var(--zmbx-text-primary);
+  border-color: var(--zmbx-border);
+  box-shadow: var(--zmbx-shadow-sm);
+}
+
+.zmbx-button--secondary:hover {
+  background: var(--zmbx-surface-alt);
+  border-color: var(--zmbx-secondary);
+  transform: translateY(-1px);
+  box-shadow: var(--zmbx-shadow-md);
+}
+
+.zmbx-button-group {
+  display: flex;
+  gap: var(--zmbx-spacing-sm);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* ========== ZMBX ANNOUNCEMENT BAR ========== */
+.zmbx-announcement {
+  background: var(--zmbx-surface);
+  border-bottom: 1px solid var(--zmbx-border);
+  padding: 0.625rem 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.zmbx-announcement-track {
+  display: flex;
+  gap: 3rem;
+  white-space: nowrap;
+  animation: zmbx-scroll 25s linear infinite;
+  will-change: transform;
+}
+
+@keyframes zmbx-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.zmbx-announcement-text {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-weight: 800;
+  font-size: 0.875rem;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+.zmbx-announcement-dot {
+  color: var(--zmbx-primary);
+}
+
+/* ========== ZMBX HERO SECTION ========== */
+.zmbx-hero {
+  padding: var(--zmbx-spacing-2xl) 0;
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(180deg, 
+    var(--zmbx-surface) 0%, 
+    var(--zmbx-surface) 60%,
+    var(--zmbx-surface-alt) 100%
+  );
+}
+
+.zmbx-hero-content {
+  text-align: center;
+}
+
+.zmbx-hero-media {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto var(--zmbx-spacing-xl);
+  border-radius: var(--zmbx-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--zmbx-shadow-lg);
+  background: var(--zmbx-surface-alt);
+}
+
+.zmbx-hero-media img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transform: scale(1.1);
+  transition: transform 1.2s var(--zmbx-ease-out);
+  will-change: transform;
+}
+
+.zmbx-hero-media.in-view img {
+  transform: scale(1);
+}
+
+.zmbx-hero-title {
+  margin-bottom: var(--zmbx-spacing-md);
+}
+
+.zmbx-hero-description {
+  max-width: 800px;
+  margin: 0 auto var(--zmbx-spacing-lg);
+}
+
+/* ========== ZMBX VALUES GRID ========== */
+.zmbx-values {
+  padding: var(--zmbx-spacing-2xl) 0;
+  background: var(--zmbx-surface-alt);
+}
+
+.zmbx-values-header {
+  text-align: center;
+  margin-bottom: var(--zmbx-spacing-xl);
+}
+
+.zmbx-values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--zmbx-spacing-xl);
+  margin-top: var(--zmbx-spacing-xl);
+}
+
+.zmbx-value-card {
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s var(--zmbx-ease);
+}
+
+.zmbx-value-card.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.zmbx-value-icon {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto var(--zmbx-spacing-md);
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.08));
+}
+
+.zmbx-value-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--zmbx-primary);
+  margin-bottom: var(--zmbx-spacing-xs);
+}
+
+.zmbx-value-title {
+  margin-bottom: var(--zmbx-spacing-sm);
+}
+
+.zmbx-value-description {
+  color: var(--zmbx-text-secondary);
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+/* ========== ZMBX GAP CARDS ========== */
+.zmbx-gap {
+  padding: var(--zmbx-spacing-2xl) 0;
+  background: var(--zmbx-surface);
+}
+
+.zmbx-gap-header {
+  text-align: center;
+  margin-bottom: var(--zmbx-spacing-xl);
+}
+
+.zmbx-gap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--zmbx-spacing-md);
+  margin-top: var(--zmbx-spacing-lg);
+}
+
+.zmbx-gap-card {
+  padding: var(--zmbx-spacing-lg);
+  background: var(--zmbx-surface);
+  border: 1px solid var(--zmbx-border);
+  border-radius: var(--zmbx-radius-md);
+  box-shadow: var(--zmbx-shadow-sm);
+  transition: all 0.3s var(--zmbx-ease);
+  position: relative;
+  overflow: hidden;
+}
+
+.zmbx-gap-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--zmbx-secondary);
+  transform: scaleY(0);
+  transition: transform 0.3s var(--zmbx-ease);
+}
+
+.zmbx-gap-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--zmbx-shadow-md);
+  border-color: var(--zmbx-secondary);
+}
+
+.zmbx-gap-card:hover::before {
+  transform: scaleY(1);
+}
+
+.zmbx-gap-card-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--zmbx-secondary);
+  margin-bottom: var(--zmbx-spacing-sm);
+}
+
+.zmbx-gap-card-text {
+  color: var(--zmbx-text-secondary);
+  line-height: 1.6;
+}
+
+/* ========== ZMBX ANIMATIONS ========== */
+@media (prefers-reduced-motion: reduce) {
+  .zmbx-announcement-track {
+    animation: none;
+  }
+  
+  .zmbx-hero-media img,
+  .zmbx-value-card,
+  .zmbx-gap-card {
+    transition-duration: 0.01ms;
+  }
+}
+
+/* ========== ZMBX RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .zmbx-hero {
+    min-height: auto;
+    padding: var(--zmbx-spacing-xl) 0;
+  }
+  
+  .zmbx-button-group {
+    justify-content: center;
+  }
+  
+  .zmbx-values-grid,
+  .zmbx-gap-grid {
+    gap: var(--zmbx-spacing-lg);
+  }
+}
+</style>
+
+<!-- ZMBX Announcement Bar -->
+<section class="zmbx-announcement" aria-label="Announcement">
+  <div class="zmbx-container">
+    <div class="zmbx-announcement-track" aria-hidden="true">
+      <span class="zmbx-announcement-text">
+        More Options <span class="zmbx-announcement-dot">•</span> 
+        More Access <span class="zmbx-announcement-dot">•</span> 
+        More Life
+      </span>
+      <span class="zmbx-announcement-text">
+        More Options <span class="zmbx-announcement-dot">•</span> 
+        More Access <span class="zmbx-announcement-dot">•</span> 
+        More Life
+      </span>
+      <span class="zmbx-announcement-text">
+        More Options <span class="zmbx-announcement-dot">•</span> 
+        More Access <span class="zmbx-announcement-dot">•</span> 
+        More Life
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- ZMBX Hero Section -->
+<section class="zmbx-hero">
+  <div class="zmbx-container">
+    <div class="zmbx-hero-content">
+      <div class="zmbx-hero-media" data-scroll-animate>
+        <img src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/sam-smile-pikes-peak.jpg?v=1754025762" 
+             alt="Sam Primeaux at Pikes Peak—smiling, in the mountains" 
+             loading="eager">
+      </div>
+      <h1 class="zmbx-heading-xl zmbx-hero-title">Built by a survivor for survivors.</h1>
+      <p class="zmbx-text-lead zmbx-hero-description">
+        We connect people with <span class="zmbx-text-highlight">spinal cord injuries</span> to the
+        <span class="zmbx-text-highlight">treatments</span>, 
+        <span class="zmbx-text-highlight">technology</span>, and
+        <span class="zmbx-text-highlight">community</span> that change outcomes.
+      </p>
+      <div class="zmbx-button-group">
+        <button class="zmbx-button zmbx-button--primary" data-action="support-modal">
+          Get Support
+        </button>
+        <button class="zmbx-button zmbx-button--secondary" data-action="campaign-modal">
+          Our First Campaign
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ZMBX Values Section -->
+<section class="zmbx-values">
+  <div class="zmbx-container">
+    <div class="zmbx-values-header">
+      <h2 class="zmbx-heading-lg">Why Meauxbility</h2>
+    </div>
+    <div class="zmbx-values-grid">
+      <article class="zmbx-value-card" data-animate="fade-up">
+        <img class="zmbx-value-icon" 
+             src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/5.png?v=1753332352" 
+             alt="Mission icon"
+             loading="lazy">
+        <span class="zmbx-value-label">Our Mission</span>
+        <h3 class="zmbx-heading-md zmbx-value-title">Built by Experience</h3>
+        <p class="zmbx-value-description">
+          Founded by Sam Primeaux after his 2017 paralysis. We turn lived experience into a roadmap others can follow to recovery.
+        </p>
+      </article>
+      
+      <article class="zmbx-value-card" data-animate="fade-up" data-delay="100">
+        <img class="zmbx-value-icon" 
+             src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/6.png?v=1753332353" 
+             alt="Empowerment icon"
+             loading="lazy">
+        <span class="zmbx-value-label">Empowerment</span>
+        <h3 class="zmbx-heading-md zmbx-value-title">Obstacles into Opportunity</h3>
+        <p class="zmbx-value-description">
+          We combine funding, mentorship, and a practical recovery playbook so people with mobility challenges can accelerate their progress.
+        </p>
+      </article>
+      
+      <article class="zmbx-value-card" data-animate="fade-up" data-delay="200">
+        <img class="zmbx-value-icon" 
+             src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/3_c666d932-e895-4620-928e-20762c2be381.png?v=1753332353" 
+             alt="Community icon"
+             loading="lazy">
+        <span class="zmbx-value-label">Community</span>
+        <h3 class="zmbx-heading-md zmbx-value-title">Movement Not Moment</h3>
+        <p class="zmbx-value-description">
+          What began as one story is now a growing network creating more access—and more life—together. Join the movement.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ZMBX Gap Section -->
+<section class="zmbx-gap">
+  <div class="zmbx-container">
+    <div class="zmbx-gap-header">
+      <h2 class="zmbx-heading-lg">The Gap We're Closing</h2>
+      <p class="zmbx-text-lead">Three barriers stand between injury and independence. We're removing them.</p>
+    </div>
+    <div class="zmbx-gap-grid">
+      <article class="zmbx-gap-card" data-animate="fade-up">
+        <h3 class="zmbx-gap-card-title">COST</h3>
+        <p class="zmbx-gap-card-text">
+          First-year SCI costs reach $1.4M. Lifetime up to $6.3M. We connect survivors to funding and resources.
+        </p>
+      </article>
+      
+      <article class="zmbx-gap-card" data-animate="fade-up" data-delay="100">
+        <h3 class="zmbx-gap-card-title">KNOWLEDGE</h3>
+        <p class="zmbx-gap-card-text">
+          18,400 new SCIs yearly. Families waste precious time searching. We provide instant vetted guidance.
+        </p>
+      </article>
+      
+      <article class="zmbx-gap-card" data-animate="fade-up" data-delay="200">
+        <h3 class="zmbx-gap-card-title">ACCESS</h3>
+        <p class="zmbx-gap-card-text">
+          Equipment exists but remains unreachable. We bridge the gap between innovation and those who need it.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  'use strict';
+  
+  // ZMBX Intersection Observer for animations
+  const zmbxObserverOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+  
+  const zmbxAnimateObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const delay = entry.target.dataset.delay || 0;
+        setTimeout(() => {
+          entry.target.classList.add('in-view');
+        }, delay);
+        zmbxAnimateObserver.unobserve(entry.target);
+      }
+    });
+  }, zmbxObserverOptions);
+  
+  // Observe all ZMBX animated elements
+  document.querySelectorAll('[data-animate]').forEach(el => {
+    zmbxAnimateObserver.observe(el);
+  });
+  
+  // ZMBX Hero image scroll animation
+  const zmbxHeroMedia = document.querySelector('[data-scroll-animate]');
+  if (zmbxHeroMedia) {
+    zmbxAnimateObserver.observe(zmbxHeroMedia);
+  }
+  
+  // ZMBX Button handlers (placeholder for modal integration)
+  document.querySelectorAll('[data-action]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const action = e.currentTarget.dataset.action;
+      console.log('ZMBX Action triggered:', action);
+      // This will be connected to Section 2's modal system
+      if (window.zmbxModalSystem) {
+        window.zmbxModalSystem.open(action);
+      }
+    });
+  });
+  
+  // ZMBX Smooth scroll performance optimization
+  let zmbxTicking = false;
+  function zmbxRequestTick() {
+    if (!zmbxTicking) {
+      requestAnimationFrame(zmbxUpdateAnimations);
+      zmbxTicking = true;
+    }
+  }
+  
+  function zmbxUpdateAnimations() {
+    // Add any scroll-based animations here
+    zmbxTicking = false;
+  }
+  
+  window.addEventListener('scroll', zmbxRequestTick, { passive: true });
+})();
+</script>
+
+</div>
+
+</body>
+</html>
