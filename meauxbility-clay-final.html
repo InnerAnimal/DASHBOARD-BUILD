@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meauxbility Clay Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+<style>
+#meaux-dashboard{--orange:#FF7619;--teal:#1F97A9;--deep:#051b1e;--dark:#0a2427;--steel:#1a4a52;--shine:#3a8b98;--light-teal:#4aabb8;--surface:#ffffff;--success:#21c48c;--warning:#f59e0b;--error:#e74c3c;--glass:rgba(255,255,255,0.1);--border:rgba(255,255,255,0.2);--shadow:0 24px 48px rgba(0,0,0,0.14);--glow:0 0 20px rgba(255,118,25,0.3);font-family:Inter,system-ui,sans-serif;color:var(--surface);position:relative;background:linear-gradient(135deg,var(--deep) 0%,var(--steel) 100%) !important;min-height:100vh;isolation:isolate;width:100% !important;max-width:100vw !important;overflow-x:hidden !important;z-index:1}
+#meaux-dashboard *{margin:0;padding:0;box-sizing:border-box !important}
+#meaux-dashboard .login-screen{position:fixed;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,var(--deep) 0%,var(--dark) 30%,var(--steel) 100%);display:flex;align-items:center;justify-content:center;z-index:10000;transition:opacity 0.3s ease,visibility 0.3s ease}
+#meaux-dashboard .login-screen.hidden{opacity:0;visibility:hidden}
+#meaux-dashboard .login-card{background:var(--glass);border:2px solid var(--border);border-radius:16px;backdrop-filter:blur(25px);box-shadow:var(--shadow);width:100%;max-width:400px;text-align:center;padding:3rem;position:relative;z-index:10001}
+#meaux-dashboard .login-3d-model{position:absolute;top:50%;left:50%;width:300px;height:300px;transform:translate(-50%,-50%);z-index:1;pointer-events:none;animation:epicFloat 25s ease-in-out infinite;filter:drop-shadow(0 0 30px rgba(58,139,152,0.6));opacity:0.4}
+#meaux-dashboard .login-3d-model model-viewer{width:100%;height:100%}
+#meaux-dashboard[data-theme="light"] .login-3d-model{filter:drop-shadow(0 0 30px rgba(255,118,25,0.6))}
+#meaux-dashboard .theme-toggle{position:fixed;top:2rem;right:2rem;z-index:10002;background:var(--glass);border:2px solid var(--border);border-radius:50px;padding:0.5rem;backdrop-filter:blur(20px);display:flex;align-items:center;gap:0.5rem}
+#meaux-dashboard .theme-btn{width:40px;height:40px;border:none;border-radius:50%;cursor:pointer;transition:all 0.3s ease;display:flex;align-items:center;justify-content:center;font-size:1.25rem}
+#meaux-dashboard .theme-btn.active{background:var(--orange);color:var(--surface);box-shadow:var(--glow)}
+#meaux-dashboard .theme-btn:not(.active){background:transparent;color:var(--surface);opacity:0.6}
+#meaux-dashboard .theme-btn:hover{opacity:1;transform:scale(1.1)}
+#meaux-dashboard[data-theme="light"]{--glass:rgba(0,0,0,0.05);--border:rgba(0,0,0,0.1);--surface:#0C2D31;background:linear-gradient(135deg,#ffffff 0%,#f8fafb 100%) !important}
+#meaux-dashboard[data-theme="light"] .login-screen{background:linear-gradient(135deg,#ffffff 0%,#f8fafb 30%,#e5f7fa 100%)}
+#meaux-dashboard[data-theme="light"] .login-card{background:rgba(255,255,255,0.9);border-color:rgba(0,0,0,0.1)}
+#meaux-dashboard[data-theme="light"] .sidebar{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.1)}
+#meaux-dashboard[data-theme="light"] .dashboard-header{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.1)}
+#meaux-dashboard[data-theme="light"] .card{background:rgba(255,255,255,0.9);border-color:rgba(0,0,0,0.1)}
+#meaux-dashboard[data-theme="light"] .stat-card{background:rgba(255,255,255,0.9);border-color:rgba(0,0,0,0.1)}
+#meaux-dashboard[data-theme="light"] .table th{background:rgba(248,250,251,0.9);color:var(--steel)}
+#meaux-dashboard[data-theme="light"] .form-input{background:rgba(248,250,251,0.8);border-color:rgba(0,0,0,0.2);color:var(--surface)}
+#meaux-dashboard[data-theme="light"] .api-setting{background:rgba(255,255,255,0.9);border-color:rgba(0,0,0,0.1)}
+#meaux-dashboard .login-title{font-size:2rem;font-weight:800;background:linear-gradient(135deg,var(--shine),var(--light-teal));-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:0.5rem;position:relative;z-index:2}
+#meaux-dashboard .login-subtitle{color:var(--surface);margin-bottom:2rem;position:relative;z-index:2;opacity:0.9}
+#meaux-dashboard .form-input{width:100%;padding:1rem 1.25rem;background:rgba(10,36,39,.6);border:2px solid var(--border);border-radius:14px;color:var(--surface);font-size:1rem;transition:all 0.3s ease}
+#meaux-dashboard .form-input:focus{outline:none;border-color:var(--shine);background:rgba(10,36,39,.8);box-shadow:0 0 0 3px rgba(58,139,152,.2)}
+#meaux-dashboard .mbx-btn{border:none;padding:clamp(14px,2.5vw,18px) clamp(24px,4.5vw,34px);border-radius:14px;font-weight:900;font-size:clamp(15px,1.8vw,18px);cursor:pointer;transition:transform 0.25s cubic-bezier(0.2,0.8,0.2,1),box-shadow 0.25s cubic-bezier(0.2,0.8,0.2,1);display:inline-flex;align-items:center;gap:10px;margin:8px;min-height:44px;text-transform:uppercase;letter-spacing:0.08em}
+#meaux-dashboard .mbx-btn-primary{color:#fff;background:linear-gradient(135deg,rgba(255,118,25,0.24),rgba(255,179,128,0.20));border:1.5px solid rgba(255,118,25,0.52);box-shadow:0 12px 34px rgba(255,118,25,0.32),inset 0 0 0 1px rgba(255,255,255,0.06)}
+#meaux-dashboard .mbx-btn-primary:hover{transform:translateY(2px);background:linear-gradient(135deg,rgba(255,118,25,0.30),rgba(255,179,128,0.24));border-color:var(--orange);box-shadow:0 16px 44px rgba(255,118,25,0.38);outline:3px solid var(--teal);outline-offset:2px}
+#meaux-dashboard .mbx-btn-secondary{color:#fff;background:linear-gradient(135deg,rgba(31,151,169,0.24),rgba(15,122,138,0.20));border:1.5px solid rgba(31,151,169,0.52);box-shadow:0 12px 34px rgba(31,151,169,0.32),inset 0 0 0 1px rgba(255,255,255,0.06)}
+#meaux-dashboard .mbx-btn-secondary:hover{transform:translateY(2px);background:linear-gradient(135deg,rgba(31,151,169,0.30),rgba(15,122,138,0.24));border-color:var(--teal);box-shadow:0 16px 44px rgba(31,151,169,0.38);outline:3px solid var(--orange);outline-offset:2px}
+#meaux-dashboard .mbx-btn-teal{color:#fff;background:linear-gradient(135deg,rgba(31,151,169,0.24),rgba(15,122,138,0.20));border:1.5px solid rgba(31,151,169,0.52);box-shadow:0 12px 34px rgba(31,151,169,0.32),inset 0 0 0 1px rgba(255,255,255,0.06)}
+#meaux-dashboard .mbx-btn-teal:hover{transform:translateY(2px);border-color:var(--teal);box-shadow:0 16px 44px rgba(31,151,169,0.38);outline:3px solid var(--orange);outline-offset:2px}
+#meaux-dashboard .mbx-btn-sm{padding:10px 20px;font-size:14px;min-height:36px;margin:4px}
+#meaux-dashboard .dashboard{display:none;min-height:100vh}
+#meaux-dashboard .dashboard.active{display:flex}
+#meaux-dashboard .sidebar{width:280px;background:var(--glass);border-right:2px solid var(--border);backdrop-filter:blur(25px);position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:1000;transition:transform 0.3s ease}
+#meaux-dashboard .sidebar.collapsed{width:80px}
+#meaux-dashboard .sidebar-header{padding:1.5rem;border-bottom:2px solid var(--border);text-align:center}
+#meaux-dashboard .sidebar-title{font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,var(--shine),var(--success));-webkit-background-clip:text;background-clip:text;color:transparent;opacity:1;transition:opacity 0.3s ease}
+#meaux-dashboard .sidebar.collapsed .sidebar-title{opacity:0}
+#meaux-dashboard .nav-item{display:flex;align-items:center;gap:1rem;padding:1rem 1.5rem;color:var(--surface);transition:all 0.3s ease;border-left:3px solid transparent;cursor:pointer}
+#meaux-dashboard .nav-item:hover{background:rgba(58,139,152,.15);border-left-color:var(--shine)}
+#meaux-dashboard .nav-item.active{background:rgba(33,196,140,.2);color:var(--success);border-left-color:var(--success)}
+#meaux-dashboard .nav-icon{width:24px;height:24px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.25rem}
+#meaux-dashboard .nav-text{white-space:nowrap;opacity:1;transition:opacity 0.3s ease;font-weight:600}
+#meaux-dashboard .sidebar.collapsed .nav-text{opacity:0}
+#meaux-dashboard .sidebar-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:999}
+#meaux-dashboard .sidebar-toggle{display:none;position:fixed;top:1rem;left:1rem;z-index:1001;background:var(--glass);border:2px solid var(--border);border-radius:14px;padding:0.75rem;cursor:pointer;backdrop-filter:blur(20px);color:var(--surface)}
+#meaux-dashboard .dashboard-header{position:sticky;top:0;background:var(--glass);border-bottom:2px solid var(--border);backdrop-filter:blur(25px);padding:1.5rem 2rem;z-index:100;display:flex;align-items:center;justify-content:space-between;transform:translateY(0);transition:transform 0.3s ease}
+#meaux-dashboard .dashboard-header.hidden{transform:translateY(-100%)}
+#meaux-dashboard .header-title{font-size:clamp(1.25rem,3vw,1.75rem);font-weight:800;background:linear-gradient(135deg,var(--shine),var(--success));-webkit-background-clip:text;background-clip:text;color:transparent}
+#meaux-dashboard .main-content{flex:1;margin-left:280px;transition:margin-left 0.3s ease;width:calc(100vw - 280px) !important;overflow-x:hidden !important}
+#meaux-dashboard .sidebar.collapsed + .main-content{margin-left:80px;width:calc(100vw - 80px) !important}
+#meaux-dashboard .container{max-width:1440px;margin:0 auto;padding:clamp(1rem,3vw,2rem)}
+#meaux-dashboard .page-section{display:none}
+#meaux-dashboard .page-section.active{display:block}
+#meaux-dashboard .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(1rem,3vw,2rem);margin-bottom:2rem}
+#meaux-dashboard .stat-card{background:var(--glass);border:2px solid var(--border);border-radius:14px;backdrop-filter:blur(25px);padding:clamp(1.5rem,4vw,2rem);transition:all 0.3s ease;position:relative;overflow:hidden}
+#meaux-dashboard .stat-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--shine)}
+#meaux-dashboard .stat-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem}
+#meaux-dashboard .stat-icon{width:clamp(3rem,8vw,4rem);height:clamp(3rem,8vw,4rem);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:clamp(1.5rem,4vw,2rem);background:linear-gradient(135deg,var(--shine),var(--success));color:var(--deep);box-shadow:var(--glow)}
+#meaux-dashboard .stat-value{font-size:clamp(2rem,6vw,3rem);font-weight:900;background:linear-gradient(135deg,var(--surface),var(--light-teal));-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:0.5rem}
+#meaux-dashboard .stat-label{color:var(--surface);font-weight:600;font-size:clamp(1rem,2.5vw,1.1rem);opacity:0.9}
+#meaux-dashboard .stat-change{font-size:clamp(0.75rem,2vw,0.875rem);font-weight:700;padding:0.5rem 1rem;border-radius:12px;background:rgba(33,196,140,.2);color:var(--success)}
+#meaux-dashboard .card{background:var(--glass);border:2px solid var(--border);border-radius:14px;backdrop-filter:blur(25px);padding:clamp(1.5rem,4vw,2rem);transition:all 0.3s ease;margin-bottom:2rem;position:relative;overflow:hidden}
+#meaux-dashboard .card:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--shine)}
+#meaux-dashboard .card-header{display:flex;align-items:center;margin-bottom:2rem;flex-wrap:wrap;gap:1rem}
+#meaux-dashboard .card-title{font-size:clamp(1.25rem,3vw,1.5rem);font-weight:800;background:linear-gradient(135deg,var(--shine),var(--success));-webkit-background-clip:text;background-clip:text;color:transparent}
+#meaux-dashboard .card-icon{width:clamp(2.5rem,6vw,3rem);height:clamp(2.5rem,6vw,3rem);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:clamp(1.25rem,3vw,1.5rem);margin-right:1rem;background:linear-gradient(135deg,var(--shine),var(--success));color:var(--deep);box-shadow:var(--glow)}
+#meaux-dashboard .content-grid{display:grid;grid-template-columns:2fr 1fr;gap:clamp(1rem,3vw,2rem)}
+#meaux-dashboard .tools-carousel{position:relative;overflow:hidden;border-radius:14px;background:var(--glass);border:2px solid var(--border);backdrop-filter:blur(25px);margin-bottom:2rem}
+#meaux-dashboard .carousel-container{display:flex;transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);gap:1rem;padding:1rem}
+#meaux-dashboard .tool-card{min-width:clamp(240px,25vw,280px);background:rgba(26,74,82,0.3);border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-align:center;transition:all 0.3s ease;cursor:pointer}
+#meaux-dashboard .tool-card:hover{transform:scale(1.02);border-color:var(--orange)}
+#meaux-dashboard .tool-icon{width:60px;height:60px;margin:0 auto 1rem;background:linear-gradient(135deg,var(--orange),var(--teal));border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:var(--surface);box-shadow:var(--glow)}
+#meaux-dashboard .tool-name{font-weight:700;margin-bottom:0.5rem;color:var(--surface)}
+#meaux-dashboard .tool-desc{font-size:0.875rem;color:var(--surface);opacity:0.8;margin-bottom:1rem}
+#meaux-dashboard .carousel-nav{display:flex;justify-content:center;gap:1rem;padding:1rem}
+#meaux-dashboard .carousel-btn{width:40px;height:40px;border:2px solid var(--border);background:var(--glass);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s ease;color:var(--surface)}
+#meaux-dashboard .carousel-btn:hover{border-color:var(--orange);background:rgba(255,118,25,0.2)}
+#meaux-dashboard .table-container{overflow-x:auto;border-radius:14px;border:2px solid var(--border);background:var(--glass);backdrop-filter:blur(25px)}
+#meaux-dashboard .table{width:100%;border-collapse:collapse;min-width:600px}
+#meaux-dashboard .table th,#meaux-dashboard .table td{padding:clamp(0.75rem,2vw,1rem);text-align:left;border-bottom:1px solid var(--border)}
+#meaux-dashboard .table th{background:rgba(10,36,39,.6);font-weight:700;color:var(--light-teal);font-size:clamp(0.75rem,2vw,0.875rem);text-transform:uppercase}
+#meaux-dashboard .table td{color:var(--surface);opacity:0.9;font-size:clamp(0.875rem,2vw,1rem)}
+#meaux-dashboard .table tr:hover{background:rgba(58,139,152,.1)}
+#meaux-dashboard .status-badge{padding:0.5rem 1rem;border-radius:12px;font-size:clamp(0.7rem,1.8vw,0.75rem);font-weight:700;text-transform:uppercase;white-space:nowrap}
+#meaux-dashboard .status-badge.success{background:rgba(33,196,140,.2);color:var(--success)}
+#meaux-dashboard .status-badge.warning{background:rgba(245,158,11,.2);color:var(--warning)}
+#meaux-dashboard .status-badge.connected{background:rgba(33,196,140,.2);color:var(--success)}
+#meaux-dashboard .status-badge.disconnected{background:rgba(231,76,60,.2);color:var(--error)}
+#meaux-dashboard .status-badge.pending{background:rgba(255,118,25,.2);color:var(--orange)}
+#meaux-dashboard .ai-queue{background:var(--glass);border:2px solid var(--border);border-radius:14px;backdrop-filter:blur(25px);padding:1.5rem;margin-bottom:1rem}
+#meaux-dashboard .ai-item{display:flex;align-items:center;justify-content:space-between;padding:1rem;border-bottom:1px solid var(--border);transition:all 0.3s ease;flex-wrap:wrap;gap:1rem}
+#meaux-dashboard .ai-item:hover{background:rgba(58,139,152,.1)}
+#meaux-dashboard .ai-item:last-child{border-bottom:none}
+#meaux-dashboard .ai-content{flex:1;min-width:200px}
+#meaux-dashboard .ai-type{font-weight:600;color:var(--success);font-size:clamp(0.75rem,2vw,0.875rem);text-transform:uppercase}
+#meaux-dashboard .ai-preview{color:var(--surface);opacity:0.8;margin-top:0.25rem;font-size:clamp(0.875rem,2vw,1rem)}
+#meaux-dashboard .ai-actions{display:flex;gap:0.5rem;flex-wrap:wrap}
+#meaux-dashboard .api-setting{background:var(--glass);border:1px solid var(--border);border-radius:14px;padding:1.5rem;margin-bottom:1rem;transition:all 0.3s ease}
+#meaux-dashboard .api-setting:hover{border-color:var(--orange);transform:translateY(-2px)}
+#meaux-dashboard .api-title{font-weight:700;color:var(--surface);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;font-size:1.1rem}
+#meaux-dashboard .api-desc{color:var(--surface);opacity:0.8;margin-bottom:1rem;font-size:0.875rem}
+#meaux-dashboard .api-steps{color:var(--surface);opacity:0.9;font-size:0.875rem;line-height:1.6}
+#meaux-dashboard .modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(10px);z-index:10000;align-items:center;justify-content:center;padding:1rem}
+#meaux-dashboard .modal.active{display:flex}
+#meaux-dashboard .modal-content{background:var(--glass);border:2px solid var(--border);border-radius:14px;backdrop-filter:blur(25px);max-width:600px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow)}
+#meaux-dashboard .modal-header{padding:2rem 2rem 1rem;border-bottom:2px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+#meaux-dashboard .modal-title{font-size:clamp(1.25rem,3vw,1.75rem);font-weight:800;background:linear-gradient(135deg,var(--shine),var(--success));-webkit-background-clip:text;background-clip:text;color:transparent}
+#meaux-dashboard .modal-close{background:none;border:none;font-size:2rem;cursor:pointer;color:var(--surface);padding:0.5rem;border-radius:14px;transition:all 0.3s ease;opacity:0.7}
+#meaux-dashboard .modal-close:hover{background:rgba(231,76,60,.2);color:var(--error);opacity:1}
+#meaux-dashboard .modal-body{padding:2rem}
+#meaux-dashboard .step-title{font-size:1.25rem;font-weight:700;color:var(--surface);margin-bottom:1rem;display:flex;align-items:center;gap:1rem}
+#meaux-dashboard .step-number{width:2rem;height:2rem;background:var(--orange);color:var(--surface);border-radius:50%;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+#meaux-dashboard .code-block{background:rgba(5,27,30,0.8);border:1px solid var(--border);border-radius:14px;padding:1rem;margin:1rem 0;font-family:Monaco,monospace;font-size:0.875rem;overflow-x:auto;color:var(--light-teal)}
+@keyframes complexRotation{0%{transform:rotateY(0deg) rotateX(0deg) rotateZ(0deg)}100%{transform:rotateY(360deg) rotateX(360deg) rotateZ(360deg)}}
+@keyframes epicFloat{0%{transform:translate(-50%,-50%) scale(1)}20%{transform:translate(calc(-50% + 40vw),calc(-50% + 20vh)) scale(1.2)}40%{transform:translate(calc(-50% + 30vw),calc(-50% - 30vh)) scale(0.8)}60%{transform:translate(calc(-50% - 35vw),calc(-50% - 20vh)) scale(1.1)}80%{transform:translate(calc(-50% - 25vw),calc(-50% + 25vh)) scale(0.9)}100%{transform:translate(-50%,-50%) scale(1)}}
+@media (max-width:1024px){
+#meaux-dashboard .sidebar{width:80px}
+#meaux-dashboard .sidebar .sidebar-title,#meaux-dashboard .sidebar .nav-text{opacity:0}
+#meaux-dashboard .main-content{margin-left:80px !important;width:calc(100vw - 80px) !important}
+#meaux-dashboard .content-grid{grid-template-columns:1fr}
+}
+@media (max-width:768px){
+#meaux-dashboard .sidebar{transform:translateX(-100%);width:280px}
+#meaux-dashboard .sidebar.active{transform:translateX(0)}
+#meaux-dashboard .sidebar-overlay.active{display:block}
+#meaux-dashboard .sidebar-toggle{display:flex;align-items:center;justify-content:center}
+#meaux-dashboard .main-content{margin-left:0 !important;width:100vw !important}
+#meaux-dashboard .stats-grid{grid-template-columns:1fr}
+#meaux-dashboard .container{padding:1rem}
+#meaux-dashboard .dashboard-header{padding:1rem}
+#meaux-dashboard .ai-item{flex-direction:column;align-items:flex-start}
+#meaux-dashboard .ai-content{margin-bottom:1rem}
+#meaux-dashboard .tool-card{min-width:200px}
+}
+@media (max-width:480px){
+#meaux-dashboard .login-card{margin:1rem;padding:2rem}
+#meaux-dashboard .modal-content{width:95%}
+#meaux-dashboard .modal-header,#meaux-dashboard .modal-body{padding:1.5rem}
+#meaux-dashboard .mbx-btn{padding:12px 20px;font-size:14px}
+#meaux-dashboard .tool-card{min-width:180px;padding:1rem}
+#meaux-dashboard .login-3d-model{width:200px;height:200px;opacity:0.3}
+#meaux-dashboard .theme-toggle{top:1rem;right:1rem;padding:0.25rem}
+#meaux-dashboard .theme-btn{width:32px;height:32px;font-size:1rem}
+}
+@media (prefers-reduced-motion:reduce){
+#meaux-dashboard *{animation:none !important;transition:none !important}
+}
+</style>
+</head>
+<body>
+<div id="meaux-dashboard">
+<div class="login-screen" id="loginScreen">
+<!-- Epic Single 3D Model -->
+<div class="login-3d-model">
+<model-viewer src="https://cdn.shopify.com/3d/models/4b0a47ca8a38b77c/Kinetic_Symmetry_0831084700_generate.glb" 
+              alt="Kinetic Symmetry 3D Model" 
+              auto-rotate 
+              rotation-per-second="20deg"
+              camera-controls 
+              disable-zoom
+              disable-pan
+              poster=""
+              environment-image="neutral"
+              style="width:100%;height:100%;pointer-events:none">
+</model-viewer>
+</div>
+
+<!-- Theme Toggle -->
+<div class="theme-toggle">
+<button class="theme-btn active" id="darkBtn" onclick="setTheme('dark')">🌙</button>
+<button class="theme-btn" id="lightBtn" onclick="setTheme('light')">☀️</button>
+</div>
+<div class="login-card">
+<h1 class="login-title">Clay Dashboard</h1>
+<p class="login-subtitle">Nonprofit Automation Hub</p>
+<form class="login-form" id="loginForm" style="display:flex;flex-direction:column;gap:1.5rem;position:relative;z-index:2">
+<input type="password" class="form-input" id="password" placeholder="Enter password" required>
+<button type="submit" class="mbx-btn mbx-btn-primary">
+<span>Access Dashboard</span>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px">
+<path d="M5 12h14M12 5l7 7-7 7"/>
+</svg>
+</button>
+</form>
+<div style="background:rgba(231,76,60,.2);color:var(--error);padding:1rem;border-radius:14px;margin-top:1rem;display:none" id="loginError">Invalid password. Please try again.</div>
+</div>
+</div>
+
+<div class="dashboard" id="dashboard">
+<nav class="sidebar" id="sidebar">
+<div class="sidebar-header">
+<span class="sidebar-title">Meauxbility</span>
+</div>
+<div class="sidebar-nav" style="padding:1rem 0">
+<div class="nav-item active" data-section="overview">
+<div class="nav-icon">📊</div>
+<span class="nav-text">Overview</span>
+</div>
+<div class="nav-item" data-section="automation">
+<div class="nav-icon">🤖</div>
+<span class="nav-text">AI Automation</span>
+</div>
+<div class="nav-item" data-section="tools">
+<div class="nav-icon">🛠️</div>
+<span class="nav-text">AI Tools</span>
+</div>
+<div class="nav-item" data-section="donations">
+<div class="nav-icon">💰</div>
+<span class="nav-text">Donations</span>
+</div>
+<div class="nav-item" data-section="integrations">
+<div class="nav-icon">🔗</div>
+<span class="nav-text">All APIs</span>
+</div>
+</div>
+</nav>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<button class="sidebar-toggle" id="sidebarToggle">☰</button>
+
+<main class="main-content">
+<header class="dashboard-header" id="dashboardHeader">
+<h1 class="header-title" id="headerTitle">Clay.Global Nonprofit Hub</h1>
+<div style="display:flex;gap:1rem;align-items:center">
+<select style="padding:0.5rem 1rem;border:2px solid var(--border);border-radius:14px;background:var(--glass);color:var(--surface);cursor:pointer">
+<option>Last 30 days</option>
+<option>Last 90 days</option>
+</select>
+</div>
+</header>
+
+<div class="container">
+<div class="page-section active" id="overview">
+<div class="stats-grid">
+<div class="stat-card">
+<div class="stat-header">
+<div class="stat-icon">💰</div>
+<div class="stat-change">+12%</div>
+</div>
+<div class="stat-value" id="totalDonations">$0</div>
+<div class="stat-label">Total Donations</div>
+</div>
+<div class="stat-card">
+<div class="stat-header">
+<div class="stat-icon">🤖</div>
+<div class="stat-change">+25%</div>
+</div>
+<div class="stat-value" id="aiTasks">0</div>
+<div class="stat-label">AI Tasks Processed</div>
+</div>
+<div class="stat-card">
+<div class="stat-header">
+<div class="stat-icon">💵</div>
+<div class="stat-change">-60%</div>
+</div>
+<div class="stat-value" id="costSavings">$0</div>
+<div class="stat-label">Cost Savings</div>
+</div>
+<div class="stat-card">
+<div class="stat-header">
+<div class="stat-icon">🎯</div>
+<div class="stat-change">75%</div>
+</div>
+<div class="stat-value" id="donMichaelProgress">$7,500</div>
+<div class="stat-label">DonMichael Campaign</div>
+</div>
+</div>
+
+<div class="content-grid">
+<div class="card">
+<div class="card-header">
+<div class="card-icon">📊</div>
+<h2 class="card-title">Recent Activity</h2>
+</div>
+<div class="table-container">
+<table class="table">
+<thead>
+<tr><th>Type</th><th>Description</th><th>Status</th><th>Actions</th></tr>
+</thead>
+<tbody>
+<tr><td>AI Email</td><td>Thank you to John Smith</td><td><span class="status-badge pending">Pending Review</span></td><td><button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="showSection('automation')">Review</button></td></tr>
+<tr><td>Donation</td><td>$50 Monthly supporter</td><td><span class="status-badge success">Completed</span></td><td><button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="showSection('donations')">View</button></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header">
+<div class="card-icon">🚀</div>
+<h2 class="card-title">Quick Actions</h2>
+</div>
+<div style="display:flex;flex-direction:column;gap:1rem">
+<button class="mbx-btn mbx-btn-primary" onclick="showSection('automation')">
+<span>Review AI Content</span>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px">
+<path d="M5 12h14M12 5l7 7-7 7"/>
+</svg>
+</button>
+<button class="mbx-btn mbx-btn-secondary" onclick="showSection('tools')">
+<span>AI Tool Guides</span>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px">
+<path d="M5 12h14M12 5l7 7-7 7"/>
+</svg>
+</button>
+<button class="mbx-btn mbx-btn-teal" onclick="showSection('integrations')">
+<span>All APIs</span>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px">
+<path d="M5 12h14M12 5l7 7-7 7"/>
+</svg>
+</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="page-section" id="automation">
+<div class="stats-grid">
+<div class="stat-card">
+<div class="stat-header">
+<div class="stat-icon">🤖</div>
+<div class="stat-change">+25%</div>
+</div>
+<div class="stat-value" id="aiGenerated">0</div>
+<div class="stat-label">AI Emails Generated</div>
+</div>
+<div class="stat-card">
+<div class="stat-header">
+<div class="stat-icon">✅</div>
+<div class="stat-change">95%</div>
+</div>
+<div class="stat-value" id="successRate">0</div>
+<div class="stat-label">Success Rate</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header">
+<div class="card-icon">🤖</div>
+<h2 class="card-title">AI Content Review Queue</h2>
+</div>
+<div class="ai-queue">
+<div class="ai-item">
+<div class="ai-content">
+<div class="ai-type">Donation Thank You</div>
+<div class="ai-preview">Dear John, Thank you for your $50 donation. Authority over sympathy...</div>
+</div>
+<div class="ai-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="approveAI('ai-1')">Approve</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="editAI('ai-1')">Edit</button>
+</div>
+</div>
+<div class="ai-item">
+<div class="ai-content">
+<div class="ai-type">Welcome Email</div>
+<div class="ai-preview">Welcome to Meauxbility! More Options. More Access. More Life...</div>
+</div>
+<div class="ai-actions">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="approveAI('ai-2')">Approve</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="editAI('ai-2')">Edit</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="page-section" id="tools">
+<div class="card">
+<div class="card-header">
+<div class="card-icon">🛠️</div>
+<h2 class="card-title">AI Tools Mastery</h2>
+</div>
+<div class="tools-carousel">
+<div class="carousel-container" id="toolsCarousel">
+<div class="tool-card" onclick="showToolGuide('cursor')">
+<div class="tool-icon">🖱️</div>
+<div class="tool-name">Cursor AI</div>
+<div class="tool-desc">Code with AI - Cmd+L</div>
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary">Learn</button>
+</div>
+<div class="tool-card" onclick="showToolGuide('chatgpt')">
+<div class="tool-icon">💬</div>
+<div class="tool-name">ChatGPT</div>
+<div class="tool-desc">Generate content</div>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary">Master</button>
+</div>
+<div class="tool-card" onclick="showToolGuide('claude')">
+<div class="tool-icon">🧠</div>
+<div class="tool-name">Claude AI</div>
+<div class="tool-desc">Analysis & reviews</div>
+<button class="mbx-btn mbx-btn-sm mbx-btn-teal">Guide</button>
+</div>
+<div class="tool-card" onclick="showToolGuide('canva')">
+<div class="tool-icon">🎨</div>
+<div class="tool-name">Canva Pro</div>
+<div class="tool-desc">Create graphics</div>
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary">Design</button>
+</div>
+<div class="tool-card" onclick="showToolGuide('meshy')">
+<div class="tool-icon">🧊</div>
+<div class="tool-name">Meshy 3D</div>
+<div class="tool-desc">Generate 3D assets</div>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary">Create</button>
+</div>
+</div>
+<div class="carousel-nav">
+<button class="carousel-btn" onclick="slideCarousel(-1)">‹</button>
+<button class="carousel-btn" onclick="slideCarousel(1)">›</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="page-section" id="donations">
+<div class="stats-grid">
+<div class="stat-card">
+<div class="stat-header">
+<div class="stat-icon">💰</div>
+<div class="stat-change">+12%</div>
+</div>
+<div class="stat-value" id="donationsTotal">$0</div>
+<div class="stat-label">Total Raised</div>
+</div>
+<div class="stat-card">
+<div class="stat-header">
+<div class="stat-icon">🎯</div>
+<div class="stat-change">75%</div>
+</div>
+<div class="stat-value" id="donMichaelProgress2">$7,500</div>
+<div class="stat-label">DonMichael Campaign</div>
+</div>
+</div>
+</div>
+
+<div class="page-section" id="integrations">
+<div class="api-setting">
+<div class="api-title">🔑 Stripe Payments</div>
+<div class="api-desc">hey@meauxbility.com | 337-450-9998</div>
+<div class="api-steps">stripe.com → Dashboard → API keys → Copy live keys</div>
+<div style="margin-top:1rem">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="alert('Stripe: 1) stripe.com 2) Dashboard → Developers → API keys 3) Copy pk_live_ and sk_live_ 4) Test')">Setup</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="testConnection('stripe')">Test</button>
+<span class="status-badge connected" id="stripeStatus">Connected</span>
+</div>
+</div>
+
+<div class="api-setting">
+<div class="api-title">🗄️ Supabase Database</div>
+<div class="api-desc">ajhltmrehtytpzbdhepa.supabase.co</div>
+<div class="api-steps">supabase.com → Project → Settings → API → Copy URL & keys</div>
+<div style="margin-top:1rem">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="alert('Supabase: 1) supabase.com/dashboard 2) ajhltmrehtytpzbdhepa 3) Settings → API 4) Copy URL and anon key')">Setup</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="testConnection('supabase')">Test</button>
+<span class="status-badge connected" id="supabaseStatus">Connected</span>
+</div>
+</div>
+
+<div class="api-setting">
+<div class="api-title">🤖 OpenAI Content</div>
+<div class="api-desc">AI email generation - $20/month budget</div>
+<div class="api-steps">platform.openai.com → API keys → Create → Set $20 limit</div>
+<div style="margin-top:1rem">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="alert('OpenAI: 1) platform.openai.com 2) API keys 3) Create secret key 4) Billing → $20 limit')">Setup</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="testConnection('openai')">Test</button>
+<span class="status-badge disconnected" id="openaiStatus">Setup Needed</span>
+</div>
+</div>
+
+<div class="api-setting">
+<div class="api-title">📧 Gmail API</div>
+<div class="api-desc">Automated emails from hey@meauxbility.com</div>
+<div class="api-steps">console.cloud.google.com → Gmail API → OAuth credentials</div>
+<div style="margin-top:1rem">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="alert('Gmail: 1) console.cloud.google.com 2) Enable Gmail API 3) OAuth 2.0 credentials 4) Refresh token')">Setup</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="testConnection('gmail')">Test</button>
+<span class="status-badge disconnected" id="gmailStatus">Setup Needed</span>
+</div>
+</div>
+
+<div class="api-setting">
+<div class="api-title">💰 PayPal Integration</div>
+<div class="api-desc">Alternative donation processing</div>
+<div class="api-steps">developer.paypal.com → Create app → Copy credentials</div>
+<div style="margin-top:1rem">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="alert('PayPal: 1) developer.paypal.com 2) Create app 3) Client ID & Secret 4) Webhooks')">Setup</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="testConnection('paypal')">Test</button>
+<span class="status-badge disconnected" id="paypalStatus">Setup Needed</span>
+</div>
+</div>
+
+<div class="api-setting">
+<div class="api-title">📊 Google Analytics</div>
+<div class="api-desc">Track performance and conversions</div>
+<div class="api-steps">analytics.google.com → Create property → Tracking ID</div>
+<div style="margin-top:1rem">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="alert('Analytics: 1) analytics.google.com 2) Create property 3) meauxbility.org 4) Copy tracking ID')">Setup</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="testConnection('analytics')">Test</button>
+<span class="status-badge disconnected" id="analyticsStatus">Setup Needed</span>
+</div>
+</div>
+
+<div class="api-setting">
+<div class="api-title">📬 Newsletter Automation</div>
+<div class="api-desc">Mailchimp/ConvertKit for donor communication</div>
+<div class="api-steps">Choose provider → API key → Automation sequences</div>
+<div style="margin-top:1rem">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="alert('Newsletter: 1) Mailchimp or ConvertKit 2) API key 3) Automation sequences 4) Test')">Setup</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="testConnection('newsletter')">Test</button>
+<span class="status-badge disconnected" id="newsletterStatus">Setup Needed</span>
+</div>
+</div>
+
+<div class="api-setting">
+<div class="api-title">📱 Social Media APIs</div>
+<div class="api-desc">Facebook, Instagram, Twitter automation</div>
+<div class="api-steps">Meta Business → App → Twitter Developer → Tokens</div>
+<div style="margin-top:1rem">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="alert('Social: 1) Meta Business Suite 2) Create app 3) Twitter Developer 4) API tokens')">Setup</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="testConnection('social')">Test</button>
+<span class="status-badge disconnected" id="socialStatus">Setup Needed</span>
+</div>
+</div>
+
+<div class="api-setting">
+<div class="api-title">🔔 Team Notifications</div>
+<div class="api-desc">Slack/Discord real-time alerts</div>
+<div class="api-steps">Create webhook URLs → Test notifications</div>
+<div style="margin-top:1rem">
+<button class="mbx-btn mbx-btn-sm mbx-btn-primary" onclick="alert('Notifications: 1) Slack/Discord 2) Webhook URL 3) Test notification 4) Connect events')">Setup</button>
+<button class="mbx-btn mbx-btn-sm mbx-btn-secondary" onclick="testConnection('notifications')">Test</button>
+<span class="status-badge disconnected" id="notificationsStatus">Setup Needed</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+<div class="modal" id="toolGuideModal">
+<div class="modal-content">
+<div class="modal-header">
+<h2 class="modal-title" id="toolGuideTitle">AI Tool Guide</h2>
+<button class="modal-close" onclick="closeModal('toolGuideModal')">&times;</button>
+</div>
+<div class="modal-body" id="toolGuideContent">Loading...</div>
+</div>
+</div>
+</div>
+
+<script>
+const ADMIN_PASSWORD="Meauxbility";let sessionTimer;let currentSlide=0;const totalSlides=5;
+const toolGuides={
+cursor:{title:"Cursor AI Guide",content:`<div class="step-title"><span class="step-number">1</span>Press Cmd+L in Cursor</div><div class="code-block">Create [type] for Meauxbility. Voice: "Authority over sympathy. Grit over guesswork." Contact: hey@meauxbility.com, 337-450-9998, Lafayette LA. Mission: "More Options. More Access. More Life."</div><p>Replace [type]: email, thank you, application response, social post</p>`},
+chatgpt:{title:"ChatGPT Guide",content:`<div class="step-title"><span class="step-number">1</span>Go to chat.openai.com</div><div class="code-block">Writing for Meauxbility, SCI nonprofit by Sam Primeaux, Lafayette LA. Voice: "Authority over sympathy. Grit over guesswork." Contact: hey@meauxbility.com, 337-450-9998. Mission: "More Options. More Access. More Life."</div>`},
+claude:{title:"Claude Guide",content:`<div class="step-title"><span class="step-number">1</span>Go to claude.ai</div><div class="code-block">Analyze grant application for Meauxbility. Fund $500-15K for SCI survivors. Contact: hey@meauxbility.com. Provide recommendation and response.</div>`},
+canva:{title:"Canva Guide",content:`<div class="step-title"><span class="step-number">1</span>Use Brand Colors</div><div class="code-block">Orange: #FF7619<br>Teal: #1F97A9<br>Include: "More Options. More Access. More Life." and hey@meauxbility.com</div>`},
+meshy:{title:"Meshy Guide",content:`<div class="step-title"><span class="step-number">1</span>Go to meshy.ai</div><div class="code-block">Wheelchair in teal (#1F97A9) and orange (#FF7619), adaptive equipment, professional style</div>`}
+};
+function checkAuth(){const isAuthenticated=sessionStorage.getItem('meaux-authenticated')==='true';if(isAuthenticated){showDashboard();startSessionTimer()}else{showLogin()}}
+function showLogin(){document.getElementById('loginScreen').classList.remove('hidden');document.getElementById('dashboard').classList.remove('active')}
+function showDashboard(){document.getElementById('loginScreen').classList.add('hidden');document.getElementById('dashboard').classList.add('active');loadDashboardData()}
+function startSessionTimer(){clearTimeout(sessionTimer);sessionTimer=setTimeout(()=>{logout()},30*60*1000)}
+function logout(){sessionStorage.removeItem('meaux-authenticated');showLogin();document.getElementById('password').value=''}
+document.getElementById('loginForm').addEventListener('submit',function(e){e.preventDefault();e.stopPropagation();const password=document.getElementById('password').value;const errorDiv=document.getElementById('loginError');if(password===ADMIN_PASSWORD){sessionStorage.setItem('meaux-authenticated','true');showDashboard();startSessionTimer();errorDiv.style.display='none'}else{errorDiv.style.display='block';document.getElementById('password').value=''}});
+function showSection(sectionId){document.querySelectorAll('#meaux-dashboard .page-section').forEach(section=>{section.classList.remove('active')});const targetSection=document.getElementById(sectionId);if(targetSection){targetSection.classList.add('active')}document.querySelectorAll('#meaux-dashboard .nav-item').forEach(link=>{link.classList.remove('active');if(link.getAttribute('data-section')===sectionId){link.classList.add('active')}});const titles={'overview':'Clay.Global Nonprofit Hub','automation':'AI Automation Manager','tools':'AI Tools Mastery','donations':'Donations Management','integrations':'Complete API Hub'};const headerTitle=document.getElementById('headerTitle');if(headerTitle){headerTitle.textContent=titles[sectionId]||'Dashboard'}}
+function toggleSidebar(){const sidebar=document.getElementById('sidebar');const overlay=document.getElementById('sidebarOverlay');if(window.innerWidth<=768){sidebar.classList.toggle('active');overlay.classList.toggle('active')}else{sidebar.classList.toggle('collapsed')}}
+function closeSidebar(){const sidebar=document.getElementById('sidebar');const overlay=document.getElementById('sidebarOverlay');sidebar.classList.remove('active');overlay.classList.remove('active')}
+function showToolGuide(tool){const guide=toolGuides[tool];if(guide){document.getElementById('toolGuideTitle').textContent=guide.title;document.getElementById('toolGuideContent').innerHTML=guide.content;document.getElementById('toolGuideModal').classList.add('active');document.body.style.overflow='hidden'}}
+function closeModal(modalId){const modal=document.getElementById(modalId);if(modal){modal.classList.remove('active');document.body.style.overflow=''}}
+function slideCarousel(direction){const carousel=document.getElementById('toolsCarousel');const cardWidth=280;currentSlide+=direction;if(currentSlide<0)currentSlide=totalSlides-1;if(currentSlide>=totalSlides)currentSlide=0;carousel.style.transform=`translateX(-${currentSlide*cardWidth}px)`}
+function approveAI(aiId){const item=document.querySelector(`[onclick*="${aiId}"]`)?.closest('.ai-item');if(item){item.style.background='rgba(33,196,140,.2)';const actions=item.querySelector('.ai-actions');if(actions){actions.innerHTML='<span style="color:var(--success);font-weight:600;">✓ Approved & Sent</span>'}}}
+function editAI(aiId){alert('AI Editor: Modify template, adjust tone, regenerate. Contact: hey@meauxbility.com')}
+async function testConnection(service){const statusElement=document.getElementById(service+'Status');if(!statusElement)return;statusElement.textContent='Testing...';statusElement.className='status-badge warning';setTimeout(()=>{statusElement.textContent='Connected';statusElement.className='status-badge connected'},2000)}
+async function loadDashboardData(){animateValue(document.getElementById('totalDonations'),0,35280,2000);animateValue(document.getElementById('aiTasks'),0,156,1800);animateValue(document.getElementById('costSavings'),0,2340,2500);animateValue(document.getElementById('aiGenerated'),0,156,2000);animateValue(document.getElementById('successRate'),0,95,1500);animateValue(document.getElementById('donationsTotal'),0,35280,2000);animateValue(document.getElementById('donMichaelProgress'),0,7500,2000);animateValue(document.getElementById('donMichaelProgress2'),0,7500,2000)}
+function animateValue(element,start,end,duration){if(!element)return;const range=end-start;const increment=range/(duration/16);let current=start;const timer=setInterval(()=>{current+=increment;if(current>=end){current=end;clearInterval(timer)}if(element.id.includes('Donation')||element.id.includes('Savings')||element.id.includes('Progress')){element.textContent='$'+Math.floor(current).toLocaleString()}else if(element.id.includes('Rate')){element.textContent=Math.floor(current)+'%'}else{element.textContent=Math.floor(current).toLocaleString()}},16)}
+function setTheme(theme){const dashboard=document.getElementById('meaux-dashboard');const darkBtn=document.getElementById('darkBtn');const lightBtn=document.getElementById('lightBtn');if(theme==='light'){dashboard.setAttribute('data-theme','light');darkBtn.classList.remove('active');lightBtn.classList.add('active');localStorage.setItem('meaux-theme','light')}else{dashboard.removeAttribute('data-theme');darkBtn.classList.add('active');lightBtn.classList.remove('active');localStorage.setItem('meaux-theme','dark')}}
+document.addEventListener('DOMContentLoaded',function(){const savedTheme=localStorage.getItem('meaux-theme')||'dark';setTheme(savedTheme);checkAuth();document.querySelectorAll('#meaux-dashboard .nav-item').forEach(link=>{link.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();const sectionId=this.getAttribute('data-section');if(sectionId){showSection(sectionId)}if(window.innerWidth<=768){closeSidebar()}return false},true)});const sidebarToggle=document.getElementById('sidebarToggle');if(sidebarToggle){sidebarToggle.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();toggleSidebar()})}const sidebarOverlay=document.getElementById('sidebarOverlay');if(sidebarOverlay){sidebarOverlay.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();closeSidebar()})}document.getElementById('toolGuideModal').addEventListener('click',function(e){if(e.target===this){closeModal('toolGuideModal')}});document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeModal('toolGuideModal')}});['click','keypress','scroll','mousemove'].forEach(event=>{document.addEventListener(event,startSessionTimer,true)});setInterval(()=>{slideCarousel(1)},6000);console.log('🚀 Clay.Global Dashboard Ready! hey@meauxbility.com | 337-450-9998')});
+</script>
+</body>
+</html>
