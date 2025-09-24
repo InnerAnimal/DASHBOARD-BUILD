@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Meauxbility</title>
-<script src="https://js.stripe.com/v3/" defer></script>
+<script src="https://js.stripe.com/v3/"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,17 +16,17 @@
 body{font-family:Inter,-apple-system,sans-serif;padding-top:var(--nh);color:var(--i);transition:padding var(--tr);line-height:1.6}
 body.mo{overflow:hidden}
 .skip{position:absolute;top:-100px;left:16px;padding:12px 24px;background:var(--ac);color:#fff;text-decoration:none;font-weight:600;border-radius:8px;z-index:10000}.skip:focus{top:16px}
-.nav{position:fixed;top:0;left:0;right:0;width:100vw !important;max-width:100% !important;overflow-x:hidden !important;height:var(--nh);background:var(--bg);backdrop-filter:var(--bl);-webkit-backdrop-filter:var(--bl);border-bottom:1px solid var(--bd);box-shadow:var(--sh);z-index:9999;transition:var(--tr);contain:layout style paint}.nav.s{height:var(--ns);box-shadow:0 8px 32px rgba(0,0,0,.1)}
-.nc{max-width:min(var(--mw),100vw);height:100%;margin:0 auto;padding:0 clamp(16px,4vw,40px);display:flex;align-items:center;justify-content:space-between;overflow:hidden;width:100%;contain:layout}
-.logo{display:flex;align-items:center;text-decoration:none;transition:var(--tb)}.logo:hover{transform:scale(.98)}.logo img{height:auto;width:clamp(140px,18vw,200px);max-width:200px;aspect-ratio:200/60;display:block;transition:var(--tr);object-fit:contain;will-change:transform;-webkit-backface-visibility:hidden;backface-visibility:hidden}.nav.s .logo img{width:clamp(120px,16vw,180px)}
+.nav{position:fixed;top:0;left:0;right:0;height:var(--nh);background:var(--bg);backdrop-filter:var(--bl);-webkit-backdrop-filter:var(--bl);border-bottom:1px solid var(--bd);box-shadow:var(--sh);z-index:9999;transition:var(--tr)}.nav.s{height:var(--ns);box-shadow:0 8px 32px rgba(0,0,0,.1)}
+.nc{max-width:var(--mw);height:100%;margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;text-decoration:none;transition:var(--tb)}.logo:hover{transform:scale(.98)}.logo img{height:auto;width:200px;display:block;transition:var(--tr);object-fit:contain;-webkit-backface-visibility:hidden;backface-visibility:hidden}.nav.s .logo img{width:180px}
 .menu{display:flex;align-items:center;gap:4px;list-style:none;height:100%}
 .ni{position:relative;height:100%;display:flex;align-items:center}
-.nl{position:relative;padding:8px 16px;color:var(--tx);text-decoration:none;font-size:15px;font-weight:600;border-radius:8px;transition:var(--tr);white-space:nowrap;min-height:48px;display:flex;align-items:center;will-change:transform}.nl::after{content:'';position:absolute;bottom:-2px;left:16px;right:16px;height:0;background:var(--ac);border-radius:2px;transition:height var(--tb)}.nl:hover{color:var(--hv);background:var(--hb);transform:translateY(-1px)}.nl:hover::after{height:3px}.nl[aria-current=page]{color:var(--hv);background:var(--hb)}.nl[aria-current=page]::after{height:3px}
-.dr{position:absolute;top:calc(100% - 8px);left:50%;transform:translateX(-50%) translateY(-8px);padding-top:16px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s ease,transform .25s ease;will-change:opacity,transform}.ni:nth-last-child(2) .dr,.ni:last-child .dr{left:auto;right:0;transform:translateY(-8px)}.ni:hover .dr,.ni.a .dr{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0);transition-delay:40ms}.ni:nth-last-child(2):hover .dr,.ni:last-child:hover .dr{transform:translateY(0)}
-.dc{min-width:540px;background:var(--db);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.1);border:1px solid var(--dbd);overflow:hidden;backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);contain:layout style}
+.nl{position:relative;padding:8px 16px;color:var(--tx);text-decoration:none;font-size:15px;font-weight:600;border-radius:8px;transition:var(--tr);white-space:nowrap;min-height:48px;display:flex;align-items:center}.nl::after{content:'';position:absolute;bottom:-2px;left:16px;right:16px;height:0;background:var(--ac);border-radius:2px;transition:height var(--tb)}.nl:hover{color:var(--hv);background:var(--hb);transform:translateY(-1px)}.nl:hover::after{height:3px}.nl[aria-current=page]{color:var(--hv);background:var(--hb)}.nl[aria-current=page]::after{height:3px}
+.dr{position:absolute;top:calc(100% - 8px);left:50%;transform:translateX(-50%) translateY(-8px);padding-top:16px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s ease,transform .25s ease}.ni:nth-last-child(2) .dr,.ni:last-child .dr{left:auto;right:0;transform:translateY(-8px)}.ni:hover .dr,.ni.a .dr{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0);transition-delay:40ms}.ni:nth-last-child(2):hover .dr,.ni:last-child:hover .dr{transform:translateY(0)}
+.dc{min-width:540px;background:var(--db);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.1);border:1px solid var(--dbd);overflow:hidden;backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%)}
 .dd .dc{min-width:220px;padding:8px}.dd .dl{padding:12px 16px;margin:4px 0;border-radius:8px;font-size:15px;font-weight:600;text-align:center;display:block;width:100%;border:none;cursor:pointer;background:rgba(255,255,255,.08);color:var(--dt);transition:var(--tr);text-decoration:none}.dd .dl:hover{background:var(--ac);color:#fff;transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.15)}
 .dh{padding:20px 24px 16px;border-bottom:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03)}.dt{font-size:13px;font-weight:600;color:var(--dl);text-transform:uppercase;letter-spacing:.05em;text-shadow:0 1px 2px rgba(0,0,0,.1)}
-.dg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0}.dcl{padding:20px 24px}.dcl:not(:last-child){border-right:1px solid rgba(255,255,255,.1)}.ct{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--dl);opacity:.7;margin-bottom:12px}
+.dg{display:grid;grid-template-columns:1fr 1fr;gap:0}.dcl{padding:20px 24px}.dcl:not(:last-child){border-right:1px solid rgba(255,255,255,.1)}.ct{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--dl);opacity:.7;margin-bottom:12px}
 .dls{display:flex;flex-direction:column;gap:2px}.dl{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;color:var(--dt);text-decoration:none;font-size:14px;font-weight:450;border-radius:8px;transition:var(--tr);position:relative;min-height:44px}.dl:hover{background:rgba(155,89,182,.15);padding-left:16px;color:var(--dl)}[data-theme=dark] .dl:hover{background:rgba(51,153,153,.2)}.dl::after{content:'→';opacity:0;font-size:14px;transition:opacity .15s ease,transform .15s ease}.dl:hover::after{opacity:.5;transform:translateX(4px)}.dl.a{background:rgba(155,89,182,.15);font-weight:600;color:var(--dl)}[data-theme=dark] .dl.a{background:rgba(51,153,153,.2)}
 .df{background:rgba(255,255,255,.05);border-top:1px solid rgba(255,255,255,.1);padding:16px 24px;display:flex;align-items:center;gap:16px}.fi{width:48px;height:48px;background:var(--bp);border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;flex-shrink:0;box-shadow:0 4px 12px rgba(0,0,0,.15)}.fc{flex:1}.ft{font-size:14px;font-weight:600;color:var(--dt);margin-bottom:2px}.fx{font-size:13px;color:var(--dt);opacity:.8}.fl{padding:8px 16px;background:var(--bp);color:#fff;text-decoration:none;font-size:13px;font-weight:600;border-radius:8px;transition:var(--tr);box-shadow:0 4px 12px rgba(0,0,0,.15)}.fl:hover{transform:translateY(-1px);box-shadow:0 8px 16px rgba(0,0,0,.2)}
 .cta{margin-left:20px;padding:10px 24px;background:linear-gradient(135deg,rgba(255,107,53,.12),rgba(255,107,53,.08));backdrop-filter:blur(20px) saturate(150%);-webkit-backdrop-filter:blur(20px) saturate(150%);border:1px solid rgba(255,107,53,.25);color:var(--ac);border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;transition:var(--tb);position:relative;overflow:hidden;min-height:48px;box-shadow:var(--gw)}[data-theme=dark] .cta{background:linear-gradient(135deg,rgba(51,153,153,.15),rgba(51,153,153,.1));border-color:rgba(51,153,153,.3)}.cta:hover{transform:translateY(-2px);background:linear-gradient(135deg,rgba(255,107,53,.18),rgba(255,107,53,.12));border-color:rgba(255,107,53,.4);box-shadow:0 0 40px rgba(255,107,53,.5)}[data-theme=dark] .cta:hover{background:linear-gradient(135deg,rgba(51,153,153,.25),rgba(51,153,153,.15));border-color:rgba(51,153,153,.5);box-shadow:0 0 50px rgba(51,153,153,.6)}
@@ -53,42 +53,22 @@ body.mo{overflow:hidden}
 @keyframes spin{to{transform:rotate(360deg)}}
 .er{color:#ff6b6b;font-size:.75rem;margin-top:.25rem;display:none}.er.sh{display:block}
 .suc{display:none;text-align:center;padding:2rem;background:linear-gradient(135deg,rgba(33,196,140,.2),rgba(33,196,140,.1));border:1px solid rgba(33,196,140,.4);border-radius:16px;margin-bottom:1.5rem}.suc.sh{display:block}
-.breadcrumbs{background:rgba(5,27,30,0.3);backdrop-filter:blur(10px);border-bottom:1px solid var(--bd);padding:12px 0;display:none}
-.breadcrumbs.show{display:block}
-.breadcrumb-container{max-width:var(--mw);margin:0 auto;padding:0 clamp(16px,4vw,40px)}
-.breadcrumb-list{display:flex;align-items:center;gap:8px;list-style:none;flex-wrap:wrap}
-.breadcrumb-item{color:var(--tx);opacity:0.7;font-size:14px}
-.breadcrumb-item:not(:last-child)::after{content:'/';margin-left:8px;opacity:0.5}
-.breadcrumb-link{color:var(--tx);text-decoration:none;transition:var(--tr)}
-.breadcrumb-link:hover{color:var(--ac)}
-.breadcrumb-current{color:var(--ac);font-weight:600}
-@media(max-width:980px){.nc{padding:0 24px}.menu,.cta{display:none}.bur{display:block}.dc{min-width:auto;width:90vw;max-width:480px}.dg{grid-template-columns:1fr 1fr}.dcl:not(:last-child){border-right:none;border-bottom:1px solid rgba(255,255,255,.1)}.dng{grid-template-columns:1fr;gap:1rem}.logo img{width:clamp(120px,20vw,160px) !important}}
-@media(max-width:640px){.nc{padding:0 16px}.logo img{width:clamp(100px,25vw,160px) !important}.nav.s .logo img{width:clamp(90px,22vw,140px) !important}.mn{gap:0}.ml{padding:10px 0}.msl{padding:6px 0}.mb{padding:1.5rem}.ng{grid-template-columns:1fr}.ag{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:980px){.nc{padding:0 24px}.menu,.cta{display:none}.bur{display:block}.dc{min-width:auto;width:90vw;max-width:480px}.dg{grid-template-columns:1fr}.dcl:not(:last-child){border-right:none;border-bottom:1px solid rgba(255,255,255,.1)}.dng{grid-template-columns:1fr;gap:1rem}}
+@media(max-width:640px){.nc{padding:0 16px}.logo img{width:160px}.nav.s .logo img{width:140px}.mn{gap:0}.ml{padding:10px 0}.msl{padding:6px 0}.mb{padding:1.5rem}.ng{grid-template-columns:1fr}.ag{grid-template-columns:repeat(2,1fr)}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 *:focus-visible{outline:2px solid var(--ac);outline-offset:2px;border-radius:4px}
 </style>
 </head>
 <body>
 <a href="#main" class="skip">Skip to main content</a>
-
-<!-- Breadcrumbs -->
-<nav class="breadcrumbs" id="breadcrumbs">
-<div class="breadcrumb-container">
-<ol class="breadcrumb-list">
-<li class="breadcrumb-item"><a href="/" class="breadcrumb-link">Home</a></li>
-<li class="breadcrumb-item"><a href="/pages/about-us" class="breadcrumb-link">About</a></li>
-<li class="breadcrumb-item"><span class="breadcrumb-current">Our Story</span></li>
-</ol>
-</div>
-</nav>
-
 <header class="nav" id="n">
 <div class="nc">
 <a href="/" class="logo"><img src="https://cdn.shopify.com/s/files/1/0685/1654/4672/files/Untitled_design.svg?v=1755778967" alt="Meauxbility" width="200" height="60" loading="eager" crossorigin="anonymous" style="display:block;max-width:100%;height:auto;-webkit-backface-visibility:hidden;backface-visibility:hidden;"/></a>
 <nav><ul class="menu">
+<li><a class="nl" href="/">Home</a></li>
 <li class="ni"><a href="/pages/about-us" class="nl">About</a>
 <div class="dr"><div class="dc">
-<div class="dh"><div class="dt">OUR ORGANIZATION</div></div>
+<div class="dh"><div class="dt">About Meauxbility</div></div>
 <div class="dg"><div class="dcl">
 <h3 class="ct">Our Organization</h3>
 <div class="dls">
@@ -96,7 +76,6 @@ body.mo{overflow:hidden}
 <a href="/pages/sam-primeaux" class="dl">Sam Primeaux</a>
 <a href="/pages/team-meauxbility" class="dl">Our Team</a>
 <a href="/pages/about-us#mission" class="dl">Mission & Values</a>
-<a href="/pages/admin-portal" class="dl">Admin Portal</a>
 </div></div>
 <div class="dcl"><h3 class="ct">Information</h3>
 <div class="dls">
@@ -119,13 +98,6 @@ body.mo{overflow:hidden}
 <a href="/pages/apply-for-funding" class="dl">Apply for Funding</a>
 <a href="/pages/policies" class="dl">Eligibility</a>
 <a href="/pages/impact" class="dl">Success Stories</a>
-</div></div>
-<div class="dcl"><h3 class="ct">Active Campaigns</h3>
-<div class="dls">
-<a href="/pages/donmichael-our-first-campaign" class="dl">DonMichael's Campaign</a>
-<a href="/pages/donate" class="dl">General Fund</a>
-<a href="/pages/athletes" class="dl">Athlete Sponsorships</a>
-<a href="/pages/community" class="dl">Equipment Drive</a>
 </div></div>
 <div class="dcl"><h3 class="ct">Resources</h3>
 <div class="dls">
@@ -155,13 +127,6 @@ body.mo{overflow:hidden}
 <a href="/pages/sam-primeaux" class="dl">Founder's Journey</a>
 <a href="/pages/impact" class="dl">Community Impact</a>
 <a href="/pages/news-media-features" class="dl">In the News</a>
-</div></div>
-<div class="dcl"><h3 class="ct">Support</h3>
-<div class="dls">
-<a href="/pages/faq" class="dl">FAQ</a>
-<a href="/pages/contact" class="dl">Contact Support</a>
-<a href="/pages/resources" class="dl">Resource Hub</a>
-<a href="/pages/accessibility" class="dl">Accessibility</a>
 </div></div></div></div></div></li>
 <li class="ni"><a href="/pages/resources" class="nl">Resources</a>
 <div class="dr"><div class="dc">
@@ -180,14 +145,8 @@ body.mo{overflow:hidden}
 <a href="/pages/meauxbility-branding" class="dl">Brand Guidelines</a>
 <a href="/pages/impact" class="dl">Annual Reports</a>
 <a href="/pages/non-profit-information" class="dl">Legal Info</a>
-</div></div>
-<div class="dcl"><h3 class="ct">Quick Access</h3>
-<div class="dls">
-<a href="/pages/apply-for-funding" class="dl">Apply for Grant</a>
-<a href="/pages/donate" class="dl">Ways to Give</a>
-<a href="/pages/get-involved-lafayette-la" class="dl">Get Involved</a>
-<a href="/pages/admin-portal" class="dl">Admin Portal</a>
 </div></div></div></div></div></li>
+<li class="ni"><a href="/pages/admin-portal" class="nl">Admin</a></li>
 <li class="ni dd"><button class="cta">Donate</button>
 <div class="dr"><div class="dc">
 <a href="/pages/donate" class="dl">Ways to Give</a>
@@ -200,19 +159,18 @@ body.mo{overflow:hidden}
 <nav class="mm" id="m">
 <button class="mx" id="x"><span></span><span></span></button>
 <ul class="mn">
+<li class="mi"><a href="/" class="ml">Home</a></li>
 <li class="mi"><a href="/pages/about-us" class="ml">About</a>
 <ul class="ms">
 <li><a href="/pages/about-us" class="msl">Our Story</a></li>
 <li><a href="/pages/sam-primeaux" class="msl">Founder</a></li>
 <li><a href="/pages/team-meauxbility" class="msl">Our Team</a></li>
 <li><a href="/pages/impact" class="msl">Impact Report</a></li>
-<li><a href="/pages/admin-portal" class="msl">Admin Portal</a></li>
 </ul></li>
 <li class="mi"><a href="/pages/mobility-grants-programs" class="ml">Programs</a>
 <ul class="ms">
 <li><a href="/pages/mobility-grants-programs" class="msl">Mobility Grants</a></li>
 <li><a href="/pages/apply-for-funding" class="msl">Apply for Funding</a></li>
-<li><a href="/pages/donmichael-our-first-campaign" class="msl">DonMichael's Campaign</a></li>
 <li><a href="/pages/policies" class="msl">Eligibility</a></li>
 </ul></li>
 <li class="mi"><a href="/pages/community" class="ml">Community</a>
@@ -227,6 +185,7 @@ body.mo{overflow:hidden}
 <li><a href="/pages/news-media-features" class="msl">Media</a></li>
 <li><a href="/pages/contact" class="msl">Contact</a></li>
 </ul></li>
+<li class="mi"><a href="/pages/admin-portal" class="ml">Admin Portal</a></li>
 <li><button class="md" onclick="oD()">Donate Now</button></li>
 </ul></nav>
 <div class="mbd" id="dm">
@@ -270,7 +229,7 @@ body.mo{overflow:hidden}
 </main>
 
 <script>
-(()=>{const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s),dp=['about','community','resources'];
+(()=>{const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s),dp=['about','community','resources'],lp=['programs','donate','home','admin-portal'];
 function iT(){const p=location.pathname,s=localStorage.getItem('mbx-t');let t='light';dp.forEach(x=>{if(p.includes(x))t='dark'});const th=s||t;document.documentElement.setAttribute('data-theme',th)}iT();
 const n=$('#n'),b=$('#b'),m=$('#m'),x=$('#x'),bd=document.body;
 let ls=0;addEventListener('scroll',()=>{const s=pageYOffset;n.classList.toggle('s',s>50);ls=s},{passive:!0});
@@ -285,12 +244,7 @@ i.addEventListener('focusout',e=>setTimeout(()=>{if(!i.contains(document.activeE
 function sP(){const p=location.pathname,h=location.hash;$$('.nl').forEach(l=>{l.classList.remove('a');l.removeAttribute('aria-current')});$$('.dl,.ml,.msl').forEach(l=>l.classList.remove('a'));
 $$('.ni>.nl').forEach(l=>{const hr=l.getAttribute('href');if(hr===p||(p==='/'&&hr==='/')){l.classList.add('a');l.setAttribute('aria-current','page')}});
 $$('.dl').forEach(l=>{const hr=l.getAttribute('href');if(hr===p||hr===p+h){l.classList.add('a');const pr=l.closest('.ni');if(pr){const pl=pr.querySelector('>.nl');if(pl&&!pl.classList.contains('a'))pl.classList.add('a')}}});
-$$('.ml,.msl').forEach(l=>{const hr=l.getAttribute('href');if(hr===p||hr===p+h)l.classList.add('a')});
-uB(p)}
-function uB(p){const br=$('#breadcrumbs');if(p==='/'||p==='/pages/home'){br.classList.remove('show');return}
-br.classList.add('show');const pm={'/pages/about-us':'About > Our Story','/pages/sam-primeaux':'About > Sam Primeaux','/pages/team-meauxbility':'About > Our Team','/pages/admin-portal':'About > Admin Portal','/pages/mobility-grants-programs':'Programs > Mobility Grants','/pages/apply-for-funding':'Programs > Apply for Funding','/pages/donmichael-our-first-campaign':'Programs > DonMichael Campaign','/pages/community':'Community > Overview','/pages/athletes':'Community > Athletes','/pages/get-involved-lafayette-la':'Community > Get Involved','/pages/resources':'Resources > Overview','/pages/faq':'Resources > FAQ','/pages/contact':'Resources > Contact'};
-const bt=pm[p]||'Home';const pts=bt.split(' > ');const bl=$('.breadcrumb-list');bl.innerHTML='<li class="breadcrumb-item"><a href="/" class="breadcrumb-link">Home</a></li>';
-if(pts.length>1){bl.innerHTML+=`<li class="breadcrumb-item"><a href="#" class="breadcrumb-link">${pts[0]}</a></li>`;bl.innerHTML+=`<li class="breadcrumb-item"><span class="breadcrumb-current">${pts[1]}</span></li>`}}
+$$('.ml,.msl').forEach(l=>{const hr=l.getAttribute('href');if(hr===p||hr===p+h)l.classList.add('a')})}
 addEventListener('DOMContentLoaded',sP);addEventListener('popstate',sP);
 let P={a:250,f:'o',s:null,c:null};
 window.oD=()=>{$('#dm').classList.add('a');bd.classList.add('mo');if(!P.s&&typeof Stripe!=='undefined'){P.s=Stripe('pk_live_51S4R0SRW56Pm3uYI8EKbysm1ok4peVXSD6G17HtFy8BDuG9Carn8Ry7iPVzulMBtdEFcz5pFvXpE04CIgn8PY6WS00aXOqMYEI');const e=P.s.elements();P.c=e.create('card',{style:{base:{fontSize:'14px',color:'#fff',fontFamily:'Inter,sans-serif','::placeholder':{color:'rgba(255,255,255,.5)'}}}});P.c.mount('#ce');P.c.on('change',v=>{const er=$('#cde');if(v.error){er.textContent=v.error.message;er.classList.add('sh')}else{er.classList.remove('sh')}})}};
@@ -303,9 +257,8 @@ const em=$('#em');if(em.value&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value)){$('
 if(!v)return;const bt=$('.dsb'),tx=$('.st'),ld=$('#lo');bt.disabled=!0;tx.style.display='none';ld.classList.add('a');
 try{const r=await fetch('https://shhh-ox7c.onrender.com/donations',{method:'POST',headers:{'Content-Type':'application/json','Idempotency-Key':`d_${Date.now()}_${Math.random()}`},body:JSON.stringify({fund:$('#d').value,frequency:P.f,amount:P.a,currency:'usd',metadata:{firstName:$('#fn').value,lastName:$('#ln').value,email:$('#em').value}})});
 const{clientSecret}=await r.json(),{error,paymentIntent}=await P.s.confirmCardPayment(clientSecret,{payment_method:{card:P.c,billing_details:{name:`${$('#fn').value} ${$('#ln').value}`,email:$('#em').value}}});
-if(error)throw new Error(error.message);if(paymentIntent.status==='succeeded'){$('#sm').classList.add('sh');setTimeout(()=>cD(),3000)}}catch(e){alert(`Payment failed: ${e.message}. Contact: hey@meauxbility.com`)}finally{bt.disabled=!1;tx.style.display='inline';ld.classList.remove('a')}};
+if(error)throw new Error(error.message);if(paymentIntent.status==='succeeded'){$('#sm').classList.add('sh');setTimeout(()=>cD(),3000)}}catch(e){alert(`Payment failed: ${e.message}`)}finally{bt.disabled=!1;tx.style.display='inline';ld.classList.remove('a')}};
 function rF(){$$('.fin').forEach(i=>i.value='');$$('.er').forEach(e=>e.classList.remove('sh'));$('#sm').classList.remove('sh');if(P.c)P.c.clear()}
-addEventListener('keydown',e=>{if(e.key==='Escape'){if(m.classList.contains('o'))b.click();if($('#dm').classList.contains('a'))cD();$$('.ni').forEach(i=>{i.classList.remove('a');const t=i.querySelector('.nl,.cta');if(t)t.setAttribute('aria-expanded','false')})}});
 // Logo reliability enhancement
 const logo = document.querySelector('.logo img');
 if(logo){
@@ -318,7 +271,8 @@ if(logo){
     this.parentNode.appendChild(fallback);
   });
 }
-console.log('🚀 Meauxbility Navigation Enhanced! hey@meauxbility.com | 337-450-9998');
+addEventListener('keydown',e=>{if(e.key==='Escape'){if(m.classList.contains('o'))b.click();if($('#dm').classList.contains('a'))cD();$$('.ni').forEach(i=>{i.classList.remove('a');const t=i.querySelector('.nl,.cta');if(t)t.setAttribute('aria-expanded','false')})}});
+console.log('🚀 Meauxbility Navigation Restored! hey@meauxbility.com | 337-450-9998');
 })();
 </script>
 </body>
