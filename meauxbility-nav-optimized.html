@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Meauxbility</title>
-<script src="https://js.stripe.com/v3/"></script>
+<!-- Stripe SDK lazy-loaded on demand -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -250,7 +250,8 @@ $$('.dl').forEach(l=>{const hr=l.getAttribute('href');if(hr===p||hr===p+h){l.cla
 $$('.ml,.msl').forEach(l=>{const hr=l.getAttribute('href');if(hr===p||hr===p+h)l.classList.add('a')})}
 addEventListener('DOMContentLoaded',sP);addEventListener('popstate',sP);
 let P={a:250,f:'o',s:null,c:null};
-window.oD=()=>{$('#dm').classList.add('a');bd.classList.add('mo');if(!P.s&&typeof Stripe!=='undefined'){P.s=Stripe('pk_live_51S4R0SRW56Pm3uYI8EKbysm1ok4peVXSD6G17HtFy8BDuG9Carn8Ry7iPVzulMBtdEFcz5pFvXpE04CIgn8PY6WS00aXOqMYEI');const e=P.s.elements();P.c=e.create('card',{style:{base:{fontSize:'14px',color:'#fff',fontFamily:'Inter,sans-serif','::placeholder':{color:'rgba(255,255,255,.5)'}}}});P.c.mount('#ce');P.c.on('change',v=>{const er=$('#cde');if(v.error){er.textContent=v.error.message;er.classList.add('sh')}else{er.classList.remove('sh')}})}};
+window.oD=()=>{$('#dm').classList.add('a');bd.classList.add('mo');if(!P.s){if(!window.Stripe){const s=document.createElement('script');s.src='https://js.stripe.com/v3/';s.async=true;s.onload=initStripe;s.onerror=()=>alert('Payment library failed to load. Please try again.');document.head.appendChild(s);}else{initStripe();}}};
+function initStripe(){try{P.s=Stripe('pk_live_51S4R0SRW56Pm3uYI8EKbysm1ok4peVXSD6G17HtFy8BDuG9Carn8Ry7iPVzulMBtdEFcz5pFvXpE04CIgn8PY6WS00aXOqMYEI');const e=P.s.elements();const theme=document.documentElement.getAttribute('data-theme');const cardStyle={base:{fontSize:'14px',color:theme==='dark'?'#fff':'#0C2D31',fontFamily:'Inter,sans-serif','::placeholder':{color:theme==='dark'?'rgba(255,255,255,.5)':'#999'}},invalid:{color:theme==='dark'?'#FF6B6B':'#D32F2F'}};P.c=e.create('card',{style:cardStyle});P.c.mount('#ce');P.c.on('change',v=>{const er=$('#cde');if(v.error){er.textContent=v.error.message;er.classList.add('sh')}else{er.classList.remove('sh')}});}catch(err){console.error('Stripe init error:',err);}}
 window.cD=()=>{$('#dm').classList.remove('a');bd.classList.remove('mo');rF()};
 window.sF=t=>{P.f=t;$$('.fb').forEach(b=>b.classList.remove('a'));if(event&&event.target)event.target.classList.add('a')};
 window.sA=a=>{P.a=a;$$('.ab').forEach(b=>b.classList.remove('s'));if(event&&event.target)event.target.classList.add('s');$('.ca').value=''};
