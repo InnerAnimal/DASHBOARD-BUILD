@@ -53,6 +53,12 @@ body.mo{overflow:hidden}
 @keyframes spin{to{transform:rotate(360deg)}}
 .er{color:#ff6b6b;font-size:.75rem;margin-top:.25rem;display:none}.er.sh{display:block}
 .suc{display:none;text-align:center;padding:2rem;background:linear-gradient(135deg,rgba(33,196,140,.2),rgba(33,196,140,.1));border:1px solid rgba(33,196,140,.4);border-radius:16px;margin-bottom:1.5rem}.suc.sh{display:block}
+/* Theme-aware donation modal */
+[data-theme=light] .mod{background:linear-gradient(135deg,rgba(255,255,255,.97) 0,rgba(255,252,248,.95) 100%);border:1.5px solid rgba(255,107,53,.25)}
+[data-theme=light] .mh{background:rgba(255,255,255,.6);border-bottom:1px solid rgba(255,107,53,.2)}
+[data-theme=light] .dno,[data-theme=light] .dni{background:rgba(255,255,255,.7);border:1px solid rgba(255,107,53,.25)}
+[data-theme=light] .se,[data-theme=light] .fin,[data-theme=light] .ca{background:rgba(255,255,255,.9);border:1.5px solid rgba(255,107,53,.25);color:#0C2D31}
+[data-theme=light] .se.StripeElement--focus,[data-theme=light] .fin:focus,[data-theme=light] .ca:focus{border-color:var(--ac);box-shadow:0 0 0 3px rgba(255,107,53,.18)}
 @media(max-width:980px){.nc{padding:0 24px}.menu,.cta{display:none}.bur{display:block}.dc{min-width:auto;width:90vw;max-width:480px}.dg{grid-template-columns:1fr}.dcl:not(:last-child){border-right:none;border-bottom:1px solid rgba(255,255,255,.1)}.dng{grid-template-columns:1fr;gap:1rem}}
 @media(max-width:640px){.nc{padding:0 16px}.logo img{width:160px}.nav.s .logo img{width:140px}.mn{gap:0}.ml{padding:10px 0}.msl{padding:6px 0}.mb{padding:1.5rem}.ng{grid-template-columns:1fr}.ag{grid-template-columns:repeat(2,1fr)}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
@@ -124,7 +130,6 @@ body.mo{overflow:hidden}
 <div class="dcl"><h3 class="ct">Stories</h3>
 <div class="dls">
 <a href="/pages/donmichael-our-first-campaign" class="dl">DonMichael's Story</a>
-<a href="/pages/sam-primeaux" class="dl">Founder's Journey</a>
 <a href="/pages/impact" class="dl">Community Impact</a>
 <a href="/pages/news-media-features" class="dl">In the News</a>
 </div></div></div></div></div></li>
